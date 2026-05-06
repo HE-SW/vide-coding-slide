@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>VIDE CODING — Claude Code 시스템 프롬프트</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+}
+.container {
+  width: 1280px;
+  padding: 44px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #8b949e;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.title {
+  font-size: 88px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 18px;
+  line-height: 1.1;
+}
+.subtitle {
+  font-size: 26px;
+  font-weight: 700;
+  color: #c9d1d9;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.lead {
+  font-size: 17px;
+  color: #8b949e;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.lead strong {
+  color: #a78bfa;
+  font-weight: 700;
+}
+
+.cards {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 36px;
+  width: 100%;
+}
+.card {
+  flex: 1;
+  background: linear-gradient(145deg, rgba(124, 58, 237, 0.1), rgba(56, 189, 248, 0.05));
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 18px;
+  padding: 28px 22px;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: cardAppear 0.6s ease-out forwards;
+}
+.card:nth-child(1) { animation-delay: 0.2s; }
+.card:nth-child(2) { animation-delay: 0.55s; }
+.card:nth-child(3) { animation-delay: 0.9s; }
+@keyframes cardAppear {
+  to { opacity: 1; transform: translateY(0); }
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #38bdf8);
+}
+.card-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #f0abfc;
+  background: rgba(232, 121, 249, 0.12);
+  border: 1px solid rgba(232, 121, 249, 0.3);
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+.card-code {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: #e6edf3;
+  line-height: 1.55;
+  letter-spacing: 0.2px;
+}
+.card-code .kw-never { color: #f87171; }
+.card-code .kw-always { color: #34d399; }
+
+.banner {
+  width: 100%;
+  background: rgba(22, 27, 40, 0.6);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 14px;
+  padding: 22px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.12), transparent 60%),
+              radial-gradient(circle at 80% 50%, rgba(56, 189, 248, 0.10), transparent 60%);
+  pointer-events: none;
+}
+.banner-text {
+  position: relative;
+  font-size: 18px;
+  font-weight: 700;
+  color: #e6edf3;
+  line-height: 1.6;
+}
+.banner-text .accent {
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
+}
+
+.slide-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
+  background: rgba(10, 15, 26, 0.95);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(124, 58, 237, 0.2);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; font-family: 'Noto Sans KR', sans-serif;
+}
+.slide-nav-inner {
+  width: 1280px; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 60px;
+}
+.slide-nav a {
+  text-decoration: none; font-size: 14px; font-weight: 700;
+  color: #7c3aed; transition: color 0.2s;
+}
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+
+body {
+  opacity: 0;
+  animation: fadeIn 0.4s ease forwards;
+}
+body.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-12px); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="eyebrow">EP.01 — INTRO</div>
+  <h1 class="title">VIDE CODING</h1>
+  <div class="subtitle">Claude Code 시스템 프롬프트</div>
+  <p class="lead">이미 박혀 있는 <strong>안전장치들</strong></p>
+
+  <div class="cards">
+    <div class="card">
+      <span class="card-tag">SYSTEM PROMPT</span>
+      <div class="card-code">
+        <span class="kw-never">Never</span> run force push<br>
+        to main / master
+      </div>
+    </div>
+    <div class="card">
+      <span class="card-tag">SYSTEM PROMPT</span>
+      <div class="card-code">
+        <span class="kw-never">Never</span> use git commands<br>
+        with <code>-i</code> flag
+      </div>
+    </div>
+    <div class="card">
+      <span class="card-tag">SYSTEM PROMPT</span>
+      <div class="card-code">
+        <span class="kw-always">Always</span> create NEW commits<br>
+        rather than amending
+      </div>
+    </div>
+  </div>
+
+  <div class="banner">
+    <div class="banner-text">
+      여러분이 <span class="accent">Claude Code</span>를 실행하는 순간,<br>
+      이 하네스가 <span class="accent">자동으로 작동</span>하고 있었습니다.
+    </div>
+  </div>
+</div>
+
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><span class="nav-disabled">&larr; 이전</span></div>
+    <div class="nav-center"><a href="index.html">01 / 1</a></div>
+    <div class="nav-right"><span class="nav-disabled">다음 &rarr;</span></div>
+  </div>
+</nav>
+
+<script>
+function navigateTo(url) {
+  document.body.classList.add('fade-out');
+  setTimeout(function() { window.location.href = url; }, 300);
+}
+</script>
+</body>
+</html>
