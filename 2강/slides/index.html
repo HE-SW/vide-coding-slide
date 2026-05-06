@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>2강 — 하니스 세팅</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  padding: 80px 80px 120px;
+  opacity: 0;
+  animation: fadeIn 0.4s ease forwards;
+}
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-12px); }
+}
+.wrap { width: 1280px; margin: 0 auto; }
+.hero { text-align: center; margin-bottom: 70px; }
+.title {
+  font-size: 64px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+.subtitle { font-size: 19px; color: #8b949e; font-weight: 300; }
+.meta {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: #c9d1d9;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 999px;
+  letter-spacing: 0.5px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.card {
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.1);
+  border-radius: 14px;
+  padding: 26px 22px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.25s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 140px;
+  position: relative;
+}
+.card:hover {
+  border-color: rgba(124, 58, 237, 0.45);
+  background: rgba(124, 58, 237, 0.05);
+  transform: translateY(-3px);
+}
+.card-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #7c3aed;
+  letter-spacing: 1px;
+}
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #e6edf3;
+  line-height: 1.45;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1 class="title">2강 — 하니스 세팅</h1>
+    <p class="subtitle">이미 박혀 있는 한 층 위에,<br>내 프로젝트의 한 층을 더 올리는 법</p>
+    <div class="meta">18 SLIDES</div>
+  </div>
+  <div class="grid">
+    <a href="01-cover.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">01</div><div class="card-title">하니스 세팅</div></a>
+    <a href="02-system-prompt-leak.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">02</div><div class="card-title">시스템 프롬프트 — 3월에 유출됐던 안전장치들</div></a>
+    <a href="03-other-builtin.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">03</div><div class="card-title">시스템 프롬프트 외에 — 이미 깔려 있는 3가지</div></a>
+    <a href="04-two-floor-diagram.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">04</div><div class="card-title">한 층만 더 올리면 됩니다</div></a>
+    <a href="05-oh-my-claudecode.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">05</div><div class="card-title">한 층을 끝까지 — oh-my-claudecode</div></a>
+    <a href="06-preset-vs-custom.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">06</div><div class="card-title">범용 vs 커스텀 — 방법은 자유입니다</div></a>
+    <a href="07-framework.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">07</div><div class="card-title">하니스 프레임워크 — 4 레이어 뼈대</div></a>
+    <a href="08-claudemd.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">08</div><div class="card-title">CLAUDE.md — 프로젝트의 헌법</div></a>
+    <a href="09-docs.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">09</div><div class="card-title">docs/ — 프로젝트의 뇌</div></a>
+    <a href="10-skills.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">10</div><div class="card-title">skills/ — /harness, /review</div></a>
+    <a href="11-harness-flow.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">11</div><div class="card-title">/harness 실행 흐름 — 5단계 자동화</div></a>
+    <a href="12-execute-result.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">12</div><div class="card-title">execute.py 실행 결과 — 17분 / 5 Phase / 54 테스트</div></a>
+    <a href="13-claude-headless.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">13</div><div class="card-title">claude -p 헤드리스 모드</div></a>
+    <a href="14-hooks.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">14</div><div class="card-title">hooks/ — caveman-kor 출력 토큰 30~50% 절감</div></a>
+    <a href="15-framework-complete.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">15</div><div class="card-title">프레임워크 완성 — 4 레이어 요약 + CTA</div></a>
+    <a href="16-two-layers-combined.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">16</div><div class="card-title">두 층의 합 — 통합 그림</div></a>
+    <a href="17-our-repo-as-example.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">17</div><div class="card-title">우리 강의 레포가 통째로 사례</div></a>
+    <a href="18-next-lecture.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">18</div><div class="card-title">Dicom Viewer 만들기 — 3강 예고</div></a>
+  </div>
+</div>
+<script>
+function navigateTo(url) {
+  document.body.classList.add('fade-out');
+  setTimeout(function() { window.location.href = url; }, 300);
+}
+</script>
+</body>
+</html>

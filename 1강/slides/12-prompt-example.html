@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>프롬프트 엔지니어링 예시</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0f1a; font-family: 'Noto Sans KR', sans-serif; color: #e6edf3; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding-bottom: 50px; }
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 48px; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 14px; line-height: 1.3;
+}
+.subtitle { font-size: 17px; color: #8b949e; margin-bottom: 44px; font-weight: 300; }
+.grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  width: 100%; max-width: 1080px;
+}
+.cell {
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.12);
+  border-radius: 14px;
+  padding: 24px 26px;
+  display: flex; flex-direction: column; gap: 12px;
+  opacity: 0; animation: cellIn 0.5s ease forwards;
+}
+.cell:nth-child(1) { animation-delay: 0.1s; }
+.cell:nth-child(2) { animation-delay: 0.2s; }
+.cell:nth-child(3) { animation-delay: 0.3s; }
+.cell:nth-child(4) { animation-delay: 0.4s; }
+@keyframes cellIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+.head-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.ko { font-size: 21px; font-weight: 800; color: #e6edf3; }
+.en {
+  font-size: 12px; color: #a78bfa; font-weight: 700; letter-spacing: 1px;
+  padding: 3px 9px; border: 1px solid rgba(124, 58, 237, 0.4); border-radius: 999px;
+}
+.example {
+  padding: 14px 16px;
+  background: rgba(0,0,0,0.35); border-radius: 10px;
+  font-family: ui-monospace, monospace;
+  font-size: 14px; color: #c9d1d9; line-height: 1.55;
+  border-left: 3px solid #7c3aed;
+}
+.example .arrow { color: #38bdf8; font-weight: 700; }
+.bottom {
+  margin-top: 32px; padding: 18px 28px; max-width: 950px;
+  background: rgba(124, 58, 237, 0.06);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 12px;
+  font-size: 16px; line-height: 1.6; color: #c9d1d9; text-align: center;
+}
+.bottom strong {
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-weight: 900;
+}
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">프롬프트 엔지니어링 예시</h1>
+  <div class="subtitle">같은 질문이라도 — <strong>표현 방식</strong> 한 마디에 답이 달라집니다</div>
+
+  <div class="grid">
+    <div class="cell">
+      <div class="head-row"><div class="ko">예시 없이 시키기</div><div class="en">ZERO-SHOT</div></div>
+      <div class="example">"이 문장을 영어로 번역해줘."</div>
+    </div>
+    <div class="cell">
+      <div class="head-row"><div class="ko">예시 한두 개 주기</div><div class="en">FEW-SHOT</div></div>
+      <div class="example">"'안녕' <span class="arrow">→</span> 'Hello'.<br>그러면 '잘가'는?"</div>
+    </div>
+    <div class="cell">
+      <div class="head-row"><div class="ko">단계별로 풀어달라기</div><div class="en">CHAIN-OF-THOUGHT</div></div>
+      <div class="example">"단계별로 생각해서 답해줘."</div>
+    </div>
+    <div class="cell">
+      <div class="head-row"><div class="ko">역할 부여</div><div class="en">ROLE</div></div>
+      <div class="example">"너는 시니어 변호사야.<br>다음 계약서를 봐줘."</div>
+    </div>
+  </div>
+
+  <div class="bottom">이 짧은 한 마디를 추가하느냐 마느냐 — 답의 정확도를 <strong>많게는 30~50%까지</strong> 바꿉니다</div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="11-all-three-coexist.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">12 / 23</a></div>
+    <div class="nav-right"><a href="13-context-example.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('11-all-three-coexist.html');
+  if (e.key === 'ArrowRight') navigateTo('13-context-example.html');
+});
+</script>
+</body>
+</html>

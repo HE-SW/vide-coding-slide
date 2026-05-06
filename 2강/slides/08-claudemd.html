@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>CLAUDE.md — 프로젝트의 헌법</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 80px;
+}
+.container { width: 1280px; padding: 0 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 44px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.subtitle { font-size: 16px; color: #8b949e; text-align: center; margin-bottom: 32px; }
+
+.split { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; width: 100%; }
+
+.code-block {
+  background: #0d1117;
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 14px;
+  padding: 22px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  color: #c9d1d9;
+  white-space: pre-wrap;
+  position: relative;
+}
+.code-block::before {
+  content: 'CLAUDE.md';
+  position: absolute;
+  top: -10px; left: 20px;
+  background: #0a0f1a;
+  font-size: 11px;
+  font-weight: 700;
+  color: #a78bfa;
+  padding: 2px 10px;
+  border-radius: 999px;
+  letter-spacing: 1px;
+}
+.code-block .h { color: #38bdf8; font-weight: 700; }
+.code-block .crit { color: #f97316; font-weight: 700; }
+.code-block .com { color: #6e7681; }
+.code-block .ref { color: #34d399; }
+
+.callouts { display: flex; flex-direction: column; gap: 14px; }
+.callout {
+  background: rgba(22, 27, 40, 0.6);
+  border: 1px solid rgba(139, 148, 158, 0.2);
+  border-radius: 14px;
+  padding: 16px 20px;
+}
+.callout.crit { border-color: rgba(249, 115, 22, 0.4); background: rgba(249, 115, 22, 0.05); }
+.callout.ref { border-color: rgba(52, 211, 153, 0.4); background: rgba(52, 211, 153, 0.05); }
+
+.callout-tag {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 999px;
+  margin-bottom: 8px;
+}
+.callout.crit .callout-tag { color: #fbbf24; background: rgba(249, 115, 22, 0.15); }
+.callout.ref .callout-tag { color: #34d399; background: rgba(52, 211, 153, 0.15); }
+.callout-title { font-size: 16px; font-weight: 700; color: #e6edf3; margin-bottom: 6px; }
+.callout-desc { font-size: 13px; color: #c9d1d9; line-height: 1.65; }
+.callout-desc strong { color: #fff; }
+
+.foot {
+  margin-top: 22px;
+  font-size: 15px;
+  color: #c9d1d9;
+  text-align: center;
+  line-height: 1.7;
+}
+.foot strong { color: #a78bfa; font-weight: 700; }
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">CLAUDE.md — 프로젝트의 헌법</h1>
+  <p class="subtitle">매 세션 자동 로드되는 한 장 · 가장 높은 수준의 규칙</p>
+
+  <div class="split">
+    <div class="code-block"><span class="h">## 프로젝트:</span> {프로젝트명}
+<span class="com">목표</span>: {목표 작성}
+
+<span class="h">## 기술 스택</span>
+- {프레임워크} {언어} {주요 라이브러리}
+
+<span class="h">## 아키텍처 규칙</span>
+- <span class="crit">CRITICAL:</span> {절대 지켜야 할 규칙 1
+            (예: 모든 API 로직은 app/api/
+             라우트 핸들러에서만 처리)}
+
+<span class="h">## 개발 프로세스</span>
+- <span class="crit">CRITICAL:</span> 새 기능 구현 시 반드시 테스트를
+            먼저 작성하고, 테스트가 통과하는
+            구현을 작성할 것 (TDD)
+
+<span class="h">## 클로드 코드 사용시 주의사항</span>
+<span class="ref">docs/rules/coding-guidelines.md</span></div>
+
+    <div class="callouts">
+      <div class="callout crit">
+        <span class="callout-tag">PATTERN 1</span>
+        <div class="callout-title">CRITICAL: 접두어</div>
+        <div class="callout-desc">AI에게 <strong>"이건 절대 어기면 안 된다"</strong>고 강조하는 표시. 영어 대문자가 들어가면 모델이 더 무겁게 받아들입니다.</div>
+      </div>
+      <div class="callout ref">
+        <span class="callout-tag">PATTERN 2</span>
+        <div class="callout-title">docs/ 참조 링크</div>
+        <div class="callout-desc">CLAUDE.md는 <strong>높은 수준의 헌법만</strong>, 세부 규칙은 <strong>docs로 넘기는</strong> 연결 구조입니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">한 장만 잘 적어두면 — 같은 AI에게 같은 질문을 해도 <strong>답의 질이 눈에 띄게 달라집니다</strong>.</p>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="07-framework.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">08 / 18</a></div>
+    <div class="nav-right"><a href="09-docs.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('07-framework.html');
+  if (e.key === 'ArrowRight') navigateTo('09-docs.html');
+});
+</script>
+</body>
+</html>

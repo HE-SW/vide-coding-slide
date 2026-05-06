@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Claude Code 시스템 프롬프트 — 3월에 유출됐던 안전장치들</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 80px;
+}
+.container {
+  width: 1280px;
+  padding: 0 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title {
+  font-size: 44px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+.subtitle { font-size: 16px; color: #8b949e; text-align: center; margin-bottom: 36px; font-weight: 400; }
+.subtitle em { color: #f97316; font-style: normal; font-weight: 700; }
+
+.rules { width: 100%; display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px; }
+.rule {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 18px;
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.15);
+  border-radius: 14px;
+  padding: 18px 24px;
+  align-items: center;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: stepIn 0.5s ease-out forwards;
+}
+.rule:nth-child(1) { animation-delay: 0.15s; }
+.rule:nth-child(2) { animation-delay: 0.30s; }
+.rule:nth-child(3) { animation-delay: 0.45s; }
+@keyframes stepIn { to { opacity: 1; transform: translateX(0); } }
+.rule-num {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 18px; flex-shrink: 0;
+}
+.rule-body { display: flex; flex-direction: column; gap: 6px; }
+.rule-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffd166;
+  background: rgba(0,0,0,0.3);
+  padding: 6px 12px;
+  border-radius: 6px;
+  align-self: flex-start;
+}
+.rule-desc { font-size: 15px; color: #c9d1d9; line-height: 1.5; }
+.rule-desc strong { color: #e6edf3; font-weight: 700; }
+
+.punchline {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(56, 189, 248, 0.08));
+  border: 1.5px solid rgba(124, 58, 237, 0.5);
+  border-radius: 16px;
+  padding: 24px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.punchline::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #38bdf8);
+}
+.punchline-text {
+  font-size: 22px;
+  font-weight: 900;
+  color: #e6edf3;
+  line-height: 1.4;
+}
+.punchline-text em {
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: normal;
+}
+
+.slide-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
+  background: rgba(10, 15, 26, 0.95);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(124, 58, 237, 0.2);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">Claude Code 시스템 프롬프트</h1>
+  <p class="subtitle"><em>2025년 3월</em>에 유출됐던 — 이미 박혀 있는 안전장치들</p>
+
+  <div class="rules">
+    <div class="rule">
+      <div class="rule-num">1</div>
+      <div class="rule-body">
+        <code class="rule-code">NEVER run force push to main/master</code>
+        <div class="rule-desc"><strong>메인 브랜치 force push 원천 차단</strong> — 팀 작업 기록을 통째로 덮어쓰는 사고 방지</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">2</div>
+      <div class="rule-body">
+        <code class="rule-code">NEVER use git commands with the -i flag</code>
+        <div class="rule-desc"><strong>interactive 모드 사용 금지</strong> — 사람 키 입력이 필요한 명령은 자동화 흐름을 끊는다</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">3</div>
+      <div class="rule-body">
+        <code class="rule-code">ALWAYS create NEW commits rather than amending</code>
+        <div class="rule-desc"><strong>기존 커밋 수정 대신 항상 새 커밋 생성</strong> — 히스토리 보존, 되돌리기 가능</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="punchline">
+    <div class="punchline-text">여러분이 Claude Code를 실행하는 순간,<br><em>이미 하니스는 작동하고 있었습니다.</em></div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="01-cover.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">02 / 18</a></div>
+    <div class="nav-right"><a href="03-other-builtin.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('01-cover.html');
+  if (e.key === 'ArrowRight') navigateTo('03-other-builtin.html');
+});
+</script>
+</body>
+</html>

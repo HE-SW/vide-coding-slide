@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Claude Code가 뭔가</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0f1a; font-family: 'Noto Sans KR', sans-serif; color: #e6edf3; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding-bottom: 50px; }
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 48px; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 14px; line-height: 1.3;
+}
+.lead { font-size: 18px; color: #c9d1d9; max-width: 980px; text-align: center; line-height: 1.7; margin-bottom: 36px; font-weight: 300; }
+.lead strong { color: #e6edf3; font-weight: 700; }
+.lead em { color: #a78bfa; font-style: italic; }
+.terminal {
+  width: 100%; max-width: 880px;
+  background: #050810;
+  border: 1px solid rgba(139, 148, 158, 0.15);
+  border-radius: 12px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+.tt-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(139, 148, 158, 0.1);
+}
+.tt-dot { width: 12px; height: 12px; border-radius: 50%; }
+.tt-dot.r { background: #ef4444; }
+.tt-dot.y { background: #fbbf24; }
+.tt-dot.g { background: #34d399; }
+.tt-title { color: #8b949e; font-size: 12px; margin-left: auto; font-family: ui-monospace, monospace; }
+.tt-body {
+  padding: 18px 22px;
+  font-family: ui-monospace, monospace;
+  font-size: 14px; color: #c9d1d9; line-height: 1.7;
+}
+.tt-body .prompt { color: #7c3aed; }
+.tt-body .user { color: #e6edf3; }
+.tt-body .ai { color: #38bdf8; }
+.tt-body .meta { color: #484f58; font-style: italic; }
+
+.reassure {
+  width: 100%; max-width: 1000px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+}
+.r-card {
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.12);
+  border-radius: 12px; padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 6px; text-align: center;
+}
+.r-emoji { font-size: 28px; }
+.r-text { font-size: 13px; color: #c9d1d9; line-height: 1.5; }
+.r-text strong { color: #e6edf3; font-weight: 700; }
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">Claude Code가 뭔가</h1>
+  <div class="lead">터미널에서 자연어로 명령하면 — AI가 직접 <strong>파일을 읽고·고치고·실행</strong>해주는 도구입니다. 단순한 챗봇이 아니라 — 도구를 쓰고, 결과를 보고, 다시 시도하는 <em>반복 루프</em>를 갖춘 에이전트.</div>
+
+  <div class="terminal">
+    <div class="tt-bar"><div class="tt-dot r"></div><div class="tt-dot y"></div><div class="tt-dot g"></div><div class="tt-title">claude-code</div></div>
+    <div class="tt-body">
+      <span class="prompt">&gt;</span> <span class="user">README 좀 한국어로 다시 써줘</span><br>
+      <span class="meta">  파일 읽는 중… README.md</span><br>
+      <span class="meta">  분석 중…</span><br>
+      <span class="ai">  ✓ README.md 한국어로 갱신했습니다</span><br>
+      <span class="prompt">&gt;</span> <span class="user">_</span>
+    </div>
+  </div>
+
+  <div class="reassure">
+    <div class="r-card"><div class="r-emoji">🇰🇷</div><div class="r-text"><strong>한국어 그대로</strong><br>명령어 외울 필요 없음</div></div>
+    <div class="r-card"><div class="r-emoji">🛡️</div><div class="r-text"><strong>권한 시스템</strong><br>위험한 명령은 자동 차단</div></div>
+    <div class="r-card"><div class="r-emoji">↺</div><div class="r-text"><strong>한 번에 되돌리기</strong><br>마음에 안 들면 rewind</div></div>
+    <div class="r-card"><div class="r-emoji">🆓</div><div class="r-text"><strong>잘못 입력해도</strong><br>컴퓨터 안 망가짐</div></div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="18-claude-code-uses.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">19 / 23</a></div>
+    <div class="nav-right"><a href="20-why-cli.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('18-claude-code-uses.html');
+  if (e.key === 'ArrowRight') navigateTo('20-why-cli.html');
+});
+</script>
+</body>
+</html>

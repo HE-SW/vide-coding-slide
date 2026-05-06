@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>바이브 코딩 — 무엇이 달라졌나</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex; justify-content: center; align-items: center;
+  padding-bottom: 50px;
+}
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 48px; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 50px; line-height: 1.3;
+}
+.compare { display: flex; gap: 24px; width: 100%; max-width: 1100px; align-items: stretch; }
+.col {
+  flex: 1;
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.12);
+  border-radius: 18px;
+  padding: 32px 30px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.col.before { border-color: rgba(139, 148, 158, 0.18); }
+.col.after { border-color: rgba(124, 58, 237, 0.4); background: rgba(124, 58, 237, 0.04); }
+.col-label {
+  font-size: 12px; font-weight: 700; letter-spacing: 2px;
+}
+.col.before .col-label { color: #8b949e; }
+.col.after .col-label { color: #a78bfa; }
+.col-head {
+  font-size: 26px; font-weight: 900; color: #e6edf3; line-height: 1.3;
+  padding-bottom: 16px; border-bottom: 1px solid rgba(139, 148, 158, 0.15);
+}
+.col ul { list-style: none; display: flex; flex-direction: column; gap: 14px; padding-top: 4px; }
+.col li {
+  font-size: 16px; line-height: 1.6; color: #c9d1d9;
+  padding-left: 24px; position: relative;
+}
+.col.before li::before { content: '✕'; position: absolute; left: 0; top: 0; color: #f87171; font-weight: 700; }
+.col.after li::before { content: '✓'; position: absolute; left: 0; top: 0; color: #38bdf8; font-weight: 700; }
+.col li strong { color: #e6edf3; font-weight: 700; }
+.arrow {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; color: #7c3aed; align-self: center;
+}
+.bottom {
+  margin-top: 44px; font-size: 19px; color: #c9d1d9; text-align: center;
+  max-width: 900px; line-height: 1.6;
+}
+.bottom strong {
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-weight: 900;
+}
+.slide-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
+  background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(124, 58, 237, 0.2);
+  display: flex; align-items: center; justify-content: center; z-index: 9999;
+}
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">바이브 코딩 — 무엇이 달라졌나</h1>
+  <div class="compare">
+    <div class="col before">
+      <div class="col-label">BEFORE</div>
+      <div class="col-head">전에는 — 별도 언어를 배워야 했죠</div>
+      <ul>
+        <li><strong>Python, JavaScript</strong> 같은 언어를 따로 학습</li>
+        <li>세미콜론·괄호 하나만 어긋나도 한 줄도 안 돌아감</li>
+        <li>아이디어 → 코드까지 길이 너무 길었다</li>
+        <li>비개발자는 제작에 거의 참여 불가</li>
+      </ul>
+    </div>
+    <div class="arrow">→</div>
+    <div class="col after">
+      <div class="col-label">NOW</div>
+      <div class="col-head">지금은 — "이런 느낌으로 만들어줘"</div>
+      <ul>
+        <li>자연어 한 마디면 <strong>AI가 코드를 만들어줌</strong></li>
+        <li>대화하듯 수정, 즉시 실행, 빠른 반복</li>
+        <li>의도가 닳지 않고 결과까지 직행</li>
+        <li><strong>비개발자도 같은 자리에</strong> 앉을 수 있게</li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom"><strong>비개발자도 개발 언어를 배우지 않고 코딩할 수 있게 됐다</strong> — 가장 눈에 띄는 변화 중 하나</div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="02-what-is-vibe-coding.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">03 / 23</a></div>
+    <div class="nav-right"><a href="04-llm-two-problems.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('02-what-is-vibe-coding.html');
+  if (e.key === 'ArrowRight') navigateTo('04-llm-two-problems.html');
+});
+</script>
+</body>
+</html>

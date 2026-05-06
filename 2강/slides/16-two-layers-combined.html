@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>두 층의 합 — 통합 그림</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 36px 0 80px;
+}
+.container { width: 1280px; padding: 0 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 44px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.subtitle { font-size: 16px; color: #8b949e; text-align: center; margin-bottom: 32px; }
+
+.building { width: 100%; max-width: 1100px; display: flex; flex-direction: column; gap: 6px; }
+
+.floor {
+  background: rgba(22, 27, 40, 0.8);
+  border-radius: 18px;
+  padding: 24px 28px;
+}
+.floor-2 {
+  border: 1.5px solid rgba(124, 58, 237, 0.5);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.10), rgba(56, 189, 248, 0.04));
+}
+.floor-1 {
+  border: 1px solid rgba(139, 148, 158, 0.25);
+}
+
+.floor-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px;
+}
+.floor-tag {
+  font-size: 13px; font-weight: 700; letter-spacing: 1px;
+  padding: 5px 12px; border-radius: 999px;
+}
+.floor-2 .floor-tag {
+  color: #a78bfa;
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+}
+.floor-1 .floor-tag {
+  color: #8b949e;
+  background: rgba(139, 148, 158, 0.08);
+  border: 1px solid rgba(139, 148, 158, 0.25);
+}
+.floor-name { font-size: 19px; font-weight: 900; color: #e6edf3; }
+.floor-1 .floor-name { color: #c9d1d9; }
+.floor-meta { font-size: 12px; color: #8b949e; }
+
+.boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.box {
+  border-radius: 12px;
+  padding: 14px 14px;
+}
+.floor-2 .box {
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+}
+.floor-1 .box {
+  background: rgba(139, 148, 158, 0.06);
+  border: 1px solid rgba(139, 148, 158, 0.2);
+}
+.box-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 700;
+  margin-bottom: 4px;
+}
+.floor-2 .box-name { color: #e6edf3; }
+.floor-1 .box-name { color: #c9d1d9; }
+.box-desc { font-size: 11.5px; color: #8b949e; line-height: 1.5; }
+
+.foot {
+  margin-top: 26px;
+  font-size: 16px;
+  color: #c9d1d9;
+  text-align: center;
+  line-height: 1.7;
+  max-width: 1000px;
+}
+.foot strong { color: #a78bfa; font-weight: 700; }
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">두 층의 합</h1>
+  <p class="subtitle">1층 4가지 + 2층 4가지 — 합쳐서 8개 요소가 한 채의 건물</p>
+
+  <div class="building">
+    <div class="floor floor-2">
+      <div class="floor-head">
+        <div>
+          <span class="floor-tag">2층</span>
+          <span class="floor-name" style="margin-left:10px">내 프로젝트 하니스 — 여러분이 추가</span>
+        </div>
+      </div>
+      <div class="boxes">
+        <div class="box">
+          <div class="box-name">CLAUDE.md</div>
+          <div class="box-desc">프로젝트 헌법</div>
+        </div>
+        <div class="box">
+          <div class="box-name">docs/</div>
+          <div class="box-desc">PRD · ARCHITECTURE · ADR · UI_GUIDE</div>
+        </div>
+        <div class="box">
+          <div class="box-name">skills/</div>
+          <div class="box-desc">/harness · /review</div>
+        </div>
+        <div class="box">
+          <div class="box-name">hooks/</div>
+          <div class="box-desc">caveman-kor · 자동 후처리</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="floor floor-1">
+      <div class="floor-head">
+        <div>
+          <span class="floor-tag">1층</span>
+          <span class="floor-name" style="margin-left:10px">내장 하니스 — Claude Code 기본 제공</span>
+        </div>
+      </div>
+      <div class="boxes">
+        <div class="box">
+          <div class="box-name">시스템프롬프트</div>
+          <div class="box-desc">AI가 가장 먼저 읽는 안전 규칙</div>
+        </div>
+        <div class="box">
+          <div class="box-name">권한체크</div>
+          <div class="box-desc">위험 명령 전 사용자 확인</div>
+        </div>
+        <div class="box">
+          <div class="box-name">도구경계</div>
+          <div class="box-desc">AI가 쓸 수 있는 도구의 울타리</div>
+        </div>
+        <div class="box">
+          <div class="box-name">JSON스키마</div>
+          <div class="box-desc">도구 호출이 양식 안에서만</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">1층은 <strong>"AI가 일반적으로 하면 안 되는 일"</strong>을 막아주고, 2층은 <strong>"내 프로젝트에서는 어떻게 일하라"</strong>를 알려줍니다.<br>둘이 합쳐져야 비로소 — <strong>좋은 답이 나올 확률을 안정적으로 끌어올리는 작업 환경</strong>이 완성됩니다.</p>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="15-framework-complete.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">16 / 18</a></div>
+    <div class="nav-right"><a href="17-our-repo-as-example.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('15-framework-complete.html');
+  if (e.key === 'ArrowRight') navigateTo('17-our-repo-as-example.html');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Dicom Viewer 만들기 — 3강 예고</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+  position: relative;
+  overflow: hidden;
+}
+body::before, body::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
+}
+body::before {
+  width: 700px; height: 700px;
+  background: #7c3aed;
+  top: -200px; left: -100px;
+}
+body::after {
+  width: 700px; height: 700px;
+  background: #38bdf8;
+  bottom: -200px; right: -100px;
+}
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
+.tag {
+  font-size: 12px; font-weight: 700; letter-spacing: 4px;
+  color: #a78bfa;
+  padding: 6px 16px;
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.08);
+  margin-bottom: 22px;
+}
+.title {
+  font-size: 64px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 12px;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+.subtitle {
+  font-size: 18px;
+  color: #c9d1d9;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.subtitle em {
+  color: #a78bfa;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.flow { display: flex; align-items: stretch; justify-content: center; gap: 0; width: 100%; max-width: 1100px; margin-bottom: 36px; }
+.step {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+  padding: 0 4px;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: stepIn 0.4s ease-out forwards;
+}
+.step:nth-child(1) { animation-delay: 0.15s; }
+.step:nth-child(3) { animation-delay: 0.30s; }
+.step:nth-child(5) { animation-delay: 0.45s; }
+.step:nth-child(7) { animation-delay: 0.60s; }
+.step:nth-child(9) { animation-delay: 0.75s; }
+@keyframes stepIn { to { opacity: 1; transform: translateY(0); } }
+
+.step-icon-wrap {
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  background: rgba(22, 27, 40, 0.8);
+  border: 1.5px solid rgba(139, 148, 158, 0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+.step.solo .step-icon-wrap {
+  border-color: rgba(124, 58, 237, 0.6);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(56, 189, 248, 0.06));
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
+}
+.step-name { font-size: 17px; font-weight: 700; color: #e6edf3; margin-bottom: 8px; }
+.step-tag {
+  font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: 999px;
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+.step.solo .step-tag {
+  background: rgba(124, 58, 237, 0.18);
+  color: #a78bfa;
+  border-color: rgba(124, 58, 237, 0.5);
+}
+
+.connector {
+  flex-grow: 0; width: 60px;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: 36px;
+  font-size: 18px; color: #484f58;
+}
+
+.message {
+  width: 100%; max-width: 1000px;
+  background: rgba(22, 27, 40, 0.5);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 14px;
+  padding: 22px 32px;
+  text-align: center;
+}
+.message-line {
+  font-size: 22px;
+  font-weight: 900;
+  color: #e6edf3;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.message-line em {
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: normal;
+}
+.message-sub {
+  font-size: 15px;
+  color: #8b949e;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="tag">EP 03 — 다음 강의 예고</div>
+  <h1 class="title">Dicom Viewer 만들기</h1>
+  <p class="subtitle">의료 영상 표준 포맷 DICOM — <em>실제 제작 과정</em></p>
+
+  <div class="flow">
+    <div class="step">
+      <div class="step-icon-wrap">🦴</div>
+      <div class="step-name">뼈대</div>
+      <div class="step-tag">같이</div>
+    </div>
+    <div class="connector">━━</div>
+    <div class="step">
+      <div class="step-icon-wrap">📋</div>
+      <div class="step-name">기획</div>
+      <div class="step-tag">같이</div>
+    </div>
+    <div class="connector">━━</div>
+    <div class="step">
+      <div class="step-icon-wrap">🔧</div>
+      <div class="step-name">하니스 설계</div>
+      <div class="step-tag">같이</div>
+    </div>
+    <div class="connector">━━</div>
+    <div class="step solo">
+      <div class="step-icon-wrap">🤖</div>
+      <div class="step-name">실행</div>
+      <div class="step-tag">AI 혼자</div>
+    </div>
+    <div class="connector">━━</div>
+    <div class="step">
+      <div class="step-icon-wrap">🔍</div>
+      <div class="step-name">리뷰</div>
+      <div class="step-tag">같이</div>
+    </div>
+  </div>
+
+  <div class="message">
+    <div class="message-line">기획은 같이, <em>실행은 AI 혼자</em>, 리뷰는 다시 같이.</div>
+    <div class="message-sub">이게 하니스 기반 워크플로우입니다.</div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="17-our-repo-as-example.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">18 / 18</a></div>
+    <div class="nav-right"><span class="nav-disabled">다음 &rarr;</span></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('17-our-repo-as-example.html');
+});
+</script>
+</body>
+</html>

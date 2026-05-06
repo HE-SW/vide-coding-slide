@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>claude -p 헤드리스 모드 — 자동화에 특화된 모드</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 80px;
+}
+.container { width: 1280px; padding: 0 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 44px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.subtitle { font-size: 16px; color: #8b949e; text-align: center; margin-bottom: 36px; }
+
+.modes { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0; align-items: center; width: 100%; max-width: 1100px; margin-bottom: 32px; }
+.mode {
+  background: rgba(22, 27, 40, 0.6);
+  border: 1px solid rgba(139, 148, 158, 0.2);
+  border-radius: 18px;
+  padding: 28px 26px;
+  text-align: center;
+}
+.mode.headless { border-color: rgba(124, 58, 237, 0.5); background: linear-gradient(160deg, rgba(124, 58, 237, 0.10), rgba(56, 189, 248, 0.04)); }
+
+.vs { text-align: center; font-size: 18px; font-weight: 900; color: #484f58; }
+
+.mode-icon { font-size: 56px; margin-bottom: 14px; }
+.mode-name { font-size: 22px; font-weight: 900; color: #e6edf3; margin-bottom: 12px; }
+.mode-cmd {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px; font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.3);
+  margin-bottom: 14px;
+}
+.mode .mode-cmd { color: #c9d1d9; border: 1px solid rgba(139,148,158,0.3); }
+.mode.headless .mode-cmd { color: #a78bfa; border: 1px solid rgba(124, 58, 237, 0.5); }
+.mode-desc { font-size: 14px; color: #c9d1d9; line-height: 1.6; }
+.mode-desc strong { color: #fff; }
+.mode-tag { font-size: 12px; color: #8b949e; margin-top: 6px; }
+
+.chain-section {
+  width: 100%; max-width: 1100px;
+  background: rgba(22, 27, 40, 0.4);
+  border: 1px solid rgba(139, 148, 158, 0.15);
+  border-radius: 14px;
+  padding: 20px 26px;
+  margin-bottom: 22px;
+}
+.chain-label {
+  font-size: 12px; font-weight: 700;
+  color: #8b949e;
+  letter-spacing: 1.5px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.chain-label code {
+  font-family: 'JetBrains Mono', monospace;
+  color: #ffd166;
+  background: rgba(0,0,0,0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0;
+}
+.chain { display: flex; align-items: stretch; justify-content: center; gap: 4px; }
+.phase-box {
+  flex: 1;
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 10px;
+  padding: 12px 8px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+}
+.phase-box.first { background: rgba(52, 211, 153, 0.1); border-color: rgba(52, 211, 153, 0.4); }
+.phase-name { font-size: 13px; font-weight: 700; color: #e6edf3; margin-bottom: 4px; }
+.phase-cmd { font-size: 11px; color: #a78bfa; margin-bottom: 4px; }
+.phase-box.first .phase-cmd { color: #34d399; }
+.phase-mem { font-size: 11px; font-weight: 700; color: #f97316; }
+.phase-arrow { display: flex; align-items: center; color: #7c3aed; font-size: 16px; padding: 0 2px; }
+
+.foot {
+  width: 100%; max-width: 1000px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(56, 189, 248, 0.04));
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 14px;
+  padding: 18px 26px;
+  font-size: 15px;
+  color: #c9d1d9;
+  text-align: center;
+  line-height: 1.65;
+}
+.foot strong { color: #a78bfa; font-weight: 700; }
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">claude -p 헤드리스 모드</h1>
+  <p class="subtitle">자동화에 특화된 모드 — 스크립트에서 프로그래밍적으로 Claude를 실행</p>
+
+  <div class="modes">
+    <div class="mode">
+      <div class="mode-icon">💬</div>
+      <div class="mode-name">대화형 모드</div>
+      <div class="mode-cmd">claude</div>
+      <div class="mode-desc">사람이 <strong>채팅하듯이</strong> 주고받기</div>
+      <div class="mode-tag">우리가 평소에 쓰는 방식</div>
+    </div>
+
+    <div class="vs">VS</div>
+
+    <div class="mode headless">
+      <div class="mode-icon">🤖</div>
+      <div class="mode-name">헤드리스 모드</div>
+      <div class="mode-cmd">claude -p</div>
+      <div class="mode-desc">프롬프트를 넣으면 <strong>알아서 실행</strong></div>
+      <div class="mode-tag">사람이 앞에 앉아 있을 필요 없음</div>
+    </div>
+  </div>
+
+  <div class="chain-section">
+    <div class="chain-label"><code>execute.py</code> 가 PHASE 마다 새로운 <code>claude -p</code> 를 호출</div>
+    <div class="chain">
+      <div class="phase-box first">
+        <div class="phase-name">Phase 1</div>
+        <div class="phase-cmd">claude -p #1</div>
+      </div>
+      <div class="phase-arrow">→</div>
+      <div class="phase-box">
+        <div class="phase-name">Phase 2</div>
+        <div class="phase-cmd">claude -p #2</div>
+        <div class="phase-mem">✗ 기억 없음</div>
+      </div>
+      <div class="phase-arrow">→</div>
+      <div class="phase-box">
+        <div class="phase-name">Phase 3</div>
+        <div class="phase-cmd">claude -p #3</div>
+        <div class="phase-mem">✗ 기억 없음</div>
+      </div>
+      <div class="phase-arrow">→</div>
+      <div class="phase-box">
+        <div class="phase-name">Phase 4</div>
+        <div class="phase-cmd">claude -p #4</div>
+        <div class="phase-mem">✗ 기억 없음</div>
+      </div>
+      <div class="phase-arrow">→</div>
+      <div class="phase-box">
+        <div class="phase-name">Phase 5</div>
+        <div class="phase-cmd">claude -p #5</div>
+        <div class="phase-mem">✗ 기억 없음</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    각 Phase는 <strong>완전히 새로운 Claude</strong> — 이전 기억이 없습니다.<br>
+    그래서 docs/ 에 <strong>전부 적어두는 것</strong>이 핵심입니다. 하니스의 진짜 역할 = <strong>매번 잊어버리는 만큼 다시 알려줄 기록 시스템</strong>.
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="12-execute-result.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">13 / 18</a></div>
+    <div class="nav-right"><a href="14-hooks.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('12-execute-result.html');
+  if (e.key === 'ArrowRight') navigateTo('14-hooks.html');
+});
+</script>
+</body>
+</html>

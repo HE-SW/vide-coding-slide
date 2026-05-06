@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>CLAUDE.md — 한 장의 사용설명서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0f1a; font-family: 'Noto Sans KR', sans-serif; color: #e6edf3; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding-bottom: 50px; }
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 46px; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 12px; line-height: 1.3;
+}
+.subtitle { font-size: 17px; color: #8b949e; margin-bottom: 36px; font-weight: 300; text-align: center; }
+.subtitle strong { color: #c9d1d9; font-weight: 700; }
+
+.layout { display: flex; gap: 32px; max-width: 1100px; align-items: stretch; }
+.file-mock {
+  flex: 1; background: #050810;
+  border: 1px solid rgba(139, 148, 158, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.file-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+  background: rgba(124, 58, 237, 0.08);
+  border-bottom: 1px solid rgba(139, 148, 158, 0.1);
+}
+.file-icon { font-size: 14px; }
+.file-name { color: #a78bfa; font-size: 13px; font-weight: 700; font-family: ui-monospace, monospace; }
+.file-body {
+  padding: 18px 22px;
+  font-family: ui-monospace, monospace;
+  font-size: 12.5px; line-height: 1.7; color: #c9d1d9;
+  flex: 1;
+}
+.file-body .h1 { color: #38bdf8; font-weight: 700; }
+.file-body .h2 { color: #a78bfa; font-weight: 700; margin-top: 8px; display: block; }
+.file-body .li { color: #c9d1d9; }
+.file-body .com { color: #484f58; font-style: italic; }
+
+.benefits { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.b-row {
+  padding: 16px 22px;
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.12);
+  border-radius: 12px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.b-row.first { border-color: rgba(124, 58, 237, 0.4); background: rgba(124, 58, 237, 0.05); }
+.b-icon { font-size: 24px; flex-shrink: 0; line-height: 1; padding-top: 2px; }
+.b-text { font-size: 14px; line-height: 1.6; color: #c9d1d9; }
+.b-text strong { color: #e6edf3; font-weight: 700; }
+.b-text em { color: #a78bfa; font-style: italic; font-weight: 500; }
+.b-row.first .b-text strong { color: #a78bfa; }
+
+.bottom {
+  margin-top: 28px; padding: 18px 28px; max-width: 1000px;
+  background: rgba(56, 189, 248, 0.05);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+  font-size: 16px; line-height: 1.6; color: #c9d1d9; text-align: center;
+}
+.bottom strong { color: #38bdf8; font-weight: 700; }
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">CLAUDE.md — 한 장의 사용설명서</h1>
+  <div class="subtitle">프로젝트 루트에 두면 — Claude Code가 매번 <strong>자동으로 읽어서</strong> 컨텍스트에 넣어줍니다</div>
+
+  <div class="layout">
+    <div class="file-mock">
+      <div class="file-bar"><span class="file-icon">📄</span><span class="file-name">CLAUDE.md</span></div>
+      <div class="file-body">
+        <span class="h1"># 이 프로젝트</span><br><br>
+        비개발자 대상 강의 슬라이드 자료.<br><br>
+        <span class="h2">## 규칙</span><br>
+        <span class="li">- 모든 스크립트는 한국어, 강의톤</span><br>
+        <span class="li">- 슬라이드는 NN-slug.html 패턴</span><br>
+        <span class="li">- 사실은 반드시 출처와 함께</span><br><br>
+        <span class="h2">## 자주 쓰는 명령</span><br>
+        <span class="li">- 미리보기: pnpm dev</span><br><br>
+        <span class="h2">## 절대 하지 말 것</span><br>
+        <span class="li">- 1강/script.md 임의 수정</span>
+      </div>
+    </div>
+    <div class="benefits">
+      <div class="b-row first">
+        <div class="b-icon">⚡</div>
+        <div class="b-text"><strong>자동 주입</strong> — 새 세션을 열 때마다 <em>"이 프로젝트의 규칙"</em>이 컨텍스트에 자동으로 들어감</div>
+      </div>
+      <div class="b-row">
+        <div class="b-icon">📝</div>
+        <div class="b-text">한 번 적어두면 — 매번 같은 지시를 <strong>다시 입력하지 않아도 됨</strong></div>
+      </div>
+      <div class="b-row">
+        <div class="b-icon">👥</div>
+        <div class="b-text">git에 커밋해두면 — 동료와 <strong>같은 규칙으로 작업</strong> 가능</div>
+      </div>
+      <div class="b-row">
+        <div class="b-icon">📐</div>
+        <div class="b-text">권장 분량 <strong>200줄 이내</strong> — 너무 길면 가운데가 묻힘</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">방금 배운 컨텍스트 엔지니어링의 — <strong>가장 작은 실전 사례</strong>. 마크다운 파일 한 장이면 됩니다.</div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="20-why-cli.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">21 / 23</a></div>
+    <div class="nav-right"><a href="22-skills.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('20-why-cli.html');
+  if (e.key === 'ArrowRight') navigateTo('22-skills.html');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>시스템 프롬프트 외에 — 이미 깔려 있는 3가지</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+}
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 44px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.subtitle { font-size: 17px; color: #8b949e; text-align: center; margin-bottom: 50px; font-weight: 400; }
+
+.cards { display: flex; gap: 24px; width: 100%; margin-bottom: 40px; }
+.card {
+  flex: 1;
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.15);
+  border-radius: 18px;
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: cardAppear 0.5s ease-out forwards;
+}
+.card:nth-child(1) { animation-delay: 0.2s; }
+.card:nth-child(2) { animation-delay: 0.4s; }
+.card:nth-child(3) { animation-delay: 0.6s; }
+@keyframes cardAppear { to { opacity: 1; transform: translateY(0); } }
+.card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #38bdf8);
+}
+.card-icon { font-size: 56px; margin-bottom: 18px; display: block; }
+.card-name { font-size: 22px; font-weight: 900; margin-bottom: 10px; color: #e6edf3; }
+.card-desc { font-size: 14px; color: #c9d1d9; line-height: 1.6; margin-bottom: 16px; }
+.card-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #a78bfa;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.summary {
+  width: 100%;
+  background: rgba(22, 27, 40, 0.6);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  border-radius: 14px;
+  padding: 20px 28px;
+  text-align: center;
+  font-size: 16px;
+  color: #c9d1d9;
+  line-height: 1.7;
+}
+.summary strong { color: #a78bfa; font-weight: 700; }
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">시스템 프롬프트 외에도 — 이미 깔려 있는 <em style="font-style:normal;color:#a78bfa">3가지</em></h1>
+  <p class="subtitle">여러분이 손대지 않아도 작동하는 내장 안전장치들</p>
+
+  <div class="cards">
+    <div class="card">
+      <span class="card-icon">🛡️</span>
+      <div class="card-name">권한 체크</div>
+      <div class="card-desc">위험한 명령 직전, 사용자에게 한 번 더 묻는 시스템<br><span style="color:#8b949e">(rm, force push 같은 명령은 실행 전 확인 창)</span></div>
+      <span class="card-tag">중요한 일 전에 한 번 더 묻기</span>
+    </div>
+    <div class="card">
+      <span class="card-icon">🚧</span>
+      <div class="card-name">도구 경계</div>
+      <div class="card-desc">AI가 쓸 수 있는 도구 / 못 쓰는 도구의 명확한 울타리<br><span style="color:#8b949e">(Read·Write·Edit·Bash 등 정해진 목록 안에서만)</span></div>
+      <span class="card-tag">갈 수 있는 길의 울타리</span>
+    </div>
+    <div class="card">
+      <span class="card-icon">📋</span>
+      <div class="card-name">JSON 스키마</div>
+      <div class="card-desc">도구 호출이 자유 텍스트가 아닌 정해진 양식 안에서만<br><span style="color:#8b949e">(양식에 안 맞으면 거부 — 환각 차단)</span></div>
+      <span class="card-tag">신청서 양식</span>
+    </div>
+  </div>
+
+  <div class="summary">
+    네 가지 다 — <strong>여러분이 깔지 않았는데 이미 깔려 있던 것들</strong>입니다.
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="02-system-prompt-leak.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">03 / 18</a></div>
+    <div class="nav-right"><a href="04-two-floor-diagram.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('02-system-prompt-leak.html');
+  if (e.key === 'ArrowRight') navigateTo('04-two-floor-diagram.html');
+});
+</script>
+</body>
+</html>

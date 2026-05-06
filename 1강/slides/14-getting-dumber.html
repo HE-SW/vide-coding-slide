@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>왜 점점 멍청해지는 걸까요</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0f1a; font-family: 'Noto Sans KR', sans-serif; color: #e6edf3; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding-bottom: 50px; }
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 48px; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 16px; line-height: 1.3;
+}
+.subtitle { font-size: 17px; color: #8b949e; margin-bottom: 50px; font-weight: 300; text-align: center; }
+.subtitle strong { color: #c9d1d9; font-weight: 700; }
+.compare { display: flex; gap: 24px; max-width: 1080px; width: 100%; }
+.mech {
+  flex: 1; background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.15);
+  border-radius: 18px; padding: 28px 28px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.tag { font-size: 12px; color: #fbbf24; font-weight: 700; letter-spacing: 2px; }
+.mech:nth-child(2) .tag { color: #f87171; }
+.head { font-size: 24px; font-weight: 900; color: #e6edf3; line-height: 1.3; }
+.head-en { font-size: 14px; color: #8b949e; font-weight: 500; margin-top: 4px; }
+.body { font-size: 16px; line-height: 1.65; color: #c9d1d9; }
+.body strong { color: #e6edf3; font-weight: 700; }
+.viz {
+  margin-top: 4px; padding: 16px 20px;
+  background: rgba(0,0,0,0.3); border-radius: 10px;
+  font-size: 14px; color: #8b949e; line-height: 1.55;
+  font-family: ui-monospace, monospace;
+}
+.viz .cut { color: #f87171; text-decoration: line-through; opacity: 0.6; }
+.viz .ok { color: #c9d1d9; }
+.viz .miss { color: #fbbf24; opacity: 0.5; }
+.viz .start { color: #38bdf8; }
+.bottom {
+  margin-top: 36px; padding: 20px 28px; max-width: 1000px;
+  background: rgba(124, 58, 237, 0.06);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 12px;
+  font-size: 16px; line-height: 1.65; color: #c9d1d9; text-align: center;
+}
+.bottom em { color: #a78bfa; font-style: italic; font-weight: 500; }
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">왜 점점 멍청해지는 걸까요</h1>
+  <div class="subtitle">기분 탓이 아니라 <strong>실제 현상</strong> — 두 메커니즘이 함께 작동합니다</div>
+
+  <div class="compare">
+    <div class="mech">
+      <div class="tag">MECHANISM 1</div>
+      <div class="head">컨텍스트 창의 한계<div class="head-en">한 번에 볼 수 있는 분량의 끝</div></div>
+      <div class="body">대화가 길어지면 앞 내용이 <strong>잘려나갑니다</strong>. AI가 한 번에 들고 갈 수 있는 정보량 자체에 끝이 있어요.</div>
+      <div class="viz"><span class="cut">[잘림] 처음 인사…</span><br>이전 메시지 1<br>이전 메시지 2<br><span class="ok">현재 질문</span></div>
+    </div>
+    <div class="mech">
+      <div class="tag">MECHANISM 2</div>
+      <div class="head">가운데를 무시하는 경향<div class="head-en">Lost in the Middle (Stanford, 2023)</div></div>
+      <div class="body">잘리지 않은 정보라도 — AI는 <strong>처음과 끝</strong>은 잘 보고, <strong>가운데</strong>는 잘 안 봅니다.</div>
+      <div class="viz"><span class="start">처음 — 잘 봄</span><br><span class="miss">가운데 — 무시</span><br><span class="miss">가운데 — 무시</span><br><span class="start">끝 — 잘 봄</span></div>
+    </div>
+  </div>
+
+  <div class="bottom">컨텍스트 엔지니어링은 <em>"많이 넣기"</em>가 아니라 — <strong style="color:#a78bfa">"잘 골라서, 잘 배치해서, 핵심을 끝에 한 번 더"</strong></div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="13-context-example.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">14 / 23</a></div>
+    <div class="nav-right"><a href="15-harness-name.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('13-context-example.html');
+  if (e.key === 'ArrowRight') navigateTo('15-harness-name.html');
+});
+</script>
+</body>
+</html>

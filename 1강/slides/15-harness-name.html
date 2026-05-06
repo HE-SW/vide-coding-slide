@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>하니스 — 이 이름의 정체</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0f1a; font-family: 'Noto Sans KR', sans-serif; color: #e6edf3; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding-bottom: 50px; }
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 48px; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 14px; line-height: 1.3;
+}
+.subtitle { font-size: 17px; color: #8b949e; margin-bottom: 50px; font-weight: 300; }
+
+.cards { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 1100px; }
+.card {
+  width: 340px;
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.15);
+  border-radius: 16px; padding: 28px 26px;
+  display: flex; flex-direction: column; gap: 12px;
+  text-align: center;
+  opacity: 0; animation: cardIn 0.5s ease forwards;
+}
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.25s; }
+.card:nth-child(3) { animation-delay: 0.4s; border-color: rgba(124, 58, 237, 0.4); background: rgba(124, 58, 237, 0.04); }
+@keyframes cardIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.emoji { font-size: 52px; }
+.tag { font-size: 11px; color: #8b949e; font-weight: 700; letter-spacing: 2px; }
+.card:nth-child(3) .tag { color: #a78bfa; }
+.head { font-size: 19px; font-weight: 800; color: #e6edf3; line-height: 1.4; }
+.body { font-size: 14px; color: #c9d1d9; line-height: 1.65; }
+.body strong { color: #e6edf3; font-weight: 700; }
+
+.bottom {
+  margin-top: 44px; padding: 22px 32px; max-width: 980px;
+  background: rgba(124, 58, 237, 0.06);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 14px;
+  font-size: 16px; line-height: 1.7; color: #c9d1d9; text-align: center;
+}
+.bottom strong { color: #a78bfa; font-weight: 700; }
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">하니스 — 이 이름의 정체</h1>
+  <div class="subtitle">단어가 좀 낯설어 보이지만, 어원은 단순합니다</div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="emoji">🐎</div>
+      <div class="tag">원래 의미</div>
+      <div class="head">마구(馬具)</div>
+      <div class="body">말의 힘을 마차나 쟁기에 연결해 <strong>유용한 일에 쓰도록</strong> 매다는 도구. 등산용 안전벨트, 낙하산 멜빵도 같은 단어.</div>
+    </div>
+    <div class="card">
+      <div class="emoji">🧪</div>
+      <div class="tag">소프트웨어 기존 용법</div>
+      <div class="head">test harness</div>
+      <div class="body"><strong>테스트 환경 전체</strong> — 설정·실행기·검증기를 통칭. 코드를 둘러싸고 동작시키는 틀이라는 뜻으로 오래전부터 쓰임.</div>
+    </div>
+    <div class="card">
+      <div class="emoji">🤖</div>
+      <div class="tag">AI 시대 재등장</div>
+      <div class="head">agent harness</div>
+      <div class="body">Anthropic이 2024~2025년에 정착시킨 표현. 모델 자체가 아니라 — <strong>모델 주변에 두를 작업 환경 전체</strong>를 가리킴.</div>
+    </div>
+  </div>
+
+  <div class="bottom">"AI 모델"은 그대로, <strong>그 주변에 무엇을 두를 것인가</strong>가 하니스 엔지니어링의 질문</div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="14-getting-dumber.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">15 / 23</a></div>
+    <div class="nav-right"><a href="16-harness-problem.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('14-getting-dumber.html');
+  if (e.key === 'ArrowRight') navigateTo('16-harness-problem.html');
+});
+</script>
+</body>
+</html>

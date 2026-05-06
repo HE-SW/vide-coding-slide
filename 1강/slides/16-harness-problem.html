@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>AI 혼자서는 안 되는 일들</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0f1a; font-family: 'Noto Sans KR', sans-serif; color: #e6edf3; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding-bottom: 50px; }
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 48px; font-weight: 900;
+  background: linear-gradient(135deg, #f87171, #fbbf24);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 14px; line-height: 1.3;
+}
+.subtitle { font-size: 17px; color: #8b949e; margin-bottom: 44px; font-weight: 300; }
+.subtitle strong { color: #c9d1d9; font-weight: 700; }
+.grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  width: 100%; max-width: 1080px;
+}
+.cell {
+  background: rgba(248, 113, 113, 0.04);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  border-radius: 14px;
+  padding: 24px 28px;
+  display: flex; gap: 18px; align-items: flex-start;
+  opacity: 0; animation: cellIn 0.5s ease forwards;
+}
+.cell:nth-child(1) { animation-delay: 0.1s; }
+.cell:nth-child(2) { animation-delay: 0.2s; }
+.cell:nth-child(3) { animation-delay: 0.3s; }
+.cell:nth-child(4) { animation-delay: 0.4s; }
+@keyframes cellIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+.icon { font-size: 32px; flex-shrink: 0; line-height: 1; padding-top: 4px; }
+.txt { display: flex; flex-direction: column; gap: 8px; }
+.head { font-size: 18px; font-weight: 800; color: #e6edf3; line-height: 1.4; }
+.body { font-size: 14px; color: #8b949e; line-height: 1.65; }
+.body strong { color: #c9d1d9; font-weight: 700; }
+.bottom {
+  margin-top: 36px; padding: 18px 28px; max-width: 1000px;
+  background: rgba(248, 113, 113, 0.05);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  border-radius: 12px;
+  font-size: 16px; line-height: 1.65; color: #c9d1d9; text-align: center;
+}
+.bottom strong { color: #f87171; font-weight: 700; }
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">AI 혼자서는 안 되는 일들</h1>
+  <div class="subtitle">LLM 단독 호출은 — <strong>한 번 묻고 한 번 답하는</strong> 구조이기 때문에</div>
+
+  <div class="grid">
+    <div class="cell">
+      <div class="icon">🚫</div>
+      <div class="txt">
+        <div class="head">코드 짜줘도 실행해 검증할 수 없습니다</div>
+        <div class="body">결과만 글로 받을 뿐, <strong>"이게 진짜 돌아가는지"</strong> 확인할 길이 없음.</div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="icon">🔍</div>
+      <div class="txt">
+        <div class="head">자기 답을 다시 확인할 수단이 없습니다</div>
+        <div class="body">잘못된 답을 해도 — 스스로 의심하거나 <strong>두 번 점검할 방법</strong>이 내장돼 있지 않음.</div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="icon">💭</div>
+      <div class="txt">
+        <div class="head">컨텍스트 창이 끝나면 잊습니다</div>
+        <div class="body">긴 작업이 한도를 넘어가면 <strong>이전 작업 자체</strong>가 사라져 버림.</div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="icon">⛓️‍💥</div>
+      <div class="txt">
+        <div class="head">한 시간만 넘어가도 흐름이 끊깁니다</div>
+        <div class="body">데모에서는 그럴듯한데 — 실제 업무에 투입하면 <strong>한두 단계 만에 무너지는</strong> 이유.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">바로 이 빈틈을 메우는 게 — <strong>하니스 엔지니어링의 일</strong></div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="15-harness-name.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">16 / 23</a></div>
+    <div class="nav-right"><a href="17-harness-solution.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('15-harness-name.html');
+  if (e.key === 'ArrowRight') navigateTo('17-harness-solution.html');
+});
+</script>
+</body>
+</html>

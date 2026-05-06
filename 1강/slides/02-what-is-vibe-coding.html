@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>바이브 코딩이란?</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+}
+.container {
+  width: 1280px;
+  padding: 44px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title {
+  font-size: 50px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 22px;
+  line-height: 1.3;
+}
+.lead {
+  font-size: 19px;
+  color: #c9d1d9;
+  text-align: center;
+  max-width: 920px;
+  line-height: 1.7;
+  margin-bottom: 50px;
+  font-weight: 300;
+}
+.lead strong { color: #e6edf3; font-weight: 700; }
+.cards { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; }
+.card {
+  width: 360px;
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.12);
+  border-radius: 18px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+  opacity: 0;
+  animation: cardAppear 0.6s ease forwards;
+}
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.25s; border-color: rgba(124, 58, 237, 0.4); background: rgba(124, 58, 237, 0.05); }
+.card:nth-child(3) { animation-delay: 0.4s; }
+.emoji { font-size: 56px; }
+.card-label {
+  font-size: 13px; color: #7c3aed; font-weight: 700; letter-spacing: 1px;
+}
+.card-text { font-size: 18px; line-height: 1.6; color: #c9d1d9; font-weight: 400; }
+.card-text strong { color: #e6edf3; font-weight: 700; }
+.bottom-line {
+  margin-top: 60px;
+  font-size: 22px;
+  color: #8b949e;
+  text-align: center;
+  font-weight: 300;
+  font-style: italic;
+}
+.bottom-line em { color: #a78bfa; font-style: normal; font-weight: 500; }
+@keyframes cardAppear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.slide-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
+  background: rgba(10, 15, 26, 0.95);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(124, 58, 237, 0.2);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">바이브 코딩이란?</h1>
+  <p class="lead">코드를 손으로 직접 작성하지 않고,<br><strong>AI 도구에 자연어로 지시해서 코드를 생성하는</strong> 새로운 코딩 방식<br><span style="font-size:14px; color:#a78bfa; font-weight:700; letter-spacing:1px;">EST. 2025</span></p>
+  <div class="cards">
+    <div class="card">
+      <div class="emoji">👤</div>
+      <div class="card-label">사람이 하는 일</div>
+      <div class="card-text">자연어로 <strong>의도를 전달</strong><br>"이런 거 만들어줘"</div>
+    </div>
+    <div class="card">
+      <div class="emoji">🤖</div>
+      <div class="card-label">AI 도구가 하는 일</div>
+      <div class="card-text">의도를 받아<br><strong>코드를 생성</strong><br>Claude · Cursor · GPT</div>
+    </div>
+    <div class="card">
+      <div class="emoji">💡</div>
+      <div class="card-label">결과</div>
+      <div class="card-text">코드를 손으로 안 쓰고도<br><strong>동작하는 결과물</strong></div>
+    </div>
+  </div>
+  <div class="bottom-line">핵심은 — <em>코드를 직접 안 쓴다</em>는 것</div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="01-cover.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">02 / 23</a></div>
+    <div class="nav-right"><a href="03-vibe-vs-old-coding.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('01-cover.html');
+  if (e.key === 'ArrowRight') navigateTo('03-vibe-vs-old-coding.html');
+});
+</script>
+</body>
+</html>

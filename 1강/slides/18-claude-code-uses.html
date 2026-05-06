@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>이번 실습은 Claude Code로</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0f1a; font-family: 'Noto Sans KR', sans-serif; color: #e6edf3; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding-bottom: 50px; position: relative; overflow: hidden; }
+body::before { content: ''; position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(124, 58, 237, 0.14), transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
+.section-tag {
+  font-size: 13px; color: #38bdf8; font-weight: 700; letter-spacing: 5px;
+  padding: 6px 18px; border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 999px;
+  background: rgba(56, 189, 248, 0.08); margin-bottom: 24px;
+}
+.title {
+  font-size: 64px; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 38px; line-height: 1.2;
+}
+.product {
+  display: flex; align-items: center; gap: 20px;
+  padding: 28px 40px;
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.2);
+  border-radius: 18px;
+  margin-bottom: 30px;
+}
+.product-logo {
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 38px; font-weight: 900; color: white;
+}
+.product-meta { display: flex; flex-direction: column; gap: 6px; }
+.product-name { font-size: 28px; font-weight: 800; color: #e6edf3; }
+.product-by { font-size: 14px; color: #8b949e; }
+.product-by strong { color: #a78bfa; font-weight: 700; }
+.tags { display: flex; gap: 10px; margin-top: 4px; }
+.tag {
+  font-size: 11px; color: #c9d1d9; font-weight: 700; letter-spacing: 0.5px;
+  padding: 4px 10px; background: rgba(124, 58, 237, 0.15); border: 1px solid rgba(124, 58, 237, 0.3); border-radius: 999px;
+}
+.lead { font-size: 19px; color: #c9d1d9; max-width: 880px; text-align: center; line-height: 1.7; font-weight: 300; }
+.lead strong { color: #e6edf3; font-weight: 700; }
+.lead em { color: #a78bfa; font-style: italic; font-weight: 500; }
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="section-tag">SECTION 2 · 개발 환경 세팅</div>
+  <h1 class="title">이번 실습은<br>Claude Code로</h1>
+  <div class="product">
+    <div class="product-logo">CC</div>
+    <div class="product-meta">
+      <div class="product-name">Claude Code</div>
+      <div class="product-by">by <strong>Anthropic</strong></div>
+      <div class="tags"><div class="tag">CLI</div><div class="tag">에이전트</div><div class="tag">바이브 코딩</div></div>
+    </div>
+  </div>
+  <div class="lead">Anthropic 공식 <strong>커맨드라인 도구</strong> — <em>바이브 코딩의 대표적 구현체</em>이자, 방금 본 하니스 엔지니어링이 실제로 동작하는 모습을 볼 수 있는 도구입니다.</div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="17-harness-solution.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">18 / 23</a></div>
+    <div class="nav-right"><a href="19-claude-code-detail.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('17-harness-solution.html');
+  if (e.key === 'ArrowRight') navigateTo('19-claude-code-detail.html');
+});
+</script>
+</body>
+</html>

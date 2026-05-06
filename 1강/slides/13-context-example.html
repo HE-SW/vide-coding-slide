@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>컨텍스트는 통째로 넣는 정보입니다</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0f1a; font-family: 'Noto Sans KR', sans-serif; color: #e6edf3; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding-bottom: 50px; }
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 46px; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 14px; line-height: 1.3;
+}
+.subtitle { font-size: 17px; color: #8b949e; margin-bottom: 36px; font-weight: 300; text-align: center; }
+.subtitle strong { color: #c9d1d9; font-weight: 700; }
+.stack {
+  display: flex; flex-direction: column; gap: 8px;
+  max-width: 900px; width: 100%; margin-bottom: 32px;
+}
+.row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 22px;
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.12);
+  border-radius: 12px;
+  opacity: 0; animation: rowIn 0.4s ease forwards;
+}
+.row:nth-child(1) { animation-delay: 0.1s; }
+.row:nth-child(2) { animation-delay: 0.2s; }
+.row:nth-child(3) { animation-delay: 0.3s; border-color: rgba(124, 58, 237, 0.35); background: rgba(124, 58, 237, 0.04); }
+.row:nth-child(4) { animation-delay: 0.4s; }
+.row:nth-child(5) { animation-delay: 0.5s; }
+@keyframes rowIn { from { opacity: 0; transform: translateX(-15px); } to { opacity: 1; transform: translateX(0); } }
+.tag {
+  width: 130px; flex-shrink: 0;
+  font-size: 11px; font-weight: 800; color: #a78bfa;
+  letter-spacing: 1px; text-align: left;
+  padding-left: 8px; border-left: 3px solid #7c3aed;
+}
+.label { width: 200px; flex-shrink: 0; font-size: 16px; font-weight: 700; color: #e6edf3; }
+.value { flex: 1; font-size: 14px; color: #8b949e; line-height: 1.55; }
+.row:nth-child(3) .value strong { color: #38bdf8; font-weight: 700; }
+.value strong { color: #c9d1d9; font-weight: 700; }
+
+.bottom {
+  margin-top: 8px; padding: 18px 28px; max-width: 1000px;
+  background: rgba(56, 189, 248, 0.05);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+  font-size: 15px; line-height: 1.65; color: #c9d1d9; text-align: center;
+}
+.bottom em { color: #38bdf8; font-style: italic; font-weight: 500; }
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">컨텍스트는 통째로 넣는 정보입니다</h1>
+  <div class="subtitle">프롬프트가 <em>질문 한 줄</em>이라면, 컨텍스트는 <strong>AI가 답하기 전에 보는 모든 것</strong></div>
+
+  <div class="stack">
+    <div class="row">
+      <div class="tag">SYSTEM</div>
+      <div class="label">시스템 지시문</div>
+      <div class="value">"너는 친절한 한국어 비서야"</div>
+    </div>
+    <div class="row">
+      <div class="tag">USER</div>
+      <div class="label">사용자 질문</div>
+      <div class="value">"이 코드의 버그를 찾아줘"</div>
+    </div>
+    <div class="row">
+      <div class="tag">+ RAG</div>
+      <div class="label">자동 검색 자료</div>
+      <div class="value">답하기 전에 AI가 <strong>관련 문서를 직접 찾아 옴</strong> (RAG)</div>
+    </div>
+    <div class="row">
+      <div class="tag">+ TOOLS</div>
+      <div class="label">도구 사용 결과</div>
+      <div class="value">코드를 실제로 실행한 결과, 외부 서비스 응답</div>
+    </div>
+    <div class="row">
+      <div class="tag">+ MEMORY</div>
+      <div class="label">이전 대화 요약</div>
+      <div class="value">길어진 대화를 압축한 메모</div>
+    </div>
+  </div>
+
+  <div class="bottom">카파시 정의 — <em>"매 단계마다 컨텍스트 창에 정확히 맞는 정보를 채우는 섬세한 예술이자 과학"</em></div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="12-prompt-example.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">13 / 23</a></div>
+    <div class="nav-right"><a href="14-getting-dumber.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('12-prompt-example.html');
+  if (e.key === 'ArrowRight') navigateTo('14-getting-dumber.html');
+});
+</script>
+</body>
+</html>
