@@ -51,6 +51,7 @@
 - [바이브코딩](../concepts/바이브코딩.md) — 그가 만든 용어
 - [컨텍스트 엔지니어링](../techniques/컨텍스트-엔지니어링.md) — 그가 정착시킨 용어
 - [LLM](../concepts/LLM.md) — 그가 OpenAI에서 다룬 핵심 기술
+- [andrej-karpathy-skills](../tools/andrej-karpathy-skills.md) — 그의 LLM 코딩 4대 실패 패턴 트윗(2026-01)을 65줄 CLAUDE.md로 압축한 커뮤니티 프로젝트
 
 ## 출처
 

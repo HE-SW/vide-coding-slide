@@ -114,6 +114,7 @@ CLAUDE.md는 그 중 **시스템 지시문**을 사용자가 직접 작성하는
 - [CLI를 쓰는 이유](CLI를-쓰는-이유.md) — CLAUDE.md가 동작하는 무대
 - [컨텍스트 엔지니어링](../techniques/컨텍스트-엔지니어링.md) — CLAUDE.md의 상위 개념
 - [Lost in the Middle](../phenomena/Lost-in-the-Middle.md) — CLAUDE.md를 너무 길게 쓰면 안 되는 이유
+- [andrej-karpathy-skills](andrej-karpathy-skills.md) — 보편 행동 규율 4원칙을 한 장으로 정리한, 가져다 쓸 수 있는 CLAUDE.md 템플릿
 
 ## 출처
 

@@ -115,15 +115,15 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </div>
 <nav class="slide-nav">
   <div class="slide-nav-inner">
-    <div class="nav-left"><a href="09-docs.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
-    <div class="nav-center"><a href="index.html">10 / 18</a></div>
+    <div class="nav-left"><a href="09b-coding-guidelines.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">10 / 19</a></div>
     <div class="nav-right"><a href="11-harness-flow.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
   </div>
 </nav>
 <script>
 function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowLeft') navigateTo('09-docs.html');
+  if (e.key === 'ArrowLeft') navigateTo('09b-coding-guidelines.html');
   if (e.key === 'ArrowRight') navigateTo('11-harness-flow.html');
 });
 </script>

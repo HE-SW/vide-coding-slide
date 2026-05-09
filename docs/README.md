@@ -47,6 +47,12 @@
 - [왜 CLI인가](tools/CLI를-쓰는-이유.md) — claude.ai 채팅 vs Claude Code, 비개발자 청중을 위한 비교
 - [CLAUDE.md](tools/CLAUDE-md.md) — Claude Code가 자동으로 읽는 프로젝트 메모리 파일
 - [oh-my-claudecode (OMC)](tools/oh-my-claudecode.md) — Claude Code 위에 얹는 멀티 에이전트 오케스트레이션 플러그인 (32k★, MIT)
+- [andrej-karpathy-skills](tools/andrej-karpathy-skills.md) — Karpathy의 LLM 4대 실패 패턴을 65줄 CLAUDE.md로 압축한 행동 가이드 (10만 ★, MIT)
+
+### `rules/` — 프로젝트 행동 규율 (실제 적용 파일)
+이 레포 자체에 적용하는 코딩 규율. 강의 시연 자료로도 사용된다.
+
+- [coding-guidelines.md](rules/coding-guidelines.md) — Karpathy 4원칙(Think · Simple · Surgical · Goal-Driven)을 한국어 강의톤으로 옮긴 행동 가이드라인. 2강 *"한 장의 행동 규율을 어떻게 까는가"* 슬라이드 시연용.
 
 ### `methodologies/` — 개발 방법론
 바이브코딩의 위치를 이해하기 위해 알아야 할 전·후 방법론.

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>docs/rules/ — 행동 규율 한 장으로</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 32px 0 80px;
+}
+.container { width: 1280px; padding: 0 60px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 42px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.subtitle { font-size: 16px; color: #8b949e; text-align: center; margin-bottom: 22px; }
+.subtitle em { color: #c9d1d9; font-style: normal; font-weight: 700; }
+
+.repo-card {
+  width: 100%;
+  background: rgba(124, 58, 237, 0.06);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 14px;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.repo-name { font-size: 16px; font-weight: 700; color: #a78bfa; }
+.repo-name .at { color: #8b949e; font-weight: 400; }
+.repo-meta { display: flex; gap: 18px; font-size: 12px; color: #8b949e; }
+.repo-meta strong { color: #fbbf24; font-weight: 700; }
+.repo-meta .src { color: #38bdf8; }
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+.p-card {
+  background: #0d1117;
+  border: 1px solid rgba(139, 148, 158, 0.2);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.p-card.p1 { border-color: rgba(56, 189, 248, 0.4); }
+.p-card.p2 { border-color: rgba(74, 222, 128, 0.4); }
+.p-card.p3 { border-color: rgba(249, 115, 22, 0.4); }
+.p-card.p4 { border-color: rgba(167, 139, 250, 0.4); }
+
+.p-head { display: flex; align-items: center; gap: 10px; }
+.p-icon { font-size: 22px; }
+.p-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.p-card.p1 .p-num { color: #38bdf8; background: rgba(56, 189, 248, 0.15); }
+.p-card.p2 .p-num { color: #4ade80; background: rgba(74, 222, 128, 0.15); }
+.p-card.p3 .p-num { color: #f97316; background: rgba(249, 115, 22, 0.15); }
+.p-card.p4 .p-num { color: #a78bfa; background: rgba(167, 139, 250, 0.15); }
+
+.p-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+}
+.p-card.p1 .p-name { color: #38bdf8; }
+.p-card.p2 .p-name { color: #4ade80; }
+.p-card.p3 .p-name { color: #f97316; }
+.p-card.p4 .p-name { color: #a78bfa; }
+
+.p-kr {
+  font-size: 14px;
+  font-weight: 700;
+  color: #e6edf3;
+  margin-top: 2px;
+}
+.p-desc {
+  font-size: 12.5px;
+  color: #8b949e;
+  line-height: 1.55;
+}
+.p-desc strong { color: #c9d1d9; font-weight: 700; }
+
+.install {
+  margin-top: 20px;
+  width: 100%;
+  background: #0d1117;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 12px;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.install-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.install-cmd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: #c9d1d9;
+  flex: 1;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+.install-cmd .flag { color: #fbbf24; }
+.install-cmd .url { color: #38bdf8; }
+
+.foot {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #c9d1d9;
+  text-align: center;
+  line-height: 1.7;
+  max-width: 1080px;
+}
+.foot strong {
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+.foot .quote {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #8b949e;
+  font-style: italic;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">docs/rules/ — 행동 규율 한 장으로</h1>
+  <p class="subtitle"><em>Karpathy 4원칙</em>을 그대로 가져다 쓰자 — <em>직접 쓸 필요 전혀 없음</em></p>
+
+  <div class="repo-card">
+    <div class="repo-name">forrestchang<span class="at">/</span>andrej-karpathy-skills</div>
+    <div class="repo-meta">
+      <span>⭐ <strong>약 11.6만</strong></span>
+      <span>📜 MIT · 65줄</span>
+      <span class="src">원전: Andrej Karpathy 트윗 (2026-01-26)</span>
+    </div>
+  </div>
+
+  <div class="principles">
+    <div class="p-card p1">
+      <div class="p-head">
+        <span class="p-icon">🤔</span>
+        <span class="p-num">01</span>
+        <span class="p-name">Think Before Coding</span>
+      </div>
+      <div class="p-kr">짐작하지 말고 드러내라</div>
+      <div class="p-desc">가정을 <strong>명시</strong>한다. 해석이 둘이면 <strong>둘 다 제시</strong>한다. 모호하면 <strong>멈추고 묻는다</strong>. → 잘못된 가정으로 달리는 사고 차단.</div>
+    </div>
+
+    <div class="p-card p2">
+      <div class="p-head">
+        <span class="p-icon">✂️</span>
+        <span class="p-num">02</span>
+        <span class="p-name">Simplicity First</span>
+      </div>
+      <div class="p-kr">100줄로 될 일을 1,000줄로 짜지 마라</div>
+      <div class="p-desc">시키지 않은 기능·추상화·유연성·설정 가능성 <strong>금지</strong>. 200줄을 짰는데 50줄로 가능하면 <strong>다시 짠다</strong>.</div>
+    </div>
+
+    <div class="p-card p3">
+      <div class="p-head">
+        <span class="p-icon">🔪</span>
+        <span class="p-num">03</span>
+        <span class="p-name">Surgical Changes</span>
+      </div>
+      <div class="p-kr">부탁한 곳만 만져라</div>
+      <div class="p-desc">인접한 코드·주석·포맷 <strong>"개선" 금지</strong>. 망가지지 않은 걸 리팩터링 금지. 무관한 죽은 코드는 <strong>말만 하고 두기</strong>.</div>
+    </div>
+
+    <div class="p-card p4">
+      <div class="p-head">
+        <span class="p-icon">🎯</span>
+        <span class="p-num">04</span>
+        <span class="p-name">Goal-Driven Execution</span>
+      </div>
+      <div class="p-kr">검증 가능한 목표로 변환해라</div>
+      <div class="p-desc">"버그 고쳐줘" → <strong>"버그를 재현하는 테스트를 먼저 짜고, 통과시켜라"</strong>. 강한 성공 기준이 AI를 <strong>스스로 루프</strong>하게 한다.</div>
+    </div>
+  </div>
+
+  <div class="install">
+    <span class="install-label">설치 한 줄</span>
+    <code class="install-cmd">curl <span class="flag">-o</span> docs/rules/coding-guidelines.md <span class="url">https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md</span></code>
+  </div>
+
+  <p class="foot">CLAUDE.md 마지막 줄에 <em><code style="font-family:'JetBrains Mono',monospace;color:#fbbf24">docs/rules/coding-guidelines.md 참조</code></em> 한 줄만 남기면 — <strong>다음 세션부터 AI가 4원칙을 따라갑니다.</strong> markdown 한 장으로 행동 규율이 깔리는 거죠.
+    <span class="quote">"Don't tell it what to do, give it success criteria and watch it go." — Andrej Karpathy</span>
+  </p>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="09-docs.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">09b / 19</a></div>
+    <div class="nav-right"><a href="10-skills.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('09-docs.html');
+  if (e.key === 'ArrowRight') navigateTo('10-skills.html');
+});
+</script>
+</body>
+</html>
