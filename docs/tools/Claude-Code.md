@@ -1,7 +1,7 @@
 # Claude Code 명령어 (Slash Commands)
 
-> **2026-05-07 기준, Claude Code 2.x 계열 최신 버전.**
-> 사용자가 받은 1.0.73 기준 자료를 현재 버전으로 갱신한 결과. 강의 중 청중이 "그 명령어 아직 쓸 수 있나요?" 같은 질문을 했을 때 강의자가 즉시 답할 수 있도록 정리했다.
+> **2026-05-10 기준, Claude Code 2.x 계열 최신 버전.**
+> 강의 중 청중이 "그 명령어 아직 쓸 수 있나요?" 같은 질문을 했을 때 강의자가 즉시 답할 수 있도록 정리했다. 2026-03 시스템 프롬프트 유출 이후 일부 빌트인 도구가 추가 공개됐고, KAIROS 같은 미공개 데몬 모드가 존재하는 것도 같은 유출에서 드러났다 (자세히는 [Claude-Code 시스템프롬프트.md](Claude-Code-시스템프롬프트.md)).
 
 ## Claude Code란
 
@@ -209,9 +209,15 @@
 - [바이브코딩](../concepts/바이브코딩.md) — Claude Code는 바이브코딩의 대표 구현체
 - [왜 CLI인가](CLI를-쓰는-이유.md) — claude.ai 채팅 대신 CLI를 고른 이유
 - [CLAUDE.md](CLAUDE-md.md) — `/init`이 만들고 `/memory`가 편집하는 프로젝트 메모리 파일
+- [Claude Code 1층 하니스](Claude-Code-1층-하니스.md) — 시스템 프롬프트·권한 체크·도구 경계·JSON 스키마 4가지 *내장* 안전장치
+- [Claude Code 시스템프롬프트](Claude-Code-시스템프롬프트.md) — 2025·2026 두 차례 유출 정리
+- [Claude Code Hooks](Claude-Code-Hooks.md) — `/hooks`로 등록하는 12개 라이프사이클 이벤트
+- [Claude Code 헤드리스 모드](Claude-Code-Headless-모드.md) — `claude -p` 자동화 모드
+- [MCP](MCP.md) / [서브에이전트](서브에이전트.md) — `/mcp`·`/agents` 명령어가 다루는 두 확장 축
 - [하니스 엔지니어링](../techniques/하니스-엔지니어링.md) — `/agents`, `/sandbox`, `/hooks`가 LLM에 "도구를 안전하게 쥐여주는" 방식
 - [컨텍스트 엔지니어링](../techniques/컨텍스트-엔지니어링.md) — `/context`, `/compact`, `/memory`가 컨텍스트 관리의 실전 도구
 - [프롬프트 엔지니어링](../techniques/프롬프트-엔지니어링.md) — Slash Command 자체가 사전 정의된 프롬프트 템플릿
+- [문서 주도 개발](../techniques/문서-주도-개발.md) — `/init`이 깔아주는 *프로젝트 헌법* 패턴의 더 큰 그림
 
 ---
 

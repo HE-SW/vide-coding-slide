@@ -34,6 +34,45 @@
 - "이름도 GPT(Generative **Pre-trained Transformer**)에 들어 있다"는 점이 단서
 - 논문 발표 후 8명 저자 전원이 Google을 떠나 다른 회사에 합류하거나 창업 — AI 산업 전체에 흩어져 영향력 확산
 
+## 일상 비유 — 어텐션을 한 줄로
+
+**회의실에서 한 사람이 발언할 때, 청중은 *모든 사람의 표정을 동시에* 본다**. 누구의 표정이 가장 *정보가 많은지*에 따라 *주목하는 정도*가 달라진다. 이게 셀프 어텐션.
+
+또 다른 비유: 영화를 볼 때 *주인공의 한 마디*가 던져지면 — 우리 머릿속에서 *그 영화의 다른 장면들*이 동시에 떠올라 의미가 합쳐진다. 한 단어를 처리할 때 *문장 안의 모든 단어*를 동시에 참고하는 어텐션과 동일한 행동.
+
+## Before / After — RNN vs Transformer
+
+```text
+[BEFORE — RNN/LSTM (2010년대)]
+"오늘   날씨가   정말   [____]"
+ →      →       →       →    한 단어씩 순차 처리
+                            앞 단어를 잊을 위험
+
+[AFTER — Transformer (2017~)]
+"오늘   날씨가   정말   [____]"
+ ↕      ↕       ↕       ↕   모든 단어가 동시에 서로를 참조
+ ↕━━━━━↕━━━━━━↕━━━━━↕   GPU에서 완전 병렬 가능
+```
+
+## 라이브 시연 가능한 예시
+
+직접 어텐션을 시각화하는 게 어려우므로 *말로* 시연:
+
+```text
+[강의 중에 칠판/슬라이드에]
+문장: "그 사람이 들어왔을 때 그녀는 웃었다."
+
+질문: "그녀"는 누구인가?
+RNN: 앞 단어들을 거치며 흐릿해짐 → 자주 틀림
+Transformer: "그녀"가 *문장 전체*를 동시에 본다 →
+            "그 사람"과의 관계를 파악 → 정확
+```
+
+## 실제 사례 (2017-2026 영향)
+
+- **8명 저자의 흩어짐**: Vaswani(Essential AI), Shazeer(Character.AI → Google 복귀), Parmar(Adept), Uszkoreit(Inceptive), Jones(Cohere co-founder)·Gomez(Cohere CEO), Kaiser(OpenAI), Polosukhin(NEAR Protocol). **AI 산업 지도가 이 8명에서 시작된다는 농담이 있을 정도**.
+- **2026년 현재**: 거의 모든 상용 LLM이 Transformer 기반. 변형은 다양 (Mixture-of-Experts, State Space Models 등 일부 도전자가 등장하지만 주류 안 됨).
+
 ## 꼬리에 꼬리 (관련 개념)
 
 - [LLM](LLM.md) — Transformer 위에 만들어진 모든 거대 모델
