@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>v2/1강 — AI에게 일을 시켜보다 — 비주얼 자료</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex; justify-content: center;
+  padding: 60px 0 80px;
+}
+.container { width: 1280px; padding: 0 80px; }
+.page-title {
+  font-size: 42px; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 10px;
+}
+.page-subtitle { text-align: center; font-size: 16px; color: #8b949e; margin-bottom: 50px; }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.card {
+  display: flex; flex-direction: column; gap: 6px; padding: 18px 20px;
+  background: rgba(139,148,158,0.04);
+  border: 1px solid rgba(139,148,158,0.1);
+  border-radius: 12px; text-decoration: none;
+  transition: all 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139,148,158,0.25);
+  box-shadow: 0 8px 32px rgba(139, 148, 158, 0.12);
+}
+.card .card-num { font-size: 28px; font-weight: 900; color: #c9d1d9; }
+.card .card-title { font-size: 14px; font-weight: 700; color: #c9d1d9; line-height: 1.4; }
+.card .card-file { font-size: 11px; color: #484f58; font-family: 'Courier New', monospace; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="page-title">v2/1강 — AI에게 일을 시켜보다</h1>
+  <p class="page-subtitle">전체 48개 슬라이드 · 워크숍 130분 · 클릭 또는 ←/→ 키로 이동</p>
+  <div class="grid">
+    <a class="card" href="01-cover.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">01</span>
+      <span class="card-title">AI에게 일을 시켜보다</span>
+      <span class="card-file">01-cover.html</span>
+    </a>
+    <a class="card" href="02-pomodoro-live.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">02</span>
+      <span class="card-title">첫 라이브 — Pomodoro 타이머</span>
+      <span class="card-file">02-pomodoro-live.html</span>
+    </a>
+    <a class="card" href="03-part1-cover.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">03</span>
+      <span class="card-title">1부 — 바이브코딩이 뭔가</span>
+      <span class="card-file">03-part1-cover.html</span>
+    </a>
+    <a class="card" href="04-vibe-definition.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">04</span>
+      <span class="card-title">Karpathy의 트윗 한 줄</span>
+      <span class="card-file">04-vibe-definition.html</span>
+    </a>
+    <a class="card" href="05-vibe-1year.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">05</span>
+      <span class="card-title">1년 변천사</span>
+      <span class="card-file">05-vibe-1year.html</span>
+    </a>
+    <a class="card" href="06-vibe-analogy.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">06</span>
+      <span class="card-title">외국 친구한테 김치찌개 시키기</span>
+      <span class="card-file">06-vibe-analogy.html</span>
+    </a>
+    <a class="card" href="07-vibe-before-after.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">07</span>
+      <span class="card-title">비개발자가 도구 1개 만들 때</span>
+      <span class="card-file">07-vibe-before-after.html</span>
+    </a>
+    <a class="card" href="08-vibe-korea-cases.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">08</span>
+      <span class="card-title">한국 회사 3곳</span>
+      <span class="card-file">08-vibe-korea-cases.html</span>
+    </a>
+    <a class="card" href="09-part2-cover.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">09</span>
+      <span class="card-title">2부 — 단어 4개로 LLM의 정체</span>
+      <span class="card-file">09-part2-cover.html</span>
+    </a>
+    <a class="card" href="10-llm-definition.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">10</span>
+      <span class="card-title">LLM = 자동완성의 끝판왕</span>
+      <span class="card-file">10-llm-definition.html</span>
+    </a>
+    <a class="card" href="11-llm-before-after.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">11</span>
+      <span class="card-title">단순 자동완성 vs LLM</span>
+      <span class="card-file">11-llm-before-after.html</span>
+    </a>
+    <a class="card" href="12-llm-2026-lineup.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">12</span>
+      <span class="card-title">2026-05 라인업</span>
+      <span class="card-file">12-llm-2026-lineup.html</span>
+    </a>
+    <a class="card" href="13-tokenization-live.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">13</span>
+      <span class="card-title">토큰 — strawberry R 카운팅</span>
+      <span class="card-file">13-tokenization-live.html</span>
+    </a>
+    <a class="card" href="14-tokenization-analogy.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">14</span>
+      <span class="card-title">한자 통째로 외운 사람</span>
+      <span class="card-file">14-tokenization-analogy.html</span>
+    </a>
+    <a class="card" href="15-tokenization-before-after.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">15</span>
+      <span class="card-title">공백 한 칸이 정답률을 바꾼다</span>
+      <span class="card-file">15-tokenization-before-after.html</span>
+    </a>
+    <a class="card" href="16-hallucination-live.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">16</span>
+      <span class="card-title">환각 — 가짜 책 추천</span>
+      <span class="card-file">16-hallucination-live.html</span>
+    </a>
+    <a class="card" href="17-hallucination-analogy.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">17</span>
+      <span class="card-title">절대 모른다고 안 하는 신입</span>
+      <span class="card-file">17-hallucination-analogy.html</span>
+    </a>
+    <a class="card" href="18-hallucination-before-after.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">18</span>
+      <span class="card-title">*"모르면 모른다고 답해"*</span>
+      <span class="card-file">18-hallucination-before-after.html</span>
+    </a>
+    <a class="card" href="19-hallucination-mata-avianca.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">19</span>
+      <span class="card-title">Mata v. Avianca 사건</span>
+      <span class="card-file">19-hallucination-mata-avianca.html</span>
+    </a>
+    <a class="card" href="20-non-determinism-live.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">20</span>
+      <span class="card-title">비결정성 — 같은 prompt 3회</span>
+      <span class="card-file">20-non-determinism-live.html</span>
+    </a>
+    <a class="card" href="21-non-determinism-temperature.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">21</span>
+      <span class="card-title">온도 (temperature) — 우연의 폭</span>
+      <span class="card-file">21-non-determinism-temperature.html</span>
+    </a>
+    <a class="card" href="22-break.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">22</span>
+      <span class="card-title">휴식</span>
+      <span class="card-file">22-break.html</span>
+    </a>
+    <a class="card" href="23-sycophancy-live.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">23</span>
+      <span class="card-title">시코펀시 — 어원 + 라이브 (파리=도쿄)</span>
+      <span class="card-file">23-sycophancy-live.html</span>
+    </a>
+    <a class="card" href="24-sycophancy-analogy.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">24</span>
+      <span class="card-title">반박 못하는 신입</span>
+      <span class="card-file">24-sycophancy-analogy.html</span>
+    </a>
+    <a class="card" href="25-sycophancy-before-after.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">25</span>
+      <span class="card-title">반대 검증 prompt</span>
+      <span class="card-file">25-sycophancy-before-after.html</span>
+    </a>
+    <a class="card" href="26-sycophancy-gpt4o.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">26</span>
+      <span class="card-title">GPT-4o 48시간 롤백</span>
+      <span class="card-file">26-sycophancy-gpt4o.html</span>
+    </a>
+    <a class="card" href="27-cutoff-live.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">27</span>
+      <span class="card-title">지식 컷오프 — 어제 뉴스</span>
+      <span class="card-file">27-cutoff-live.html</span>
+    </a>
+    <a class="card" href="28-cutoff-before-after.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">28</span>
+      <span class="card-title">본문 첨부 후 묻기</span>
+      <span class="card-file">28-cutoff-before-after.html</span>
+    </a>
+    <a class="card" href="29-design-not-luck.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">29</span>
+      <span class="card-title">우연이 아니라 설계</span>
+      <span class="card-file">29-design-not-luck.html</span>
+    </a>
+    <a class="card" href="30-three-circles-overview.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">30</span>
+      <span class="card-title">3-동심원 — 셋 다 동시에</span>
+      <span class="card-file">30-three-circles-overview.html</span>
+    </a>
+    <a class="card" href="31-three-circles-lawyer.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">31</span>
+      <span class="card-title">변호사에게 사건 맡기기</span>
+      <span class="card-file">31-three-circles-lawyer.html</span>
+    </a>
+    <a class="card" href="32-three-circles-before-after.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">32</span>
+      <span class="card-title">코드 짜기 — 3단계</span>
+      <span class="card-file">32-three-circles-before-after.html</span>
+    </a>
+    <a class="card" href="33-three-circles-pomodoro.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">33</span>
+      <span class="card-title">같은 화면에 셋 다 박혀있다</span>
+      <span class="card-file">33-three-circles-pomodoro.html</span>
+    </a>
+    <a class="card" href="34-prompt-engineering-4patterns.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">34</span>
+      <span class="card-title">프롬프트 엔지니어링 — 4기법</span>
+      <span class="card-file">34-prompt-engineering-4patterns.html</span>
+    </a>
+    <a class="card" href="35-context-engineering-5elements.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">35</span>
+      <span class="card-title">컨텍스트 엔지니어링 — 5요소</span>
+      <span class="card-file">35-context-engineering-5elements.html</span>
+    </a>
+    <a class="card" href="36-lost-in-the-middle.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">36</span>
+      <span class="card-title">Lost in the Middle — 가운데에서 길을 잃다</span>
+      <span class="card-file">36-lost-in-the-middle.html</span>
+    </a>
+    <a class="card" href="37-harness-etymology.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">37</span>
+      <span class="card-title">하니스 — 어원부터</span>
+      <span class="card-file">37-harness-etymology.html</span>
+    </a>
+    <a class="card" href="38-model-cant-do-alone.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">38</span>
+      <span class="card-title">AI 혼자서는 안 되는 일 4가지</span>
+      <span class="card-file">38-model-cant-do-alone.html</span>
+    </a>
+    <a class="card" href="39-harness-4axis.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">39</span>
+      <span class="card-title">하니스 4축 — 도구·반복·검증·기억</span>
+      <span class="card-file">39-harness-4axis.html</span>
+    </a>
+    <a class="card" href="40-part7-cover.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">40</span>
+      <span class="card-title">7부 — 도구</span>
+      <span class="card-file">40-part7-cover.html</span>
+    </a>
+    <a class="card" href="41-what-is-claude-code.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">41</span>
+      <span class="card-title">Claude Code가 뭔가</span>
+      <span class="card-file">41-what-is-claude-code.html</span>
+    </a>
+    <a class="card" href="42-why-cli.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">42</span>
+      <span class="card-title">왜 까만 화면이어야 하나</span>
+      <span class="card-file">42-why-cli.html</span>
+    </a>
+    <a class="card" href="43-claude-md.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">43</span>
+      <span class="card-title">CLAUDE.md — 한 장의 사용설명서</span>
+      <span class="card-file">43-claude-md.html</span>
+    </a>
+    <a class="card" href="44-skill.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">44</span>
+      <span class="card-title">Skill — 자주 쓰는 작업에 이름표</span>
+      <span class="card-file">44-skill.html</span>
+    </a>
+    <a class="card" href="45-mcp-and-subagents.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">45</span>
+      <span class="card-title">MCP · 서브에이전트</span>
+      <span class="card-file">45-mcp-and-subagents.html</span>
+    </a>
+    <a class="card" href="46-live-round.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">46</span>
+      <span class="card-title">라이브 라운드 — 청중이 만들고 싶은 도구</span>
+      <span class="card-file">46-live-round.html</span>
+    </a>
+    <a class="card" href="47-closing-7words.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">47</span>
+      <span class="card-title">단어 7개 + 동심원 한 장</span>
+      <span class="card-file">47-closing-7words.html</span>
+    </a>
+    <a class="card" href="48-next-lecture.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">48</span>
+      <span class="card-title">다음 강의 예고 — 2강</span>
+      <span class="card-file">48-next-lecture.html</span>
+    </a>
+  </div>
+</div>
+<script>
+function navigateTo(url) {
+  document.body.classList.add('fade-out');
+  setTimeout(function() { window.location.href = url; }, 300);
+}
+</script>
+</body>
+</html>
