@@ -103,9 +103,14 @@ body {
   border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px;
 }
 .card.accent { background: rgba(124, 58, 237, 0.06); border-color: rgba(124, 58, 237, 0.3); }
-.card .card-num { font-size: 22px; font-weight: 900; color: #a78bfa; }
-.card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
-.card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
+.card {
+  display: grid !important; grid-template-columns: auto 1fr;
+  grid-template-areas: "num title" "body body";
+  column-gap: 16px; row-gap: 12px; align-items: center; padding: 24px !important;
+}
+.card .card-num { grid-area: num; font-size: 36px; font-weight: 900; color: #a78bfa; line-height: 1; }
+.card .card-title { grid-area: title; font-size: 22px; font-weight: 900; color: #ffffff; line-height: 1.3; }
+.card .card-body { grid-area: body; font-size: 15px; color: #c9d1d9; line-height: 1.7; }
 
 /* 동심원 */
 .three-circles {
@@ -176,29 +181,35 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 2 / 4 — 일상 비유</div>
-  <h1 class="title">한자 통째로 외운 사람</h1>
-  <div class="callout">한자 <strong style="font-size:24px;">花</strong>(꽃 화) 글자에 — *점이 몇 개* 있나요?</div>
-<div class="compare-2col">
-  <div class="comp-side comp-old">
-    <span class="comp-label">사람 — 한자를 통째로 외움</span>
-    <div class="comp-body" style="text-align:center; padding:8px 0;">
-      <div style="font-size:64px; font-weight:900; color:#e6edf3; margin-bottom:8px;">花</div>
-      <div style="font-size:13px; color:#8b949e;">글자=의미=발음 한 덩어리</div>
-      <div style="margin-top:14px; font-size:14px;">점 개수를 세려면<br>→ <strong style="color:#a78bfa;">글자를 분해</strong>해야 함</div>
+  <h1 class="title">확률을 끌어올리는<br>4가지 축</h1>
+  <p class="cover-sub" style="margin-bottom: 28px;">바이브 코딩 실무에서 좋은 결과를 만들어내는 네 가지 기둥.</p>
+
+  <div class="card-grid card-grid-2">
+    <div class="card accent">
+      <div class="card-num">①</div>
+      <div class="card-title">명확한 입력 <span style="font-size:14px;font-weight:500;color:#8b949e;">(Prompt)</span></div>
+      <div class="card-body">AI가 이해할 수 있도록 <strong style="color:#e6edf3;">원하는 결과를 구체적으로</strong> 설명하기.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-num">②</div>
+      <div class="card-title">충분한 맥락 <span style="font-size:14px;font-weight:500;color:#8b949e;">(Context)</span></div>
+      <div class="card-body">배경 정보, 목적, 대상, 상황을 <strong style="color:#e6edf3;">함께 제공</strong>하기.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-num">③</div>
+      <div class="card-title">반복적 개선 <span style="font-size:14px;font-weight:500;color:#8b949e;">(Iteration)</span></div>
+      <div class="card-body">한 번에 끝내지 않고 <strong style="color:#e6edf3;">수정과 피드백을 반복</strong>하기.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-num">④</div>
+      <div class="card-title">결과 검증 <span style="font-size:14px;font-weight:500;color:#8b949e;">(Validation)</span></div>
+      <div class="card-body">AI 결과를 그대로 믿지 않고 <strong style="color:#e6edf3;">직접 확인하고 검토</strong>하기.</div>
     </div>
   </div>
-  <div class="comp-arrow">≈</div>
-  <div class="comp-side comp-new">
-    <span class="comp-label">LLM — 단어를 토큰 단위로 외움</span>
-    <div class="comp-body" style="text-align:center; padding:8px 0;">
-      <div style="font-size:24px; font-weight:900; color:#e6edf3; margin-bottom:8px;"><span style="background:rgba(124,58,237,0.25); padding:4px 10px; border-radius:6px;">straw</span> + <span style="background:rgba(124,58,237,0.25); padding:4px 10px; border-radius:6px;">berry</span></div>
-      <div style="font-size:13px; color:#8b949e;">두 덩어리로 통째 외움</div>
-      <div style="margin-top:14px; font-size:14px;">R 개수는<br>→ <strong style="color:#a78bfa;">출제 범위 밖</strong> 질문</div>
-    </div>
+
+  <div class="callout" style="margin-top: 26px; padding: 18px 28px; font-size: 16px;">
+    바이브 코딩은 <strong>“완벽한 질문 한 번”</strong>이 아니라, 좋은 결과가 나올 확률을 <strong>반복적으로 높여가는 과정</strong>에 가깝다.
   </div>
-</div>
-<p class="note">덩어리로 외워서 쓰는 사람에게 *글자 단위* 를 묻는 일 — <strong>가본 적 없는 길</strong>이라 추측한다.</p>
 
 </div>
 

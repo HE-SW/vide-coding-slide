@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1280">
-<title>휴식 — v2/1강</title>
+<title>왜 점점 멍청해지는 걸까? — v2/1강</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,6 +107,41 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 좌우 split */
+.split-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1140px; align-items: start; }
+.explain { display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: #c9d1d9; line-height: 1.7; }
+.explain p { margin: 0; }
+.explain .bullets { display: flex; flex-direction: column; gap: 6px; padding-left: 4px; }
+.explain .accent-line { color: #a78bfa; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; border-radius: 6px; }
+.explain .good-line { color: #6ee7b7; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; border-radius: 6px; }
+
+/* 채팅 패널 */
+.chat-panel { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.chat-bubble { padding: 11px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6; color: #c9d1d9; white-space: pre-wrap; font-family: 'Noto Sans KR', sans-serif; }
+.chat-bubble .chat-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; display: block; text-transform: uppercase; }
+.chat-user { background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; }
+.chat-user .chat-label { color: #38bdf8; }
+.chat-ai { background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; }
+.chat-ai .chat-label { color: #a78bfa; }
+.chat-obs { background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; color: #c9d1d9; font-weight: 500; }
+.chat-obs .chat-label { color: #34d399; }
+.chat-bubble .hl { color: #a78bfa; font-weight: 700; }
+.chat-bubble .pass { color: #34d399; font-weight: 700; }
+.chat-bubble .fail { color: #ef4444; font-weight: 700; }
+
+/* 메커니즘 카드 */
+.mechanism-card { background: rgba(22, 27, 40, 0.85); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 12px; padding: 24px 26px; display: flex; flex-direction: column; gap: 16px; }
+.mech-num { font-size: 12px; font-weight: 700; letter-spacing: 3px; color: #a78bfa; }
+.mech-title { font-size: 24px; font-weight: 900; color: #ffffff; line-height: 1.3; margin-top: 4px; }
+.mech-subtitle { font-size: 13px; color: #8b949e; font-style: italic; margin-top: 2px; }
+.mech-desc { font-size: 14px; color: #c9d1d9; line-height: 1.7; }
+.mech-viz { background: rgba(10, 15, 26, 0.6); border-left: 3px solid rgba(124, 58, 237, 0.4); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; font-family: 'Courier New', monospace; font-size: 13px; }
+.viz-line { padding: 7px 12px; border-radius: 5px; color: #c9d1d9; }
+.viz-cut { color: #6e7681; text-decoration: line-through; background: rgba(110, 118, 129, 0.08); }
+.viz-good { background: rgba(52, 211, 153, 0.10); color: #6ee7b7; font-weight: 700; }
+.viz-dim { color: #6e7681; background: rgba(110, 118, 129, 0.05); }
+.viz-now { background: rgba(124, 58, 237, 0.15); color: #ffffff; font-weight: 700; border-left: 3px solid #7c3aed; padding-left: 9px; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,10 +211,44 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">BREAK · 10분</div>
-  <h1 class="title">휴식</h1>
-  <p class="subtitle">물·화장실·옆 사람과 <strong>방금 본 비결정성</strong> 결과 공유</p>
-<div class="callout">2부 끝 — 4단어로 LLM 정체 완료. 이어서 *시코펀시 + 컷오프* 두 단어 더.</div>
+  <h1 class="title">왜 점점<br>멍청해지는 걸까?</h1>
+  <p class="cover-sub" style="margin-bottom: 26px;">기분 탓이 아니라 실제 현상. <strong style="color:#a78bfa;">두 메커니즘</strong>이 함께 작동합니다.</p>
+
+  <div class="card-grid card-grid-2">
+    <div class="mechanism-card">
+      <div>
+        <div class="mech-num">MECHANISM 1</div>
+        <div class="mech-title">컨텍스트 창의 한계</div>
+        <div class="mech-subtitle">한 번에 볼 수 있는 분량의 끝</div>
+      </div>
+      <div class="mech-desc">대화가 길어지면 앞 내용이 잘려나갑니다. AI가 한 번에 들고 갈 수 있는 정보량 자체에 끝이 있어요.</div>
+      <div class="mech-viz">
+        <div class="viz-line viz-cut">[잘림] 처음 인사 · 자기소개…</div>
+        <div class="viz-line">이전 메시지 1</div>
+        <div class="viz-line">이전 메시지 2</div>
+        <div class="viz-line viz-now">현재 질문</div>
+      </div>
+    </div>
+
+    <div class="mechanism-card">
+      <div>
+        <div class="mech-num">MECHANISM 2</div>
+        <div class="mech-title">가운데를 무시하는 경향</div>
+        <div class="mech-subtitle">Lost in the Middle (Stanford NLP, 2023)</div>
+      </div>
+      <div class="mech-desc">잘리지 않은 정보라도 AI는 처음과 끝은 잘 보고, 가운데는 잘 안 봅니다.</div>
+      <div class="mech-viz">
+        <div class="viz-line viz-good">처음 · 잘 봄</div>
+        <div class="viz-line viz-dim">가운데 · 무시</div>
+        <div class="viz-line viz-dim">가운데 · 무시</div>
+        <div class="viz-line viz-good">끝 · 잘 봄</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 26px; padding: 18px 28px; font-size: 16px; max-width: 1040px;">
+    컨텍스트 엔지니어링은 <strong>"많이 넣기"</strong>가 아니라, <strong>잘 골라서, 잘 배치해서, 핵심을 끝에 한 번 더</strong>.
+  </div>
 
 </div>
 

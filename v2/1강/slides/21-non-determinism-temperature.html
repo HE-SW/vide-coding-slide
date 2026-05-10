@@ -107,6 +107,23 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 레이어 카드 */
+.layer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; max-width: 1180px; }
+.layer-card { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+.layer-head { display: flex; align-items: baseline; gap: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(124, 58, 237, 0.15); }
+.layer-num { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #a78bfa; }
+.layer-name { font-size: 18px; font-weight: 900; color: #ffffff; }
+.layer-def { font-size: 12px; color: #8b949e; margin-left: auto; }
+.mini-chat { display: flex; flex-direction: column; gap: 6px; }
+.mini-bubble { padding: 9px 12px; border-radius: 8px; font-size: 12.5px; line-height: 1.55; color: #c9d1d9; white-space: pre-wrap; }
+.mini-bubble .mb-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 4px; display: block; text-transform: uppercase; }
+.mini-user { background: rgba(56, 189, 248, 0.07); border-left: 3px solid #38bdf8; }
+.mini-user .mb-label { color: #38bdf8; }
+.mini-ai { background: rgba(124, 58, 237, 0.07); border-left: 3px solid #7c3aed; }
+.mini-ai .mb-label { color: #a78bfa; }
+.mini-bubble .hl { color: #a78bfa; font-weight: 700; }
+.mini-bubble .ctx { color: #fbbf24; font-weight: 700; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,20 +193,69 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 4 / 4 — Before/After + 비유</div>
-  <h1 class="title">온도 (temperature) — 우연의 폭</h1>
-  <div class="compare-2col">
-  <div class="comp-side comp-old">
-    <span class="comp-label">temperature = 0</span>
-    <div class="comp-body">매번 같은 답<br>→ *결정론적*<br>→ 분류·번역·정답 있는 작업</div>
+  <h1 class="title">컨텍스트 엔지니어링 <span style="font-size:24px;font-weight:500;color:#8b949e;-webkit-text-fill-color:#8b949e;">(Context Engineering)</span></h1>
+  <p class="cover-sub" style="margin-bottom: 22px;">"어떤 정보를 함께 줄 것인가" 설계. <strong style="color:#a78bfa;">4가지 레이어</strong>로 분해된다.</p>
+
+  <div class="layer-grid">
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">①</span>
+        <span class="layer-name">System Context</span>
+        <span class="layer-def">역할·톤·규칙 (CLAUDE.md 같은 파일로 영속화)</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">System · 📄 CLAUDE.md 자동 로드</span><span class="ctx"># 너는 친절한 고객센터 상담원.</span>
+<span class="ctx"># 항상 존댓말, 욕설 금지.</span>
+<span class="ctx"># 환불 정책: 14일 이내 미사용 제품만.</span></div>
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span>환불 문의입니다.</div>
+        <div class="mini-bubble mini-ai"><span class="mb-label">AI</span>고객님 안녕하세요. 환불 도와드리겠습니다. 주문 번호와 구매일 알려주실 수 있을까요?</div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">②</span>
+        <span class="layer-name">Conversation Context</span>
+        <span class="layer-def">대화 히스토리·메모리</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">User · Turn 1</span>저는 김민수, 마케팅 5년차예요.</div>
+        <div class="mini-bubble mini-user"><span class="mb-label">User · Turn N</span>우리 팀에 공지 메일 좀 써줘.</div>
+        <div class="mini-bubble mini-ai"><span class="mb-label">AI</span><span class="hl">마케팅 팀 김민수님</span>,
+아래는 5년차 톤으로 자연스럽게 작성한 공지 메일입니다…</div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">③</span>
+        <span class="layer-name">Knowledge Context</span>
+        <span class="layer-def">외부 문서·RAG</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span><span class="ctx">[첨부: 회사 휴가 규정 PDF]</span>
+사번 12345, 입사 3년차. 내 휴가 알려줘.</div>
+        <div class="mini-bubble mini-ai"><span class="mb-label">AI</span>연차 <strong>16일</strong> · 잔여 <strong>12일</strong>, 12-31 소진. (출처: §3.2)</div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">④</span>
+        <span class="layer-name">Tool & Env Context</span>
+        <span class="layer-def">도구 결과·환경 상태</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span>내일 14시 미팅 캘린더 추가하고, 비 오는지 봐줘.</div>
+        <div class="mini-bubble mini-ai"><span class="mb-label">AI · 도구 호출</span><span class="hl">[Calendar.add]</span> → 완료
+<span class="hl">[Weather.tomorrow]</span> → 흐림, 우산 챙기세요.</div>
+      </div>
+    </div>
   </div>
-  <div class="comp-arrow">~</div>
-  <div class="comp-side comp-new">
-    <span class="comp-label">temperature = 0.7 (Claude Code 기본)</span>
-    <div class="comp-body">매번 살짝 다른 답<br>→ *창의성·다양성*<br>→ 글쓰기·아이디어·코드 변형</div>
+
+  <div class="callout" style="margin-top: 20px; padding: 14px 24px; font-size: 14px; max-width: 1000px;">
+    프롬프트가 <strong>"질문을 잘 던지는 법"</strong>이라면, 컨텍스트는 <strong>"브리핑 자료를 잘 구성하는 법"</strong>.
   </div>
-</div>
-<div class="callout"><strong>일상 비유</strong> — 같은 요리사 · 같은 레시피 · 매일 미세하게 다른 음식. 재료 상태·손맛·화력. *완전히 같을 수 없는 게 정상*.</div>
 
 </div>
 

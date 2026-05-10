@@ -107,6 +107,21 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 층 시각 */
+.floor-stack { display: flex; flex-direction: column; gap: 0; width: 100%; max-width: 980px; margin: 20px 0; }
+.floor { padding: 22px 28px; border-radius: 12px; display: flex; flex-direction: column; gap: 8px; position: relative; }
+.floor.floor-2 { background: linear-gradient(180deg, rgba(56, 189, 248, 0.10) 0%, rgba(56, 189, 248, 0.04) 100%); border: 2px solid rgba(56, 189, 248, 0.4); margin-bottom: -2px; z-index: 2; }
+.floor.floor-1 { background: linear-gradient(180deg, rgba(124, 58, 237, 0.10) 0%, rgba(124, 58, 237, 0.04) 100%); border: 2px solid rgba(124, 58, 237, 0.35); }
+.floor-label { display: flex; align-items: baseline; gap: 12px; }
+.floor-num { font-size: 11px; font-weight: 700; letter-spacing: 3px; padding: 4px 12px; border-radius: 100px; }
+.floor.floor-2 .floor-num { background: rgba(56, 189, 248, 0.18); color: #38bdf8; }
+.floor.floor-1 .floor-num { background: rgba(124, 58, 237, 0.18); color: #a78bfa; }
+.floor-title { font-size: 20px; font-weight: 900; color: #ffffff; line-height: 1.3; }
+.floor-tagline { font-size: 14px; color: #c9d1d9; line-height: 1.55; }
+.floor-tagline strong { color: #ffffff; }
+.floor-items { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.floor-chip { padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; color: #c9d1d9; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.08); }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,23 +191,42 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">9부 · 마무리</div>
-  <h1 class="title">다음 강의 예고 — 2강</h1>
-  <p class="subtitle">하니스 세팅 — 이미 박혀 있는 1층 위에 내 프로젝트 2층 한 층 더 올리기</p>
-<div class="card-grid card-grid-2">
-  <div class="card accent">
-    <span class="card-num">2층 4가지</span>
-    <span class="card-title">CLAUDE.md / docs / skills / hooks</span>
-    <span class="card-body">한 층 올린다는 것 — 4종 markdown만 손봐도 충분</span>
+  <h1 class="title">2강 예고<br><span style="font-size:24px;font-weight:500;color:#8b949e;-webkit-text-fill-color:#8b949e;">하니스 세팅</span></h1>
+  <p class="cover-sub" style="margin-bottom: 18px;">오늘 본 동심원·4축은 <strong style="color:#a78bfa;">이미 도구 안에 박혀있는 1층</strong>. 2강은 그 위에 <strong style="color:#38bdf8;">내 프로젝트 2층</strong>을 한 층 더 올립니다.</p>
+
+  <div class="floor-stack">
+    <div class="floor floor-2">
+      <div class="floor-label">
+        <span class="floor-num">2층 · 2강</span>
+        <span class="floor-title">내 프로젝트 위에 한 층 더 올리기</span>
+      </div>
+      <div class="floor-tagline">한 프로젝트의 <strong>도메인·규칙·반복 작업·금지선</strong>을 도구가 알도록 영속화. 비개발자도 4종 마크다운만 손보면 충분.</div>
+      <div class="floor-items">
+        <span class="floor-chip">📄 CLAUDE.md</span>
+        <span class="floor-chip">📚 docs (PRD·ARCHITECTURE·ADR·UI)</span>
+        <span class="floor-chip">⚡ skills</span>
+        <span class="floor-chip">🪝 hooks</span>
+      </div>
+    </div>
+
+    <div class="floor floor-1">
+      <div class="floor-label">
+        <span class="floor-num">1층 · 오늘</span>
+        <span class="floor-title">이미 도구 안에 박혀있는 것</span>
+      </div>
+      <div class="floor-tagline">3 엔지니어링 + 4가지 축 + LLM 4가지 한계 이해. AI 도구가 *기본으로* 깔고 있는 토대.</div>
+      <div class="floor-items">
+        <span class="floor-chip">Prompt</span>
+        <span class="floor-chip">Context</span>
+        <span class="floor-chip">Harness</span>
+        <span class="floor-chip">①명확한 입력 ②충분한 맥락 ③반복적 개선 ④결과 검증</span>
+      </div>
+    </div>
   </div>
-  <div class="card accent">
-    <span class="card-num">클라이맥스</span>
-    <span class="card-title">claude -p 매커니즘</span>
-    <span class="card-body">CI/CD에 헤드리스 Claude 끼워넣기</span>
+
+  <div class="callout" style="margin-top: 22px; padding: 18px 28px; font-size: 16px; max-width: 1040px;">
+    감사합니다. <strong>오늘 1강 끝.</strong>
   </div>
-</div>
-<div class="callout">3강 = Dicom Viewer 만들기 (5단계 워크플로우 라이브)</div>
-<p class="note" style="margin-top:24px; color:#c9d1d9;">감사합니다 — 오늘 1강 끝.</p>
 
 </div>
 

@@ -107,6 +107,30 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 좌우 split */
+.split-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1140px; align-items: start; }
+.explain { display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: #c9d1d9; line-height: 1.7; }
+.explain p { margin: 0; }
+.explain .bullets { display: flex; flex-direction: column; gap: 6px; padding-left: 4px; }
+.explain .accent-line { color: #a78bfa; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; border-radius: 6px; }
+.explain .bad-line { color: #fca5a5; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; border-radius: 6px; }
+.explain .good-line { color: #6ee7b7; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; border-radius: 6px; }
+
+/* 채팅 패널 */
+.chat-panel { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.chat-bubble { padding: 11px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6; color: #c9d1d9; white-space: pre-wrap; font-family: 'Noto Sans KR', sans-serif; }
+.chat-bubble .chat-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; display: block; text-transform: uppercase; }
+.chat-user { background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; }
+.chat-user .chat-label { color: #38bdf8; }
+.chat-ai { background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; }
+.chat-ai .chat-label { color: #a78bfa; }
+.chat-warn { background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #fca5a5; font-weight: 500; }
+.chat-warn .chat-label { color: #ef4444; }
+.chat-obs { background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; color: #c9d1d9; font-weight: 500; }
+.chat-obs .chat-label { color: #34d399; }
+.chat-bubble .hl { color: #a78bfa; font-weight: 700; }
+.chat-bubble .bad { color: #fca5a5; font-weight: 700; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,20 +200,46 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 3 / 4 — Before / After</div>
-  <h1 class="title">*"모르면 모른다고 답해"*</h1>
-  <div class="compare-2col">
-  <div class="comp-side comp-old">
-    <span class="comp-label">Before</span>
-    <div class="comp-body" style="font-family:'Courier New',monospace;">"한국 변호사법 17조 알려줘"<br><br>→ <span style="color:#ef4444">존재하지 않는 조항을 그럴듯하게 작성</span></div>
+  <h1 class="title">④ 결과 검증 <span style="font-size:24px;font-weight:500;color:#8b949e;-webkit-text-fill-color:#8b949e;">(Validation)</span></h1>
+  <p class="cover-sub" style="margin-bottom: 26px;">AI는 <strong style="color:#a78bfa;">"그럴듯하게"</strong> 틀릴 수 있습니다.</p>
+
+  <div class="split-2col">
+    <div class="explain">
+      <p>AI의 가장 위험한 특징은, <strong>틀린 내용도 매우 자신감 있게</strong> 말한다는 점입니다.</p>
+      <p>처음 보면 이렇게 느껴집니다.</p>
+      <div class="bullets">
+        <div>· 맞는 말처럼 보이고</div>
+        <div>· 전문가처럼 느껴지고</div>
+        <div>· 그대로 사용하고 싶어진다</div>
+      </div>
+      <div class="bad-line">실제로는 정보가 틀리거나,<br>조건이 빠지거나, 없는 내용이 끼어 있을 수 있다.<br>특히 문서·보고서·이메일·발표 자료에선 더 위험.</div>
+      <p>그래서 사용 전 반드시 확인해야 할 4가지.</p>
+      <div class="bullets">
+        <div>· 사실이 맞는가</div>
+        <div>· 빠진 내용은 없는가</div>
+        <div>· 쓰면 안 될 표현이 들어갔는가</div>
+        <div>· 실제 의도와 맞는가</div>
+      </div>
+      <div class="good-line">AI를 잘 쓰는 사람 = 무조건 믿는 사람이 아니라,<br><strong>검토·수정·검증할 수 있는 사람.</strong></div>
+    </div>
+
+    <div class="chat-panel">
+      <div class="chat-bubble chat-user"><span class="chat-label">User</span>우리 회사 AI 세미나 공지 문구 만들어줘.
+<span style="color:#8b949e;">(세미나 일정과 주제만 전달함)</span></div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI</span>안녕하세요. 사내 AI 세미나를 다음과 같이 안내드립니다.
+
+본 세미나는 <span class="bad">전 직원 필수 참석</span>이며,
+참석자 전원에게 <span class="bad">교육 수료증</span>이 발급됩니다.
+많은 관심과 참여 부탁드립니다.</div>
+      <div class="chat-bubble chat-warn"><span class="chat-label">⚠️ 검증 시점</span>사용자가 말한 적 없는 내용이 들어감.
+· "필수 참석" — 안 했음
+· "수료증 발급" — 안 했음
+
+AI가 자연스럽게 <strong>추가해버린 부분</strong>.</div>
+      <div class="chat-bubble chat-obs"><span class="chat-label">관찰</span>문장이 자연스럽고 자신감 있어서 쉽게 믿고 그대로 쓰기 쉽다.
+사용 전, 사람 손으로 한 번 더 검토하는 단계가 반드시 필요하다.</div>
+    </div>
   </div>
-  <div class="comp-arrow">→</div>
-  <div class="comp-side comp-new">
-    <span class="comp-label">After — 거절 허용 명시</span>
-    <div class="comp-body" style="font-family:'Courier New',monospace;">"한국 변호사법 17조 알려줘.<br>모르면 *모른다*고 답해.<br>출처 URL 없으면 답하지 마."<br><br>→ <span style="color:#34d399">"확인된 출처가 없어 답하지 못합니다"</span></div>
-  </div>
-</div>
-<p class="note">한 줄 추가 — *"모르면 모른다"·"출처 없으면 답하지 마"*. 환각의 90%를 잡아내는 단순한 룰.</p>
 
 </div>
 

@@ -107,6 +107,30 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 좌우 split */
+.split-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1140px; align-items: start; }
+.explain { display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: #c9d1d9; line-height: 1.7; }
+.explain p { margin: 0; }
+.explain .bullets { display: flex; flex-direction: column; gap: 6px; padding-left: 4px; }
+.explain .accent-line { color: #a78bfa; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; border-radius: 6px; }
+.explain .bad-line { color: #fca5a5; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; border-radius: 6px; }
+.explain .good-line { color: #6ee7b7; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; border-radius: 6px; }
+
+/* 채팅 패널 */
+.chat-panel { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.chat-bubble { padding: 11px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6; color: #c9d1d9; white-space: pre-wrap; font-family: 'Noto Sans KR', sans-serif; }
+.chat-bubble .chat-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; display: block; text-transform: uppercase; }
+.chat-user-bad { background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; }
+.chat-user-bad .chat-label { color: #ef4444; }
+.chat-user-good { background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; }
+.chat-user-good .chat-label { color: #34d399; }
+.chat-ai { background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; }
+.chat-ai .chat-label { color: #a78bfa; }
+.chat-obs { background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; color: #c9d1d9; font-weight: 500; }
+.chat-obs .chat-label { color: #38bdf8; }
+.chat-bubble .hl { color: #a78bfa; font-weight: 700; }
+.chat-bubble .bad { color: #fca5a5; font-weight: 700; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,20 +200,33 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 2 / 4 — Before / After</div>
-  <h1 class="title">공백 한 칸이 정답률을 바꾼다</h1>
-  <div class="compare-2col">
-  <div class="comp-side comp-old">
-    <span class="comp-label">Before — 통덩어리</span>
-    <div class="comp-body" style="font-family:'Courier New',monospace;">"strawberry에 R 몇 개?"<br><br>→ <span style="color:#ef4444">2개 (틀림)</span></div>
+  <h1 class="title">① 명확한 입력 <span style="font-size:24px;font-weight:500;color:#8b949e;-webkit-text-fill-color:#8b949e;">(Prompt)</span></h1>
+  <p class="cover-sub" style="margin-bottom: 26px;">질문이 모호할수록 <strong style="color:#a78bfa;">AI도 모호하게</strong> 답합니다.</p>
+
+  <div class="split-2col">
+    <div class="explain">
+      <p>AI는 <strong>마음을 읽지 못합니다.</strong></p>
+      <p>"슬라이드 예쁘게 만들어줘"라고 하면 AI 입장에선 모르는 게 너무 많습니다.</p>
+      <div class="bullets">
+        <div>· 어떤 분위기인지</div>
+        <div>· 누가 보는 자료인지</div>
+        <div>· 어떤 목적의 발표인지</div>
+      </div>
+      <div class="bad-line">모호한 입력 → 모호한 결과.<br>AI가 알아서 채워 넣다 보니 의도와 멀어진다.</div>
+      <div class="good-line">구체적으로 설명할수록<br>원하는 결과에 가까워진다.</div>
+    </div>
+
+    <div class="chat-panel">
+      <div class="chat-bubble chat-user-bad"><span class="chat-label">❌ 나쁜 예시</span>슬라이드 예쁘게 만들어줘.</div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI</span>네! 깔끔하고 모던한 슬라이드 템플릿을 만들어 드릴게요. 어떤 주제와 분위기로 하실 건가요? 일단 일반적인 비즈니스 톤으로…
+<span class="bad">(의도와 다른 generic한 결과)</span></div>
+      <div class="chat-bubble chat-user-good"><span class="chat-label">⭕ 좋은 예시</span>비개발자 대상 AI 강의 슬라이드로,
+글자는 크게, 색상은 차분하게,
+발표용 흐름으로 정리해줘.</div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI</span>알겠습니다. <span class="hl">비개발자 청중·차분한 다크 톤·큰 글자·발표 흐름</span>으로 구성하겠습니다. 도입 → 개념 → 사례 → 마무리 4단계로…</div>
+      <div class="chat-bubble chat-obs"><span class="chat-label">관찰</span>같은 의도, 다른 표현 → 결과의 적중도가 달라진다.</div>
+    </div>
   </div>
-  <div class="comp-arrow">→</div>
-  <div class="comp-side comp-new">
-    <span class="comp-label">After — 글자 단위로 풀어 달라기</span>
-    <div class="comp-body" style="font-family:'Courier New',monospace;">"<code>s t r a w b e r r y</code>로 풀어서 R을 세줘"<br><br>→ <span style="color:#34d399">3개 (정답)</span></div>
-  </div>
-</div>
-<p class="note">같은 모델 · 같은 단어 — <strong>공백 한 칸</strong> 차이로 정답률이 달라진다. 이게 *프롬프트 엔지니어링*의 핵심 직관.</p>
 
 </div>
 

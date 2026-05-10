@@ -1,0 +1,146 @@
+{
+  "moved_at": "2026-05-11",
+  "reason": "v2/1강 슬라이드를 1-26 + 47-48 흐름으로 재구성한 뒤 중복 또는 2강 영역(Claude Code 제품)에 해당하는 슬라이드를 분리 보관. 발표 nav 사슬에서 제외.",
+  "original_nav_chain": "24 → 25 → 26 → 27..46 → 47 → 48",
+  "new_nav_chain": "24 → 25 → 26 → 47 → 48",
+  "note": "각 파일은 원본 그대로 보존. nav 링크는 옛 사슬(슬라이드 27↔28 등)을 가리키므로 trash 안에서만 의미. 차후 2강 작업 시 40-46을 자료로 가져다 쓸 수 있음.",
+  "categories": {
+    "duplicate": "현재 v2/1강 슬라이드(1-26, 47-48)에 이미 같은 내용이 더 다듬어진 형태로 들어있음",
+    "second_lecture": "Claude Code 제품 설명. 2강 영역으로 분리"
+  },
+  "files": [
+    {
+      "filename": "27-cutoff-live.html",
+      "title": "지식 컷오프 — 어제 뉴스",
+      "category": "duplicate",
+      "covered_in": "slide 12 (지식 컷오프 정의 + GPT-5.5 컷오프 + 웹 검색 보완)",
+      "description": "Claude 4.7 컷오프 시점 라이브 시연. 새 12번 슬라이드에서 GPT-5.5 (2025-12) 컷오프 + 웹 검색 보완 흐름으로 재구성됨."
+    },
+    {
+      "filename": "28-cutoff-before-after.html",
+      "title": "본문 첨부 후 묻기",
+      "category": "duplicate",
+      "covered_in": "slide 21 (Context Engineering ③ Knowledge Context)",
+      "description": "본문을 같이 주냐 차이로 결과가 달라지는 시연. 새 21번 컨텍스트 엔지니어링의 Knowledge Context 카드(휴가 규정 PDF 예시)에 통합."
+    },
+    {
+      "filename": "29-design-not-luck.html",
+      "title": "우연이 아니라 설계",
+      "category": "duplicate",
+      "covered_in": "slide 13 (좋은 결과는 우연이 아니라 설계)",
+      "description": "한계 본 후 '그래서 어떻게'로 전환하는 슬라이드. 새 13번에서 동일 메시지를 2-col 비교(X: 모델 자체 완벽화 / O: 확률 끌어올리기) + 마무리 콜아웃으로 재구성."
+    },
+    {
+      "filename": "30-three-circles-overview.html",
+      "title": "3-동심원 (프롬프트 ⊂ 컨텍스트 ⊂ 하니스)",
+      "category": "duplicate",
+      "covered_in": "slide 19 (세 가지 엔지니어링 가로 카드)",
+      "description": "동심원 시각으로 셋의 포함 관계 표현. 새 19번에서 가로 3-카드(분홍/보라/하늘 보더) + 화살표 디자인으로 대체."
+    },
+    {
+      "filename": "31-three-circles-lawyer.html",
+      "title": "변호사에게 사건 맡기기 (셋 다 필요)",
+      "category": "duplicate",
+      "covered_in": "slide 20 ① Role Prompting + slide 25 통합 시연",
+      "description": "변호사 비유로 셋이 동시에 필요함 강조. Role Prompting은 slide 20에 들어갔고, 동시 작동 시각은 slide 25 통합 시연으로 재활용."
+    },
+    {
+      "filename": "32-three-circles-before-after.html",
+      "title": "코드 짜기 3단계 (결과 신뢰도 누적)",
+      "category": "duplicate",
+      "covered_in": "slide 24 (하니스 엔지니어링) + slide 25 (통합 시연)",
+      "description": "한 단계씩 셋을 쌓을 때마다 결과 신뢰도 누적되는 시연. slide 24의 4 부품 카드와 slide 25 통합 시연으로 분산 흡수."
+    },
+    {
+      "filename": "33-three-circles-pomodoro.html",
+      "title": "같은 화면에 셋 다 박혀있다",
+      "category": "duplicate",
+      "covered_in": "slide 25 (셋이 동시에 박혀있다 — 통합 시연)",
+      "description": "셋이 한 화면에서 같이 일한 결과 보여주기. 새 slide 25로 디자인 새로 작성하며 메시지 흡수."
+    },
+    {
+      "filename": "34-prompt-engineering-4patterns.html",
+      "title": "프롬프트 엔지니어링 4기법",
+      "category": "duplicate",
+      "covered_in": "slide 20 (프롬프트 엔지니어링 — 4 패턴 카드)",
+      "description": "Zero/Few-shot, CoT, Role, Output Format 4기법. 새 20번에서 미니 채팅 예시 4-카드 그리드로 재구성."
+    },
+    {
+      "filename": "35-context-engineering-5elements.html",
+      "title": "컨텍스트 엔지니어링 5요소",
+      "category": "duplicate",
+      "covered_in": "slide 21 (컨텍스트 엔지니어링 — 4 레이어 카드)",
+      "description": "컨텍스트 구성 요소 deep dive. 새 21번에서 4 레이어(System+CLAUDE.md / Conversation / Knowledge / Tool & Env) 미니 채팅 예시 카드로 재구성."
+    },
+    {
+      "filename": "36-lost-in-the-middle.html",
+      "title": "Lost in the Middle (U자 성능 곡선)",
+      "category": "duplicate",
+      "covered_in": "slide 22 (왜 점점 멍청해지는가)",
+      "description": "긴 컨텍스트에서 가운데 무시 현상. 새 22번에서 Context Window 한계 + Lost in the Middle 두 메커니즘으로 카드화 (Stanford NLP 2023 인용 검증 완료)."
+    },
+    {
+      "filename": "37-harness-etymology.html",
+      "title": "하니스 어원 — 마구(馬具)",
+      "category": "duplicate",
+      "covered_in": "slide 24 (하니스 엔지니어링) 본문 어원 설명",
+      "description": "harness=말의 마구 어원 설명. 새 24번 cover-sub와 4 부품 카드 도입 문장에 흡수."
+    },
+    {
+      "filename": "38-model-cant-do-alone.html",
+      "title": "AI 혼자서는 안 되는 일 4가지",
+      "category": "duplicate",
+      "covered_in": "slide 24 (하니스 엔지니어링 — 4 부품 동기)",
+      "description": "실행 검증 불가/자기 답 재확인 불가/컨텍스트 망각/장기 흐름 못 끔. 새 24번 4 부품(Tools/Subagents/Eval Loop/Hooks)이 각각 이 문제들에 대응됨."
+    },
+    {
+      "filename": "39-harness-4axis.html",
+      "title": "하니스 4축 — 도구·반복·검증·기억",
+      "category": "duplicate",
+      "covered_in": "slide 24 (하니스 엔지니어링 — 4 부품 카드)",
+      "description": "하니스를 4축으로 압축. 새 24번에서 Anthropic 공식 5 부품 중 핵심 4개(Tools/Subagents/Eval Loop/Permissions+Hooks)로 카드화."
+    },
+    {
+      "filename": "40-part7-cover.html",
+      "title": "7부 — 도구",
+      "category": "second_lecture",
+      "description": "Claude Code 도구부 진입 표지. 2강 도입부로 재활용 가능."
+    },
+    {
+      "filename": "41-what-is-claude-code.html",
+      "title": "Claude Code가 뭔가",
+      "category": "second_lecture",
+      "description": "Claude Code 정의 (터미널 자연어 → AI가 파일 읽고/고치고/실행). 2강 첫 슬라이드에서 본격 도입 예정."
+    },
+    {
+      "filename": "42-why-cli.html",
+      "title": "왜 까만 화면(CLI)이어야 하나",
+      "category": "second_lecture",
+      "description": "5축 비교로 CLI가 하니스 4축에 맞는 무대인 이유. 2강에서 활용."
+    },
+    {
+      "filename": "43-claude-md.html",
+      "title": "CLAUDE.md — 한 장의 사용설명서",
+      "category": "second_lecture",
+      "description": "매 세션 자동 로드되는 팀 룰북. 2강의 2층 4가지 중 하나로 deep dive."
+    },
+    {
+      "filename": "44-skill.html",
+      "title": "Skill — 자주 쓰는 작업 이름표",
+      "category": "second_lecture",
+      "description": "Skill 시스템 (템플릿 라이브러리). 2강 2층 4가지 중 하나."
+    },
+    {
+      "filename": "45-mcp-and-subagents.html",
+      "title": "MCP · 서브에이전트 — AI 통합의 USB-C",
+      "category": "second_lecture",
+      "description": "MCP 프로토콜과 서브에이전트 위임. 2강 고급 deep dive 후보."
+    },
+    {
+      "filename": "46-live-round.html",
+      "title": "라이브 라운드 — 청중이 만들고 싶은 도구",
+      "category": "second_lecture",
+      "description": "전 청중 동시 입력 → 50개의 다른 결과 → 토론. 2강 마무리 라이브 세션 후보."
+    }
+  ]
+}

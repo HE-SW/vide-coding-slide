@@ -107,6 +107,46 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 좌우 split */
+.split-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1140px; align-items: start; }
+.explain { display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: #c9d1d9; line-height: 1.7; }
+.explain p { margin: 0; }
+.explain .bullets { display: flex; flex-direction: column; gap: 6px; padding-left: 4px; }
+.explain .accent-line { color: #a78bfa; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; border-radius: 6px; }
+.explain .good-line { color: #6ee7b7; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; border-radius: 6px; }
+
+/* 채팅 패널 */
+.chat-panel { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.chat-bubble { padding: 11px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6; color: #c9d1d9; white-space: pre-wrap; font-family: 'Noto Sans KR', sans-serif; }
+.chat-bubble .chat-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; display: block; text-transform: uppercase; }
+.chat-user-bad { background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; }
+.chat-user-bad .chat-label { color: #ef4444; }
+.chat-user-good { background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; }
+.chat-user-good .chat-label { color: #34d399; }
+.chat-ai { background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; }
+.chat-ai .chat-label { color: #a78bfa; }
+.chat-obs { background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; color: #c9d1d9; font-weight: 500; }
+.chat-obs .chat-label { color: #38bdf8; }
+.chat-bubble .hl { color: #a78bfa; font-weight: 700; }
+.chat-bubble .bad { color: #fca5a5; font-weight: 700; }
+
+/* 레이어 카드 (4개 패턴) */
+.layer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; max-width: 1180px; }
+.layer-card { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+.layer-head { display: flex; align-items: baseline; gap: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(124, 58, 237, 0.15); }
+.layer-num { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #a78bfa; }
+.layer-name { font-size: 18px; font-weight: 900; color: #ffffff; }
+.layer-def { font-size: 12px; color: #8b949e; margin-left: auto; }
+.mini-chat { display: flex; flex-direction: column; gap: 6px; }
+.mini-bubble { padding: 9px 12px; border-radius: 8px; font-size: 12.5px; line-height: 1.55; color: #c9d1d9; white-space: pre-wrap; }
+.mini-bubble .mb-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 4px; display: block; text-transform: uppercase; }
+.mini-user { background: rgba(56, 189, 248, 0.07); border-left: 3px solid #38bdf8; }
+.mini-user .mb-label { color: #38bdf8; }
+.mini-ai { background: rgba(124, 58, 237, 0.07); border-left: 3px solid #7c3aed; }
+.mini-ai .mb-label { color: #a78bfa; }
+.mini-bubble .hl { color: #a78bfa; font-weight: 700; }
+.mini-bubble .ctx { color: #fbbf24; font-weight: 700; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,18 +216,77 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 4 / 4 — 라이브 (함께 입력 #4)</div>
-  <h1 class="title">비결정성 — 같은 prompt 3회</h1>
-  <div class="prompt-box">
-  <div class="prompt-tag">함께 입력 #4 — 같은 한 줄을 3번 반복</div>
-  <div><span class="prompt-arrow">&gt;</span> 비 오는 날 카페에 앉아 있는 30대 여성을 한 문단으로 묘사해줘</div>
-</div>
-<div class="card-grid card-grid-3">
-  <div class="card"><span class="card-num">1회</span><span class="card-body">창가 자리, 따뜻한 라떼, 노트북…</span></div>
-  <div class="card"><span class="card-num">2회</span><span class="card-body">우산 접은 채 들어와, 책 한 권…</span></div>
-  <div class="card"><span class="card-num">3회</span><span class="card-body">통화 중인 옆모습, 비 소리…</span></div>
-</div>
-<p class="note">같은 모델 · 같은 한 줄 · 다른 답. <strong>옆 사람과 비교</strong>해보세요 — 50명 = 50개의 카페.</p>
+  <h1 class="title">프롬프트 엔지니어링 <span style="font-size:24px;font-weight:500;color:#8b949e;-webkit-text-fill-color:#8b949e;">(Prompt Engineering)</span></h1>
+  <p class="cover-sub" style="margin-bottom: 22px;">"무엇을, 어떻게" 요청할 것인가. <strong style="color:#a78bfa;">4가지 핵심 패턴</strong>으로 정리.</p>
+
+  <div class="layer-grid">
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">①</span>
+        <span class="layer-name">Role Prompting</span>
+        <span class="layer-def">역할 부여</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span><span class="ctx">너는 시니어 IT 노동법 변호사야.</span>
+이 채용계약서에서 직원에게 불리한 조항만 위험 등급(상/중/하)과 함께 정리해줘.</div>
+        <div class="mini-bubble mini-ai"><span class="mb-label">AI</span>· (상) 비밀유지 — 퇴사 후 5년은 과도
+· (중) 야근수당 — 포괄임금제 명시 누락
+· (하) 경업금지 — 지역·기간 제한 불명확</div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">②</span>
+        <span class="layer-name">Chain-of-Thought</span>
+        <span class="layer-def">단계별로 생각</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span>사과 5개를 3명에게 나눠주면 한 명당 몇 개?
+<span class="ctx">단계별로 생각해서 답해줘.</span></div>
+        <div class="mini-bubble mini-ai"><span class="mb-label">AI</span>1) 5 ÷ 3 = 1, 나머지 2
+2) 한 사람당 1개 받고 2개 남음
+<span class="hl">답: 한 명당 1개, 2개 남음</span></div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">③</span>
+        <span class="layer-name">Few-shot</span>
+        <span class="layer-def">예시로 양식 잡기</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span><span class="ctx">이 형식으로 분류해줘.</span>
+"오늘 하늘이 맑다"  → 긍정 / 단어:맑다
+"시험 또 망쳤어"    → 부정 / 단어:망쳤어
+
+이제: "비 오는데 따뜻하다"</div>
+        <div class="mini-bubble mini-ai"><span class="mb-label">AI</span>긍정 / 단어:따뜻하다</div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">④</span>
+        <span class="layer-name">Output Format</span>
+        <span class="layer-def">양식 지정</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span>이 보고서 핵심을 <span class="ctx">표로</span> 정리해줘.
+열: 항목 / 요약 / 중요도(상중하)</div>
+        <div class="mini-bubble mini-ai"><span class="mb-label">AI</span>| 항목 | 요약 | 중요도 |
+|---|---|---|
+| 매출 | 전월비 +12% | 상 |
+| 비용 | 인건비 +5% | 중 |
+| 리스크 | 보안 검토 지연 | 상 |</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 18px; padding: 14px 24px; font-size: 14px; max-width: 1000px;">
+    같은 모델에서도 패턴 한 줄 차이로 결과가 <strong>전문가급으로 좁아진다</strong>.
+  </div>
 
 </div>
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1280">
-<title>단어 7개 + 동심원 한 장 — v2/1강</title>
+<title>1강 압축 한 장 — v2/1강</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,6 +107,35 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 요약 그리드 */
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1180px; }
+.summary-col { display: flex; flex-direction: column; gap: 14px; }
+.summary-head { font-size: 12px; font-weight: 700; letter-spacing: 3px; color: #a78bfa; text-transform: uppercase; margin-bottom: 4px; }
+.kw-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.kw { padding: 8px 14px; border: 1px solid rgba(124, 58, 237, 0.3); border-radius: 100px; background: rgba(124, 58, 237, 0.06); font-size: 14px; color: #c9d1d9; font-weight: 500; }
+.kw strong { color: #a78bfa; font-weight: 700; }
+.kw-section { font-size: 11px; color: #8b949e; font-weight: 700; letter-spacing: 1.5px; margin: 8px 0 4px; text-transform: uppercase; }
+
+/* mini 3-카드 (slide 19 톤 작게) */
+.mini-stage-grid { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 8px; align-items: stretch; width: 100%; margin-top: 4px; }
+.mini-stage-card { background: rgba(15, 20, 35, 0.5); border: 2px solid; border-radius: 12px; padding: 14px 12px; display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; }
+.mini-stage-card.s-prompt { border-color: rgba(236, 72, 153, 0.35); }
+.mini-stage-card.s-context { border-color: rgba(167, 139, 250, 0.45); }
+.mini-stage-card.s-harness { border-color: rgba(56, 189, 248, 0.35); }
+.ms-num { font-size: 10px; font-weight: 700; letter-spacing: 2px; }
+.mini-stage-card.s-prompt .ms-num { color: #f9a8d4; }
+.mini-stage-card.s-context .ms-num { color: #a78bfa; }
+.mini-stage-card.s-harness .ms-num { color: #38bdf8; }
+.ms-name { font-size: 14px; font-weight: 900; color: #ffffff; line-height: 1.2; }
+.ms-sub { font-size: 11px; color: #8b949e; }
+.ms-arrow { color: #6e7681; font-size: 16px; align-self: center; }
+
+/* 4축 작은 row */
+.axis-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.axis-item { padding: 8px 12px; background: rgba(22, 27, 40, 0.7); border-radius: 8px; font-size: 12px; color: #c9d1d9; flex: 1; min-width: 0; text-align: center; }
+.axis-item strong { display: block; color: #ffffff; font-size: 13px; margin-bottom: 2px; }
+.axis-item .axis-num { color: #a78bfa; font-weight: 900; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,25 +205,75 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">9부 · 마무리</div>
-  <h1 class="title">단어 7개 + 동심원 한 장</h1>
-  <div class="card-grid card-grid-4" style="max-width:1100px;">
-  <div class="card"><span class="card-num">1</span><span class="card-title">바이브코딩</span></div>
-  <div class="card"><span class="card-num">2</span><span class="card-title">LLM</span></div>
-  <div class="card"><span class="card-num">3</span><span class="card-title">토큰</span></div>
-  <div class="card"><span class="card-num">4</span><span class="card-title">환각</span></div>
-  <div class="card"><span class="card-num">5</span><span class="card-title">비결정성</span></div>
-  <div class="card"><span class="card-num">6</span><span class="card-title">시코펀시</span></div>
-  <div class="card"><span class="card-num">7</span><span class="card-title">지식 컷오프</span></div>
-  <div class="card accent"><span class="card-num" style="color:#38bdf8;">+</span><span class="card-title">3-동심원</span><span class="card-body">프롬프트 ⊂ 컨텍스트 ⊂ 하니스</span></div>
-</div>
-<div class="callout">단어 7개 + 동심원 한 장 — 이 한 슬라이드가 <strong>오늘 130분의 압축</strong></div>
+  <h1 class="title">1강 압축<br>한 장</h1>
+  <p class="cover-sub" style="margin-bottom: 22px;">오늘 본 단어와 그림을 들고 갑니다.</p>
+
+  <div class="summary-grid">
+    <div class="summary-col">
+      <div class="summary-head">단어</div>
+      <div class="kw-section">바이브 코딩의 정의</div>
+      <div class="kw-list">
+        <span class="kw"><strong>바이브 코딩</strong></span>
+        <span class="kw"><strong>LLM</strong></span>
+      </div>
+
+      <div class="kw-section">LLM의 4가지 한계</div>
+      <div class="kw-list">
+        <span class="kw"><strong>환각</strong></span>
+        <span class="kw"><strong>비결정성</strong></span>
+        <span class="kw"><strong>지식 컷오프</strong></span>
+        <span class="kw"><strong>Sycophancy</strong></span>
+      </div>
+
+      <div class="kw-section">실무 3 엔지니어링</div>
+      <div class="kw-list">
+        <span class="kw"><strong>프롬프트</strong> 엔지니어링</span>
+        <span class="kw"><strong>컨텍스트</strong> 엔지니어링</span>
+        <span class="kw"><strong>하니스</strong> 엔지니어링</span>
+      </div>
+    </div>
+
+    <div class="summary-col">
+      <div class="summary-head">그림</div>
+      <div class="mini-stage-grid">
+        <div class="mini-stage-card s-prompt">
+          <div class="ms-num">01 · PROMPT</div>
+          <div class="ms-name">프롬프트<br>엔지니어링</div>
+          <div class="ms-sub">무엇을 어떻게</div>
+        </div>
+        <div class="ms-arrow">→</div>
+        <div class="mini-stage-card s-context">
+          <div class="ms-num">02 · CONTEXT</div>
+          <div class="ms-name">컨텍스트<br>엔지니어링</div>
+          <div class="ms-sub">어떤 정보를</div>
+        </div>
+        <div class="ms-arrow">→</div>
+        <div class="mini-stage-card s-harness">
+          <div class="ms-num">03 · HARNESS</div>
+          <div class="ms-name">하니스<br>엔지니어링</div>
+          <div class="ms-sub">반복·검증·도구</div>
+        </div>
+      </div>
+
+      <div class="summary-head" style="margin-top: 8px;">확률을 끌어올리는 4가지 축</div>
+      <div class="axis-row">
+        <div class="axis-item"><span class="axis-num">①</span> <strong>명확한 입력</strong>Prompt</div>
+        <div class="axis-item"><span class="axis-num">②</span> <strong>충분한 맥락</strong>Context</div>
+        <div class="axis-item"><span class="axis-num">③</span> <strong>반복적 개선</strong>Iteration</div>
+        <div class="axis-item"><span class="axis-num">④</span> <strong>결과 검증</strong>Validation</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 26px; padding: 18px 32px; font-size: 16px; max-width: 1040px;">
+    좋은 결과는 우연이 아니라 <strong>설계</strong>. 확률을 <strong>반복적으로 끌어올리는 일</strong>이 바이브 코딩의 본질.
+  </div>
 
 </div>
 
 <nav class="slide-nav">
   <div class="slide-nav-inner">
-    <div class="nav-left"><a href="46-live-round.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-left"><a href="26-sycophancy-gpt4o.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
     <div class="nav-center"><a href="index.html">47 / 48</a></div>
     <div class="nav-right"><a href="48-next-lecture.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
   </div>
@@ -206,7 +285,7 @@ function navigateTo(url) {
   setTimeout(function() { window.location.href = url; }, 300);
 }
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowLeft') navigateTo('46-live-round.html');
+  if (e.key === 'ArrowLeft') navigateTo('26-sycophancy-gpt4o.html');
   if (e.key === 'ArrowRight') navigateTo('48-next-lecture.html');
 });
 </script>

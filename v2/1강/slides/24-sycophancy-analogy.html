@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1280">
-<title>반박 못하는 신입 — v2/1강</title>
+<title>하니스 엔지니어링 — v2/1강</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,6 +107,49 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 좌우 split */
+.split-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1140px; align-items: start; }
+.explain { display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: #c9d1d9; line-height: 1.7; }
+.explain p { margin: 0; }
+.explain .bullets { display: flex; flex-direction: column; gap: 6px; padding-left: 4px; }
+.explain .accent-line { color: #a78bfa; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; border-radius: 6px; }
+.explain .good-line { color: #6ee7b7; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; border-radius: 6px; }
+
+/* 채팅 패널 */
+.chat-panel { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.chat-bubble { padding: 11px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6; color: #c9d1d9; white-space: pre-wrap; font-family: 'Noto Sans KR', sans-serif; }
+.chat-bubble .chat-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; display: block; text-transform: uppercase; }
+.chat-user { background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; }
+.chat-user .chat-label { color: #38bdf8; }
+.chat-ai { background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; }
+.chat-ai .chat-label { color: #a78bfa; }
+.chat-obs { background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; color: #c9d1d9; font-weight: 500; }
+.chat-obs .chat-label { color: #34d399; }
+.chat-bubble .hl { color: #a78bfa; font-weight: 700; }
+.chat-bubble .pass { color: #34d399; font-weight: 700; }
+.chat-bubble .fail { color: #ef4444; font-weight: 700; }
+
+/* 레이어 카드 (4개 부품) */
+.layer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; max-width: 1180px; }
+.layer-card { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+.layer-head { display: flex; align-items: baseline; gap: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(124, 58, 237, 0.15); }
+.layer-num { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #a78bfa; }
+.layer-name { font-size: 18px; font-weight: 900; color: #ffffff; }
+.layer-def { font-size: 12px; color: #8b949e; margin-left: auto; }
+.mini-chat { display: flex; flex-direction: column; gap: 6px; }
+.mini-bubble { padding: 9px 12px; border-radius: 8px; font-size: 12.5px; line-height: 1.55; color: #c9d1d9; white-space: pre-wrap; }
+.mini-bubble .mb-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 4px; display: block; text-transform: uppercase; }
+.mini-user { background: rgba(56, 189, 248, 0.07); border-left: 3px solid #38bdf8; }
+.mini-user .mb-label { color: #38bdf8; }
+.mini-ai { background: rgba(124, 58, 237, 0.07); border-left: 3px solid #7c3aed; }
+.mini-ai .mb-label { color: #a78bfa; }
+.mini-warn { background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #fca5a5; font-weight: 500; }
+.mini-warn .mb-label { color: #ef4444; }
+.mini-bubble .hl { color: #a78bfa; font-weight: 700; }
+.mini-bubble .ctx { color: #fbbf24; font-weight: 700; }
+.mini-bubble .pass { color: #34d399; font-weight: 700; }
+.mini-bubble .fail { color: #ef4444; font-weight: 700; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,19 +219,72 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 5 / 7 — 일상 비유</div>
-  <h1 class="title">반박 못하는 신입</h1>
-  <div class="callout">상사가 회의에서 *틀린 답*을 자신만만하게 말할 때 — *"그건 좀…"* 못 하는 신입.</div>
-<div class="code-box">상사:  "이번 분기 매출은 작년보다 떨어졌지?"
-       <span class="dim">(실제로는 12% 성장)</span>
+  <h1 class="title">하니스 엔지니어링 <span style="font-size:24px;font-weight:500;color:#8b949e;-webkit-text-fill-color:#8b949e;">(Harness Engineering)</span></h1>
+  <p class="cover-sub" style="margin-bottom: 22px;">AI 본체가 아닌 <strong style="color:#a78bfa;">주변 작업 환경 전체</strong>를 설계. 모델이 혼자 못 하는 일을 도구·분업·검증·안전장치로 채운다.</p>
 
-신입(시코펀시):  "네... 그 부분은 좀 아쉬웠죠..."
-                <span class="bad">↑ 사실 확인 없이 상사 톤에 맞춤</span>
+  <div class="layer-grid">
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">①</span>
+        <span class="layer-name">Tools</span>
+        <span class="layer-def">AI의 "손" — 외부 세계와 닿기</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span>이번 주 답장 필요한 이메일 정리하고, 일정 비는 시간에 회신 시간 잡아줘.</div>
+        <div class="mini-bubble mini-ai"><span class="mb-label">AI · 도구 호출</span><span class="hl">[Gmail.search]</span> 답장 대기 7건
+<span class="hl">[Calendar.read]</span> 오늘 빈 시간: 14-16시
+<span class="hl">[Calendar.add]</span> "이메일 답장 시간" 블록 생성</div>
+      </div>
+    </div>
 
-LLM 기본값  :  <span class="hl">이 신입</span>
-              사용자가 강하게 주장하면 → *동조*가 쉬운 길
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">②</span>
+        <span class="layer-name">Subagents</span>
+        <span class="layer-def">분업 — 큰 일을 작은 일꾼들에게</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span>신제품 출시 보고서 만들어줘.</div>
+        <div class="mini-bubble mini-ai"><span class="mb-label">AI · 위임</span><span class="hl">[Researcher]</span> 시장 데이터 수집
+<span class="hl">[Analyst]</span> 경쟁사 5곳 비교
+<span class="hl">[Writer]</span> 결과 종합·초안 작성
 
-대응  :  반대 검증을 *명시적으로* 시킨다 (다음 슬라이드)</div>
+→ 세 결과를 묶어 최종 보고서 생성</div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">③</span>
+        <span class="layer-name">Evaluation Loop</span>
+        <span class="layer-def">자기 검증 — 답을 자기가 채점·재시도</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span>이 보고서 사실 확인하고 틀린 부분 고쳐줘.</div>
+        <div class="mini-bubble mini-ai"><span class="mb-label">AI · 루프</span>1. 검증: 매출 수치 → <span class="fail">출처 불일치</span>
+2. 수정: 원본 자료의 정확한 값으로 교체
+3. 재검토: <span class="pass">PASS</span></div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-head">
+        <span class="layer-num">④</span>
+        <span class="layer-name">Permissions & Hooks</span>
+        <span class="layer-def">안전장치 — 위험한 작업 사전 차단</span>
+      </div>
+      <div class="mini-chat">
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span>이 폴더 안 파일 다 지워줘.</div>
+        <div class="mini-bubble mini-warn"><span class="mb-label">⚠️ Hook 차단</span><span class="hl">/important/</span> 폴더는 사전 차단 대상입니다.
+정말 진행하시려면 명시적 확인이 필요합니다.</div>
+        <div class="mini-bubble mini-user"><span class="mb-label">User</span>취소합니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 18px; padding: 14px 24px; font-size: 14px; max-width: 1040px;">
+    <strong>Anthropic 정의</strong>: 모델이 아닌 <strong>나머지 전부</strong>가 하니스. 4가지 축의 ③ 반복 + ④ 검증이 자동화된 모습.
+  </div>
 
 </div>
 

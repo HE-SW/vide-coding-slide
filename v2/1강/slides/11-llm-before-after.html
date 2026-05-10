@@ -107,6 +107,29 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 좌우 split */
+.split-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1140px; align-items: start; }
+.explain { display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: #c9d1d9; line-height: 1.7; }
+.explain p { margin: 0; }
+.explain .bullets { display: flex; flex-direction: column; gap: 6px; padding-left: 4px; }
+.explain .accent-line { color: #a78bfa; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; border-radius: 6px; }
+.explain .warn-line { color: #fca5a5; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; border-radius: 6px; }
+
+/* 채팅 패널 */
+.chat-panel { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.chat-bubble { padding: 12px 14px; border-radius: 10px; font-size: 12.5px; line-height: 1.65; color: #c9d1d9; font-family: 'Courier New', monospace; white-space: pre-wrap; }
+.chat-bubble .chat-label { font-family: 'Noto Sans KR', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; display: block; text-transform: uppercase; }
+.chat-user { background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; }
+.chat-user .chat-label { color: #38bdf8; }
+.chat-ai { background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; }
+.chat-ai .chat-label { color: #a78bfa; }
+.chat-warn { background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #fca5a5; font-family: 'Noto Sans KR', sans-serif; font-size: 13px; font-weight: 500; }
+.chat-warn .chat-label { color: #ef4444; }
+.chat-obs { background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; color: #6ee7b7; font-family: 'Noto Sans KR', sans-serif; font-size: 13px; font-weight: 500; }
+.chat-obs .chat-label { color: #34d399; }
+.chat-bubble .bad { color: #fca5a5; font-weight: 700; }
+.chat-bubble .hl { color: #a78bfa; font-weight: 700; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,20 +199,38 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 1 / 4 — Before / After</div>
-  <h1 class="title">단순 자동완성 vs LLM</h1>
-  <div class="compare-2col">
-  <div class="comp-side comp-old">
-    <span class="comp-label">스마트폰 자동완성</span>
-    <div class="comp-body">"오늘 점심은…"<br><br>→ 추천: <code>먹었어</code> / <code>뭐</code> / <code>괜찮아</code><br><br><strong>다음 한 단어</strong>까지</div>
+  <h1 class="title">비결정성 <span style="font-size:24px;font-weight:500;color:#8b949e;-webkit-text-fill-color:#8b949e;">(Non-Determinism)</span></h1>
+  <p class="cover-sub" style="margin-bottom: 26px;">같은 질문을 두 번 → <strong style="color:#a78bfa;">매번 답이 조금씩 다릅니다.</strong></p>
+
+  <div class="split-2col">
+    <div class="explain">
+      <p>같은 입력, 다른 결과.</p>
+      <div class="bullets">
+        <div>· 코드 구조가 달라진다</div>
+        <div>· 사용하는 함수가 바뀐다</div>
+        <div>· 설명 방식이 달라진다</div>
+      </div>
+      <div class="accent-line">동일 입력 = 동일 결과,<br><strong>보장하지 않는다.</strong></div>
+      <div class="warn-line">→ 방향을 명확히 설명하고, 반복 수정하고,<br><strong>결과를 비교</strong>하며 조정해야 한다.</div>
+    </div>
+
+    <div class="chat-panel">
+      <div class="chat-bubble chat-user"><span class="chat-label">User</span>1부터 N까지 더하는 함수 만들어줘 (Python)</div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI · 1차 답변</span><span class="hl">def sum_to(n):</span>
+    return n * (n + 1) // 2
+
+# 수학 공식으로 한 줄 풀이</div>
+      <div class="chat-bubble chat-user"><span class="chat-label">User · 같은 질문 다시</span>1부터 N까지 더하는 함수 만들어줘 (Python)</div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI · 2차 답변</span><span class="hl">def calculate_sum(num):</span>
+    total = 0
+    for i in range(1, num + 1):
+        total += i
+    return total
+
+# 반복문으로 풀이</div>
+      <div class="chat-bubble chat-obs"><span class="chat-label">관찰</span>같은 질문 → 다른 함수명, 다른 접근, 다른 코드 길이.</div>
+    </div>
   </div>
-  <div class="comp-arrow">vs</div>
-  <div class="comp-side comp-new">
-    <span class="comp-label">LLM</span>
-    <div class="comp-body">"오늘 점심은…"<br><br>→ "뭐 먹지? 매콤한 게 당기는데, 회사 근처에 김치찌개 잘하는 데 있어?"<br><br><strong>문단 + 맥락 + 질문</strong>까지</div>
-  </div>
-</div>
-<p class="note">같은 *예측 기계* 가 — 학습량이 1억 배 늘면 결과가 <strong>차원이 달라짐</strong>.</p>
 
 </div>
 
