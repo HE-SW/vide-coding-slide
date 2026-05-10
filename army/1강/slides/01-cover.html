@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>1강 — AI에게 일을 시켜보다</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+}
+.container {
+  width: 1280px;
+  padding: 44px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.kicker {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: #8b949e;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+.title {
+  font-size: 72px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 32px;
+  line-height: 1.2;
+}
+.subtitle {
+  font-size: 22px;
+  color: #c9d1d9;
+  text-align: center;
+  margin-bottom: 60px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+.tags {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tag {
+  padding: 12px 28px;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 100px;
+  background: rgba(124, 58, 237, 0.08);
+  font-size: 16px;
+  font-weight: 500;
+  color: #c9d1d9;
+}
+.tag strong { color: #a78bfa; font-weight: 700; }
+
+.slide-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
+  background: rgba(10, 15, 26, 0.95);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(124, 58, 237, 0.2);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; font-family: 'Noto Sans KR', sans-serif;
+}
+.slide-nav-inner {
+  width: 1280px; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 60px;
+}
+.slide-nav a {
+  text-decoration: none; font-size: 14px; font-weight: 700;
+  color: #7c3aed; transition: color 0.2s;
+}
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-12px); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="kicker">VIBE CODING · 1강</div>
+  <h1 class="title">AI에게 일을<br>시켜보다</h1>
+  <p class="subtitle">결과가 매번 다르고 가끔 거짓말한다는 걸 — 자기 눈으로 본다</p>
+  <div class="tags">
+    <span class="tag">단어 <strong>7개</strong></span>
+    <span class="tag">함께 입력 <strong>6회</strong></span>
+    <span class="tag">워크숍 <strong>130분</strong></span>
+  </div>
+</div>
+
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><span class="nav-disabled">&larr; 이전</span></div>
+    <div class="nav-center"><a href="index.html">01 / 14</a></div>
+    <div class="nav-right"><a href="02-live-pomodoro.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+
+<script>
+function navigateTo(url) {
+  document.body.classList.add('fade-out');
+  setTimeout(function() { window.location.href = url; }, 300);
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') navigateTo('02-live-pomodoro.html');
+});
+</script>
+</body>
+</html>

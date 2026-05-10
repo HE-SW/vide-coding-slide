@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>바이브코딩 — 1년 변천사</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex; justify-content: center; align-items: center;
+  padding-bottom: 50px;
+}
+.container {
+  width: 1280px; padding: 44px 80px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.eyebrow {
+  font-size: 14px; font-weight: 700; letter-spacing: 4px;
+  color: #a78bfa; margin-bottom: 14px; text-transform: uppercase;
+}
+.title {
+  font-size: 44px; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 12px; line-height: 1.3;
+}
+.subtitle { font-size: 16px; color: #8b949e; text-align: center; margin-bottom: 36px; }
+.subtitle strong { color: #c9d1d9; font-weight: 700; }
+
+.steps { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 1000px; }
+.step {
+  display: flex; align-items: flex-start; gap: 22px;
+  background: rgba(139, 148, 158, 0.04); border: 1px solid rgba(139, 148, 158, 0.1);
+  border-radius: 14px; padding: 16px 24px;
+  opacity: 0; transform: translateX(-20px);
+  animation: stepIn 0.5s ease-out forwards;
+}
+.step:nth-child(1) { animation-delay: 0.15s; }
+.step:nth-child(2) { animation-delay: 0.3s; }
+.step:nth-child(3) { animation-delay: 0.45s; }
+.step:nth-child(4) { animation-delay: 0.6s; }
+.step:nth-child(5) { animation-delay: 0.75s; }
+.step:nth-child(6) { animation-delay: 0.9s; }
+@keyframes stepIn { to { opacity: 1; transform: translateX(0); } }
+.step-date {
+  min-width: 90px; padding: 6px 12px;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  border-radius: 6px; text-align: center;
+  font-weight: 900; font-size: 13px; color: #fff;
+  flex-shrink: 0; align-self: center;
+}
+.step-content { flex: 1; }
+.step-title { font-size: 16px; font-weight: 700; margin-bottom: 2px; color: #e6edf3; }
+.step-desc { font-size: 13px; color: #8b949e; line-height: 1.5; }
+.step-desc strong { color: #c9d1d9; }
+.step.now {
+  background: rgba(124, 58, 237, 0.08);
+  border-color: rgba(124, 58, 237, 0.4);
+}
+
+.slide-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
+  background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(124, 58, 237, 0.2);
+  display: flex; align-items: center; justify-content: center; z-index: 9999;
+}
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="eyebrow">단어 5</div>
+  <h1 class="title">바이브코딩 — Karpathy 2025-02</h1>
+  <p class="subtitle">"샤워하다 떠올린 잡생각" 트윗 한 줄이 <strong>4,500만 회</strong> 조회되며 정식 용어가 되기까지</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-date">2025-02</div>
+      <div class="step-content">
+        <h3 class="step-title">Karpathy 트윗 — 용어 등장</h3>
+        <p class="step-desc">"fully give in to the vibes…" — <strong>실험적·재미있는</strong> 활동으로 출발</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-date">2025-05</div>
+      <div class="step-content">
+        <h3 class="step-title">Merriam-Webster watch list 등재</h3>
+        <p class="step-desc">영어 사전이 <strong>관찰 대상 단어</strong>로 인정</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-date">2025년 후반</div>
+      <div class="step-content">
+        <h3 class="step-title">한국 IT 회사 외부 공개 사례</h3>
+        <p class="step-desc">Toss·당근·컬리 등 — 각 회사 기술 블로그에 도입 사례 등장</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-date">2025-12</div>
+      <div class="step-content">
+        <h3 class="step-title">Karpathy 본인 변곡점</h3>
+        <p class="step-desc">"11월에 80% 직접 코드, <strong>12월에 80% AI 위임</strong>" — agentic 단계 진입</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-date">2026-03</div>
+      <div class="step-content">
+        <h3 class="step-title">한국 비개발자 부트캠프 다수 등장</h3>
+        <p class="step-desc">정규 교육 시장에 진입</p>
+      </div>
+    </div>
+    <div class="step now">
+      <div class="step-date">2026-05</div>
+      <div class="step-content">
+        <h3 class="step-title">Agentic Engineering 선언 (오늘 우리는 여기)</h3>
+        <p class="step-desc">Sequoia AI Ascent — "vibe coding은 floor를 열었다. 다음은 <strong>quality bar 유지</strong>"</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="09-part2-cover.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">10 / 14</a></div>
+    <div class="nav-right"><a href="11-sycophancy.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+
+<script>
+function navigateTo(url) {
+  document.body.classList.add('fade-out');
+  setTimeout(function() { window.location.href = url; }, 300);
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('09-part2-cover.html');
+  if (e.key === 'ArrowRight') navigateTo('11-sycophancy.html');
+});
+</script>
+</body>
+</html>

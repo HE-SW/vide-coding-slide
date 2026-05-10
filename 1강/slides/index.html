@@ -1,131 +1,374 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=1280">
-<title>1강 — 바이브 코딩</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0a0f1a;
-  font-family: 'Noto Sans KR', sans-serif;
-  color: #e6edf3;
-  min-height: 100vh;
-  padding: 80px 80px 120px;
-  opacity: 0;
-  animation: fadeIn 0.4s ease forwards;
-}
-body.fade-out { animation: fadeOut 0.3s ease forwards; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-12px); }
-}
-.wrap { width: 1280px; margin: 0 auto; }
-.hero { text-align: center; margin-bottom: 70px; }
-.title {
-  font-size: 64px;
-  font-weight: 900;
-  background: linear-gradient(135deg, #7c3aed, #38bdf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.2;
-  margin-bottom: 18px;
-}
-.subtitle { font-size: 19px; color: #8b949e; font-weight: 300; }
-.meta {
-  display: inline-block;
-  margin-top: 22px;
-  padding: 6px 14px;
-  font-size: 13px;
-  color: #c9d1d9;
-  background: rgba(124, 58, 237, 0.1);
-  border: 1px solid rgba(124, 58, 237, 0.3);
-  border-radius: 999px;
-  letter-spacing: 0.5px;
-}
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-}
-.card {
-  background: rgba(139, 148, 158, 0.04);
-  border: 1px solid rgba(139, 148, 158, 0.1);
-  border-radius: 14px;
-  padding: 26px 22px;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.25s;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-height: 140px;
-  position: relative;
-}
-.card:hover {
-  border-color: rgba(124, 58, 237, 0.45);
-  background: rgba(124, 58, 237, 0.05);
-  transform: translateY(-3px);
-}
-.card-num {
-  font-size: 11px;
-  font-weight: 700;
-  color: #7c3aed;
-  letter-spacing: 1px;
-}
-.card-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #e6edf3;
-  line-height: 1.45;
-}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <div class="hero">
-    <h1 class="title">1강 — 바이브 코딩</h1>
-    <p class="subtitle">비개발자도 같은 자리에 앉을 수 있게 만든 새로운 코딩 방식,<br>그리고 좋은 결과를 우연이 아니라 설계로 얻어내는 법</p>
-    <div class="meta">23 SLIDES</div>
-  </div>
-  <div class="grid">
-    <a href="01-cover.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">01</div><div class="card-title">1강 바이브 코딩</div></a>
-    <a href="02-what-is-vibe-coding.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">02</div><div class="card-title">바이브 코딩이란?</div></a>
-    <a href="03-vibe-vs-old-coding.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">03</div><div class="card-title">바이브 코딩 — 무엇이 달라졌나</div></a>
-    <a href="04-llm-two-problems.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">04</div><div class="card-title">LLM의 두 가지 대표적인 한계</div></a>
-    <a href="05-sycophancy-example.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">05</div><div class="card-title">"이거 틀리지 않아?" 한 마디면</div></a>
-    <a href="06-strawberry.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">06</div><div class="card-title">strawberry에는 R이 몇 개</div></a>
-    <a href="07-probability-not-luck.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">07</div><div class="card-title">우연이 아니라 설계입니다</div></a>
-    <a href="08-knowledge-cutoff.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">08</div><div class="card-title">AI는 어제 일을 모릅니다</div></a>
-    <a href="09-guidance-raises-probability.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">09</div><div class="card-title">그래서 우리가 지침을 넣어줍니다</div></a>
-    <a href="10-three-engineering.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">10</div><div class="card-title">세 가지 엔지니어링</div></a>
-    <a href="11-all-three-coexist.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">11</div><div class="card-title">셋 다 동시에 쓰고 있습니다</div></a>
-    <a href="12-prompt-example.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">12</div><div class="card-title">프롬프트 엔지니어링 예시</div></a>
-    <a href="13-context-example.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">13</div><div class="card-title">컨텍스트는 통째로 넣는 정보</div></a>
-    <a href="14-getting-dumber.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">14</div><div class="card-title">왜 점점 멍청해지는 걸까요</div></a>
-    <a href="15-harness-name.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">15</div><div class="card-title">하니스 — 이 이름의 정체</div></a>
-    <a href="16-harness-problem.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">16</div><div class="card-title">AI 혼자서는 안 되는 일들</div></a>
-    <a href="17-harness-solution.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">17</div><div class="card-title">도구·반복·검증을 한 묶음으로</div></a>
-    <a href="18-claude-code-uses.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">18</div><div class="card-title">이번 실습은 Claude Code로</div></a>
-    <a href="19-claude-code-detail.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">19</div><div class="card-title">Claude Code가 뭔가</div></a>
-    <a href="20-why-cli.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">20</div><div class="card-title">왜 까만 화면이어야 할까요</div></a>
-    <a href="21-claude-md-role.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">21</div><div class="card-title">CLAUDE.md — 한 장의 사용설명서</div></a>
-    <a href="22-skills.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">22</div><div class="card-title">Skill — 작업에 이름표를 붙이다</div></a>
-    <a href="23-mcp-extensions.html" onclick="event.preventDefault(); navigateTo(this.href)" class="card"><div class="card-num">23</div><div class="card-title">외부 도구와 연결 — MCP</div></a>
-  </div>
-</div>
-<script>
-function navigateTo(url) {
-  document.body.classList.add('fade-out');
-  setTimeout(function() { window.location.href = url; }, 300);
-}
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1280" />
+    <title>1강 — 바이브 코딩</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0a0f1a;
+        font-family: "Noto Sans KR", sans-serif;
+        color: #e6edf3;
+        min-height: 100vh;
+        padding: 80px 80px 120px;
+        opacity: 0;
+        animation: fadeIn 0.4s ease forwards;
+      }
+      body.fade-out {
+        animation: fadeOut 0.3s ease forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-12px);
+        }
+      }
+      .wrap {
+        width: 1280px;
+        margin: 0 auto;
+      }
+      .hero {
+        text-align: center;
+        margin-bottom: 70px;
+      }
+      .title {
+        font-size: 64px;
+        font-weight: 900;
+        background: linear-gradient(135deg, #7c3aed, #38bdf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.2;
+        margin-bottom: 18px;
+      }
+      .subtitle {
+        font-size: 19px;
+        color: #8b949e;
+        font-weight: 300;
+      }
+      .meta {
+        display: inline-block;
+        margin-top: 22px;
+        padding: 6px 14px;
+        font-size: 13px;
+        color: #c9d1d9;
+        background: rgba(124, 58, 237, 0.1);
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        border-radius: 999px;
+        letter-spacing: 0.5px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+      .card {
+        background: rgba(139, 148, 158, 0.04);
+        border: 1px solid rgba(139, 148, 158, 0.1);
+        border-radius: 14px;
+        padding: 26px 22px;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.25s;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 140px;
+        position: relative;
+      }
+      .card:hover {
+        border-color: rgba(124, 58, 237, 0.45);
+        background: rgba(124, 58, 237, 0.05);
+        transform: translateY(-3px);
+      }
+      .card-num {
+        font-size: 11px;
+        font-weight: 700;
+        color: #7c3aed;
+        letter-spacing: 1px;
+      }
+      .card-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #e6edf3;
+        line-height: 1.45;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="hero">
+        <h1 class="title">1강 — 바이브 코딩</h1>
+        <p class="subtitle">
+          비개발자도 같은 자리에 앉을 수 있게 만든 새로운 코딩 방식,<br />그리고
+          좋은 결과를 우연이 아니라 설계로 얻어내는 법
+        </p>
+        <div class="meta">23 SLIDES</div>
+      </div>
+      <div class="grid">
+        <a
+          href="01-cover.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">01</div>
+          <div class="card-title">1강 바이브 코딩</div></a
+        >
+        <a
+          href="02-what-is-vibe-coding.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">02</div>
+          <div class="card-title">바이브 코딩이란?</div></a
+        >
+        <a
+          href="03-vibe-vs-old-coding.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">03</div>
+          <div class="card-title">바이브 코딩 — 무엇이 달라졌나</div></a
+        >
+        <a
+          href="04-llm-two-problems.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">04</div>
+          <div class="card-title">LLM의 두 가지 대표적인 한계</div></a
+        >
+        <a
+          href="05-sycophancy-example.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">05</div>
+          <div class="card-title">"이거 틀리지 않아?" 한 마디면</div></a
+        >
+        <a
+          href="06-strawberry.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">06</div>
+          <div class="card-title">strawberry에는 R이 몇 개</div></a
+        >
+        <a
+          href="07-probability-not-luck.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">07</div>
+          <div class="card-title">우연이 아니라 설계입니다</div></a
+        >
+        <a
+          href="08-knowledge-cutoff.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">08</div>
+          <div class="card-title">AI는 어제 일을 모릅니다</div></a
+        >
+        <a
+          href="09-guidance-raises-probability.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">09</div>
+          <div class="card-title">그래서 우리가 지침을 넣어줍니다</div></a
+        >
+        <a
+          href="10-three-engineering.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">10</div>
+          <div class="card-title">세 가지 엔지니어링</div></a
+        >
+        <a
+          href="11-all-three-coexist.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">11</div>
+          <div class="card-title">셋 다 동시에 쓰고 있습니다</div></a
+        >
+        <a
+          href="12-prompt-example.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">12</div>
+          <div class="card-title">프롬프트 엔지니어링 예시</div></a
+        >
+        <a
+          href="13-context-example.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">13</div>
+          <div class="card-title">컨텍스트는 통째로 넣는 정보</div></a
+        >
+        <a
+          href="14-getting-dumber.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">14</div>
+          <div class="card-title">왜 점점 멍청해지는 걸까요</div></a
+        >
+        <a
+          href="15-harness-name.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">15</div>
+          <div class="card-title">하니스 — 이 이름의 정체</div></a
+        >
+        <a
+          href="16-harness-problem.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">16</div>
+          <div class="card-title">AI 혼자서는 안 되는 일들</div></a
+        >
+        <a
+          href="17-harness-solution.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">17</div>
+          <div class="card-title">도구·반복·검증을 한 묶음으로</div></a
+        >
+        <a
+          href="18-claude-code-uses.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">18</div>
+          <div class="card-title">이번 실습은 Claude Code로</div></a
+        >
+        <a
+          href="19-claude-code-detail.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">19</div>
+          <div class="card-title">Claude Code가 뭔가</div></a
+        >
+        <a
+          href="20-why-cli.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">20</div>
+          <div class="card-title">왜 까만 화면이어야 할까요</div></a
+        >
+        <a
+          href="21-claude-md-role.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">21</div>
+          <div class="card-title">CLAUDE.md — 한 장의 사용설명서</div></a
+        >
+        <a
+          href="22-skills.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">22</div>
+          <div class="card-title">Skill — 작업에 이름표를 붙이다</div></a
+        >
+        <a
+          href="23-mcp-extensions.html"
+          onclick="
+            event.preventDefault();
+            navigateTo(this.href);
+          "
+          class="card"
+          ><div class="card-num">23</div>
+          <div class="card-title">외부 도구와 연결 — MCP</div></a
+        >
+      </div>
+    </div>
+    <script>
+      function navigateTo(url) {
+        document.body.classList.add("fade-out");
+        setTimeout(function () {
+          window.location.href = url;
+        }, 300);
+      }
+    </script>
+  </body>
 </html>

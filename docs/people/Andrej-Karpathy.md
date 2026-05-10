@@ -1,6 +1,6 @@
 # Andrej Karpathy (안드레 카파시)
 
-> 1강 두 번 등장하는 인물. **"바이브코딩"**과 **"컨텍스트 엔지니어링"** 두 용어 모두 그가 정착시킴. AI 분야의 가장 영향력 있는 발신자 중 하나.
+> 강의에 두 번 등장하는 인물. **"바이브코딩"**과 **"컨텍스트 엔지니어링"** 두 용어 모두 그가 정착시킴. AI 분야의 가장 영향력 있는 발신자 중 하나.
 
 ## 한 줄 프로필
 
@@ -21,7 +21,7 @@
 | 2023~2024 | **OpenAI 복귀** (2023.02 ~ 2024.02) |
 | 2024~ | **Eureka Labs 창업** — AI 교육 플랫폼, 첫 코스 *LLM101n: Let's Build A Storyteller* |
 
-## 1강에 등장하는 이유
+## 강의에 등장하는 이유
 
 ### 1. 바이브코딩 명명자 (2025-02-02)
 - X(트위터)에 "There's a new kind of coding I call 'vibe coding'..."이라는 트윗을 올림
@@ -40,7 +40,7 @@
 - "From-scratch" 시리즈 (직접 GPT 만들어보기, micrograd 등)로 **딥러닝 대중화**의 대명사
 - 2024년 X에서 "I have built deep neural networks from scratch"는 영상 시리즈가 수백만 조회
 
-## 1강에서 인용할 만한 표현
+## 강의에서 인용할 만한 표현
 
 > "Vibe coding: fully give in to the vibes, embrace exponentials, and forget that the code even exists."
 
@@ -52,6 +52,7 @@
 - [컨텍스트 엔지니어링](../techniques/컨텍스트-엔지니어링.md) — 그가 정착시킨 용어
 - [LLM](../concepts/LLM.md) — 그가 OpenAI에서 다룬 핵심 기술
 - [andrej-karpathy-skills](../tools/andrej-karpathy-skills.md) — 그의 LLM 코딩 4대 실패 패턴 트윗(2026-01)을 65줄 CLAUDE.md로 압축한 커뮤니티 프로젝트
+- [Anthropic](Anthropic.md) — 같은 OpenAI 출신이지만 *다른 갈래*로 갈라진 회사 (Karpathy = 학계·교육·Tesla·Eureka Labs / Anthropic = 안전 우선 LLM 회사)
 
 ## 출처
 

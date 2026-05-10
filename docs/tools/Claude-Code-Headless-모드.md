@@ -1,6 +1,6 @@
 # Claude Code 헤드리스 모드 (`claude -p`)
 
-> 사람이 채팅창 앞에 앉아 있지 않고 — *스크립트가 프로그래밍적으로 Claude를 실행*하는 모드. 2강의 자동화 핵심 매커니즘. **`execute.py` 가 5단계를 사람 없이 흘릴 수 있는 이유**.
+> 사람이 채팅창 앞에 앉아 있지 않고 — *스크립트가 프로그래밍적으로 Claude를 실행*하는 모드. 하니스 자동화의 핵심 매커니즘. **`execute.py` 가 5단계를 사람 없이 흘릴 수 있는 이유**.
 
 ## 1. 왜 "헤드리스(Headless)"라고 부르나
 
@@ -51,9 +51,9 @@ $ claude -p "Find and fix the bug in auth.py" \
   세션 동안 기억 유지                  매 호출은 무기억(stateless)
 ```
 
-## 1·2강 강의 연결 포인트 — `execute.py` 매커니즘
+## 강의 연결 포인트 — `execute.py` 매커니즘
 
-**2강 #12·#13의 클라이맥스 콤보**가 정확히 이 모드를 설명한다.
+**`/harness` 흐름과 `claude -p` 매커니즘 콤보 슬라이드**가 정확히 이 모드를 설명한다.
 
 ```text
 Phase 1   →   Phase 2   →   Phase 3   →   Phase 4   →   Phase 5
@@ -102,6 +102,7 @@ $ claude -p "내 이름이 뭐였더라?"
 - [Claude-Code 1층 하니스](Claude-Code-1층-하니스.md) — 헤드리스에서도 1층은 그대로 작동
 - [Claude Code Hooks](Claude-Code-Hooks.md) — 헤드리스 호출도 모든 hook 이벤트가 발화
 - [컨텍스트 엔지니어링](../techniques/컨텍스트-엔지니어링.md) — *무기억* 한계 때문에 docs/에 모든 컨텍스트를 남기는 이유
+- [Claude Code 세션 운영](Claude-Code-세션운영.md) — 헤드리스 = *1회용 세션* 으로서 영속 컨텍스트 오염을 원천 차단하는 패턴
 
 ## 출처
 

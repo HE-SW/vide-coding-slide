@@ -2,7 +2,7 @@
 
 > Andrej Karpathy가 2026-01-26 트윗에서 짚은 LLM 코딩의 4대 실패 패턴을, Forrest Chang이 65줄짜리 한 장으로 압축한 [andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)(MIT, 약 11.6만 ★)를 한국어 강의톤으로 옮긴 문서.
 >
-> 이 레포 _자체의_ 행동 규율로 사용하며, 동시에 2강 *"한 장의 행동 규율을 어떻게 까는가"* 슬라이드의 시연 자료입니다.
+> 이 레포 _자체의_ 행동 규율로 사용하며, 동시에 *"한 장의 행동 규율을 어떻게 까는가"* 슬라이드의 시연 자료입니다.
 
 ## 0. 이 문서의 역할
 

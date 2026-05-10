@@ -5,7 +5,7 @@
 
 ## Claude Code란
 
-터미널에서 자연어로 코드를 짜고, 파일을 고치고, 명령을 실행해주는 Anthropic 공식 CLI 도구. "바이브코딩"의 대표적 구현체 중 하나로, 1강에서 다루는 **하니스 엔지니어링**의 좋은 예시이기도 하다 (LLM이 단순히 답만 뱉는 게 아니라, 도구를 쓰고 결과를 보고 다시 시도하는 반복 루프를 갖춤).
+터미널에서 자연어로 코드를 짜고, 파일을 고치고, 명령을 실행해주는 Anthropic 공식 CLI 도구. "바이브코딩"의 대표적 구현체 중 하나로, 강의에서 다루는 **하니스 엔지니어링**의 좋은 예시이기도 하다 (LLM이 단순히 답만 뱉는 게 아니라, 도구를 쓰고 결과를 보고 다시 시도하는 반복 루프를 갖춤).
 
 명령어는 `/`로 시작하는 슬래시 커맨드로 호출한다. 예: `/help`.
 
@@ -197,7 +197,7 @@
    - 청중이 가장 먼저 머리에 그려야 할 것: "터미널에 영어/한국어로 부탁하면 답해주는 도구"
 
 2. **"되돌리기와 다시 시도"** (5분): `/rewind` → `/branch` → `/compact`
-   - 1강 핵심 메시지 "AI는 한 번에 안 된다, 반복하는 게 정상이다"와 직접 연결되는 부분.
+   - 강의 핵심 메시지 "AI는 한 번에 안 된다, 반복하는 게 정상이다"와 직접 연결되는 부분.
 
 3. **"확장의 가능성"** (3분): `/mcp`, `/agents`, `/install-github-app`만 이름과 한 줄 설명
    - 깊이 안 들어가도 됨. "이 도구가 단순 챗봇이 아니라 다른 시스템과 연결된다는 인상"만 남기면 충분.
@@ -214,10 +214,14 @@
 - [Claude Code Hooks](Claude-Code-Hooks.md) — `/hooks`로 등록하는 12개 라이프사이클 이벤트
 - [Claude Code 헤드리스 모드](Claude-Code-Headless-모드.md) — `claude -p` 자동화 모드
 - [MCP](MCP.md) / [서브에이전트](서브에이전트.md) — `/mcp`·`/agents` 명령어가 다루는 두 확장 축
+- [Claude Code Plugin](Claude-Code-Plugin.md) / [Plugin Marketplace](Plugin-Marketplace.md) — `/plugin`·`/plugin marketplace add` 명령어가 다루는 *묶음 단위*와 *유통 레이어*
+- [Claude Code 입력 문법](Claude-Code-입력문법.md) — `!`·`@`·`/`·키 단축키. 명령어 표 *바깥*의 입력 트릭
+- [Claude Code 세션 운영](Claude-Code-세션운영.md) — 컨텍스트 오염·세션 분리 패턴. 명령어를 *어떤 흐름으로 조합하나*
 - [하니스 엔지니어링](../techniques/하니스-엔지니어링.md) — `/agents`, `/sandbox`, `/hooks`가 LLM에 "도구를 안전하게 쥐여주는" 방식
 - [컨텍스트 엔지니어링](../techniques/컨텍스트-엔지니어링.md) — `/context`, `/compact`, `/memory`가 컨텍스트 관리의 실전 도구
 - [프롬프트 엔지니어링](../techniques/프롬프트-엔지니어링.md) — Slash Command 자체가 사전 정의된 프롬프트 템플릿
 - [문서 주도 개발](../techniques/문서-주도-개발.md) — `/init`이 깔아주는 *프로젝트 헌법* 패턴의 더 큰 그림
+- [Anthropic](../people/Anthropic.md) — Claude Code를 만든 회사
 
 ---
 

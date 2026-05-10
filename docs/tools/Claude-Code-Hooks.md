@@ -61,7 +61,17 @@ Hooks는 모델 *바깥*에서 동작하는 **결정론적 제어 레이어**다
 ### 차단 가능 vs 단순 후처리
 
 - **PreToolUse만이 차단할 수 있다**. 훅 스크립트가 exit code 2로 종료하면 도구 호출이 막히고, stderr가 모델에게 *오류 메시지*로 피드백된다.
+- `UserPromptSubmit` 도 exit 2로 사용자 입력을 거부할 수 있다 (예: 위험한 키워드 포함된 입력 차단).
+- `Stop` 은 exit 2로 *Claude를 멈추지 못하게* 강제 — 작업이 끝났다고 모델이 판단해도 *조건이 만족될 때까지 계속 일하게* 만들 수 있다 (자동 검증 루프).
 - 나머지 이벤트는 후처리·관찰 용도.
+
+### Exit Code 행동 요약
+
+| Exit | 효과 |
+|---|---|
+| 0 | 정상. stdout 무시 |
+| 2 | **블로킹 에러**. stderr 가 모델에 피드백 |
+| 그 외 | 비블로킹 에러. 로그만 남고 진행 |
 
 ## 라이브 시연 가능한 예시 — `caveman-kor`
 
@@ -104,12 +114,12 @@ Hooks는 모델 *바깥*에서 동작하는 **결정론적 제어 레이어**다
 - **`git-auto-stage`** (PostToolUse): Edit 후 변경 파일 자동 git add
 - **자동 테스트 러너** (Stop): Phase 종료 시 `pytest`/`npm test` 자동 실행
 
-## 1·2강 강의 연결 포인트
+## 강의 연결 포인트
 
-- **1강**: 직접 언급 없음.
-- **2강 #14** [데모: 14-hooks.html] — 정확히 이 문서의 본문. `caveman-kor` 사례를 중심으로 *"여러분이 시키지 않아도 알아서 일어나는 일"* 메시지.
-- **2강 #15** [데모: 15-framework-complete.html] — 4번째 레이어로 hooks 등장 (`caveman-kor`, `tdd-guard`, `dangerous-cmd`).
-- **2강 #16** [데모: 16-two-layers-combined.html] — 2층의 4번째 요소.
+- **모델의 한계 섹션**과는 직접 연결되지 않음.
+- **Hooks 도입 슬라이드** [데모: 14-hooks.html] — 정확히 이 문서의 본문. `caveman-kor` 사례를 중심으로 *"여러분이 시키지 않아도 알아서 일어나는 일"* 메시지.
+- **프레임워크 완성 슬라이드** [데모: 15-framework-complete.html] — 4번째 레이어로 hooks 등장 (`caveman-kor`, `tdd-guard`, `dangerous-cmd`).
+- **1층+2층 통합 그림** [데모: 16-two-layers-combined.html] — 2층의 4번째 요소.
 
 ## 꼬리에 꼬리 (관련 개념)
 
