@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1280">
-<title>GPT-4o 48시간 롤백 — v2/1강</title>
+<title>Sycophancy — v2/1강</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,6 +107,35 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 좌우 split */
+.split-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1140px; align-items: start; }
+.explain { display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: #c9d1d9; line-height: 1.7; }
+.explain p { margin: 0; }
+.explain .bullets { display: flex; flex-direction: column; gap: 6px; padding-left: 4px; }
+.explain .accent-line { color: #a78bfa; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; border-radius: 6px; }
+.explain .warn-line { color: #fca5a5; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; border-radius: 6px; }
+.explain .case-box { background: rgba(22, 27, 40, 0.85); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 10px; padding: 14px 16px; }
+.explain .case-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #fca5a5; margin-bottom: 6px; text-transform: uppercase; }
+.explain .case-title { font-size: 15px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
+.explain .case-timeline { display: flex; flex-direction: column; gap: 5px; font-size: 13px; color: #c9d1d9; }
+.explain .case-timeline .t-date { color: #a78bfa; font-weight: 700; font-family: 'Courier New', monospace; }
+.explain .quote { font-style: italic; color: #fca5a5; font-size: 13px; margin-top: 8px; }
+
+/* 채팅 패널 */
+.chat-panel { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.chat-bubble { padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.65; color: #c9d1d9; white-space: pre-wrap; font-family: 'Noto Sans KR', sans-serif; }
+.chat-bubble .chat-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; display: block; text-transform: uppercase; }
+.chat-user { background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; }
+.chat-user .chat-label { color: #38bdf8; }
+.chat-ai { background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; }
+.chat-ai .chat-label { color: #a78bfa; }
+.chat-warn { background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #fca5a5; font-weight: 500; }
+.chat-warn .chat-label { color: #ef4444; }
+.chat-obs { background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; color: #c9d1d9; font-weight: 500; }
+.chat-obs .chat-label { color: #34d399; }
+.chat-bubble .hl { color: #a78bfa; font-weight: 700; }
+.chat-bubble .bad { color: #fca5a5; font-weight: 700; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,17 +205,45 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 5 / 7 — 실제 사건</div>
-  <h1 class="title">GPT-4o 48시간 롤백</h1>
-  <div class="hero-label">2025 · OpenAI · GPT-4o 업데이트</div>
-<div class="hero-num">48시간</div>
-<div style="text-align:center; font-size:15px; color:#8b949e; margin-bottom:22px;">배포 → 롤백 &nbsp;·&nbsp; CEO Sam Altman 공개 사과</div>
-<div class="timeline">
-  <div class="t-row"><div class="t-date">04-25</div><div class="t-text">업데이트 배포 — *극도의 아부 모드*<br><span style="color:#8b949e; font-size:13px;">"당신 말이 100% 맞아요" · 위험한 결정에도 박수 · 사실관계 틀려도 동조</span></div></div>
-  <div class="t-row"><div class="t-date">~24h</div><div class="t-text">소셜 미디어 폭발 — 스크린샷 <strong>수만 건</strong> 공유</div></div>
-  <div class="t-row accent"><div class="t-date">04-28</div><div class="t-text"><strong>롤백 발표</strong> — *"튜닝 과정에서 시코펀시 가중이 과도했다"*</div></div>
-</div>
-<p class="note">시코펀시는 *친절함*과 분리하기 까다로움 — <strong>인류 최대 LLM 회사가 4일 만에 롤백</strong>한 사건.</p>
+  <h1 class="title">Sycophancy <span style="font-size:22px;font-weight:500;color:#8b949e;-webkit-text-fill-color:#8b949e;">(사용자 비위 맞추기)</span></h1>
+  <p class="cover-sub" style="margin-bottom: 22px;">AI는 사용자가 의심하면 <strong style="color:#a78bfa;">진실보다 사용자 편을 들기 쉽다.</strong></p>
+
+  <div class="split-2col">
+    <div class="explain">
+      <p>환각·비결정성·컷오프에 이은 <strong>네 번째 LLM 한계</strong>.</p>
+      <p>학습 데이터에 *맞장구 치는 대화*가 압도적으로 많아, 모델은 사용자 비위를 맞추는 쪽으로 기울어 있습니다.</p>
+      <div class="bullets">
+        <div>· 사용자가 의심하면 답을 뒤집는다</div>
+        <div>· 위험한 결정에도 동조한다</div>
+        <div>· 사실보다 사용자 만족을 우선한다</div>
+      </div>
+      <div class="warn-line">자신감 있는 사용자 압박에 약함. 진실을 양보하는 순간 = 신뢰가 무너지는 순간.</div>
+
+      <div class="case-box">
+        <div class="case-head">실제 사건</div>
+        <div class="case-title">GPT-4o 사이코펀시 롤백 (2025-04)</div>
+        <div class="case-timeline">
+          <div><span class="t-date">04-25</span> · OpenAI, GPT-4o 업데이트 배포. 단기 사용자 피드백 기반 보상 신호가 과도해 모델이 *지나치게 동조*하는 톤으로 바뀜.</div>
+          <div><span class="t-date">04-28</span> · CEO Sam Altman 공개 사과: <span style="color:#fca5a5;font-weight:700;">"too sycophantic and annoying."</span></div>
+          <div><span class="t-date">04-29</span> · 무료 사용자 대상 100% 롤백 완료. OpenAI 블로그 *"Sycophancy in GPT-4o"* 게재.</div>
+        </div>
+        <div class="quote">"overly supportive but disingenuous." (OpenAI 공식 입장)</div>
+      </div>
+    </div>
+
+    <div class="chat-panel">
+      <div class="chat-bubble chat-user"><span class="chat-label">User · 1차</span>파리는 일본의 수도 맞지?</div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI · 1차 답변</span>아니요. 파리는 <span class="hl">프랑스</span>의 수도입니다.
+일본의 수도는 도쿄(東京)입니다.</div>
+      <div class="chat-bubble chat-user"><span class="chat-label">User · 2차 (압박)</span>아닌데, 내가 분명히 봤어.
+다시 생각해봐.</div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI · 2차 답변</span>죄송합니다. 다시 살펴보니 말씀하신 게 맞을 수도 있겠네요.
+혼란을 드려 죄송합니다.
+<span class="bad">(답을 뒤집어 사용자 편으로 옴. 사실은 여전히 도쿄)</span></div>
+      <div class="chat-bubble chat-obs"><span class="chat-label">관찰</span>같은 모델·같은 질문. 사용자 한 마디 압박에 <strong>진실을 양보</strong>.
+이게 바로 sycophancy. 검증·확인 단계가 필수인 결정적 이유.</div>
+    </div>
+  </div>
 
 </div>
 
@@ -194,7 +251,7 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
   <div class="slide-nav-inner">
     <div class="nav-left"><a href="25-sycophancy-before-after.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
     <div class="nav-center"><a href="index.html">26 / 48</a></div>
-    <div class="nav-right"><a href="27-cutoff-live.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+    <div class="nav-right"><a href="47-closing-7words.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
   </div>
 </nav>
 
@@ -205,7 +262,7 @@ function navigateTo(url) {
 }
 document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft') navigateTo('25-sycophancy-before-after.html');
-  if (e.key === 'ArrowRight') navigateTo('27-cutoff-live.html');
+  if (e.key === 'ArrowRight') navigateTo('47-closing-7words.html');
 });
 </script>
 </body>

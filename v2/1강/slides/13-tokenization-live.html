@@ -176,26 +176,31 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 2 / 4 — 라이브 시연 (함께 입력 #2)</div>
-  <h1 class="title">토큰 — strawberry R 카운팅</h1>
-  <div class="prompt-box">
-  <div class="prompt-tag">함께 입력 #2 — 청중 직접 확인</div>
-  <div><span class="prompt-arrow">&gt;</span> strawberry라는 단어에 R이 몇 개 들어가?</div>
-</div>
-<div class="compare-2col">
-  <div class="comp-side comp-old">
-    <span class="comp-label">사람의 시선</span>
-    <div class="comp-body" style="font-family: 'Courier New', monospace; font-size: 20px; letter-spacing: 6px; text-align: center; padding: 8px 0;">s · t · <span style="color:#ef4444">r</span> · a · w · b · e · <span style="color:#ef4444">r</span> · <span style="color:#ef4444">r</span> · y</div>
-    <div style="text-align:center; font-weight:900; color:#34d399; font-size:18px;">정답 — 3개</div>
+  <h1 class="title">좋은 결과는<br>우연이 아니라 <span style="-webkit-text-fill-color:#a78bfa;background:none;">설계</span>입니다</h1>
+  <p class="cover-sub" style="margin-bottom: 32px; font-size: 20px;">우리가 할 일은 AI를 <strong style="color:#8b949e;">완벽하게 만드는 것</strong>이 아닙니다.</p>
+
+  <div class="compare-2col" style="margin-bottom: 24px;">
+    <div class="comp-side comp-old">
+      <div class="comp-label">X. 우리가 할 일이 아닌 것</div>
+      <div class="comp-body" style="font-size: 16px; padding: 6px 0;">
+        AI 모델 자체를 <strong style="color:#e6edf3;">완벽하게</strong> 만들기.<br><br>
+        모델의 환각·비결정성·컷오프를 <strong style="color:#e6edf3;">근본적으로 없애기</strong>.
+      </div>
+    </div>
+    <div class="comp-arrow">→</div>
+    <div class="comp-side comp-new">
+      <div class="comp-label">O. 우리가 할 일</div>
+      <div class="comp-body" style="font-size: 16px; padding: 6px 0;">
+        같은 AI에게 같은 질문을 해도,<br>
+        <strong style="color:#a78bfa;">좋은 결과가 나올 확률</strong>을<br>
+        끌어올리는 것.
+      </div>
+    </div>
   </div>
-  <div class="comp-arrow">vs</div>
-  <div class="comp-side comp-new">
-    <span class="comp-label">LLM의 시선 (토큰)</span>
-    <div class="comp-body" style="font-family:'Courier New',monospace; font-size:20px; text-align:center; padding:8px 0;"><span style="background:rgba(124,58,237,0.25); padding:4px 10px; border-radius:6px;">straw</span> + <span style="background:rgba(124,58,237,0.25); padding:4px 10px; border-radius:6px;">berry</span></div>
-    <div style="text-align:center; font-weight:900; color:#ef4444; font-size:18px;">자주 — 2개라고 답함</div>
+
+  <div class="callout" style="padding: 20px 32px; font-size: 17px; max-width: 1000px;">
+    그게 <strong>바이브 코딩 실무의 본질</strong>.
   </div>
-</div>
-<p class="note">덩어리(토큰) 안의 <strong>글자 하나하나는 못 본다</strong> — 이미 녹아 사라진 정보 위에서 추측.</p>
 
 </div>
 

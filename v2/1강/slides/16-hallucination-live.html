@@ -107,6 +107,30 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 좌우 split */
+.split-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1140px; align-items: start; }
+.explain { display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: #c9d1d9; line-height: 1.7; }
+.explain p { margin: 0; }
+.explain .bullets { display: flex; flex-direction: column; gap: 6px; padding-left: 4px; }
+.explain .accent-line { color: #a78bfa; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; border-radius: 6px; }
+.explain .bad-line { color: #fca5a5; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; border-radius: 6px; }
+.explain .good-line { color: #6ee7b7; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; border-radius: 6px; }
+
+/* 채팅 패널 */
+.chat-panel { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.chat-bubble { padding: 11px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6; color: #c9d1d9; white-space: pre-wrap; font-family: 'Noto Sans KR', sans-serif; }
+.chat-bubble .chat-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; display: block; text-transform: uppercase; }
+.chat-user-bad { background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; }
+.chat-user-bad .chat-label { color: #ef4444; }
+.chat-user-good { background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; }
+.chat-user-good .chat-label { color: #34d399; }
+.chat-ai { background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; }
+.chat-ai .chat-label { color: #a78bfa; }
+.chat-obs { background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; color: #c9d1d9; font-weight: 500; }
+.chat-obs .chat-label { color: #38bdf8; }
+.chat-bubble .hl { color: #a78bfa; font-weight: 700; }
+.chat-bubble .bad { color: #fca5a5; font-weight: 700; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,22 +200,43 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 3 / 4 — 라이브 시연 (함께 입력 #3)</div>
-  <h1 class="title">환각 — 가짜 책 추천</h1>
-  <div class="prompt-box">
-  <div class="prompt-tag">함께 입력 #3</div>
-  <div><span class="prompt-arrow">&gt;</span> 2024년 노벨문학상 한국어 번역본 추천해줘. 책 제목·출판사·번역자까지.</div>
-</div>
-<div class="code-box">AI 응답 (예시)
-"『○○○』 (○○출판사, 번역자 ○○○) — 2024년 출간"
+  <h1 class="title">② 충분한 맥락 <span style="font-size:24px;font-weight:500;color:#8b949e;-webkit-text-fill-color:#8b949e;">(Context)</span></h1>
+  <p class="cover-sub" style="margin-bottom: 26px;">프롬프트가 "<strong>무엇을 시킬지</strong>"라면, 맥락은 "<strong style="color:#a78bfa;">그 일을 하려면 알아야 할 것</strong>"입니다.</p>
 
-→ 실제 검색  ::  <span class="bad">존재하지 않는 책</span>
-→ 출판사     ::  <span class="bad">실재하나 그 책 안 냄</span>
-→ 번역자     ::  <span class="bad">완전 허구</span>
+  <div class="split-2col">
+    <div class="explain">
+      <p>맥락은 AI에게 같이 던져주는 <strong>배경 자료·상황·이전 대화</strong>입니다.</p>
+      <div class="bullets">
+        <div>· 관련 문서·메일 본문</div>
+        <div>· 받는 사람이 누구인지</div>
+        <div>· 우리 입장·제약 조건</div>
+        <div>· 지금까지 이뤄진 합의</div>
+      </div>
+      <div class="bad-line">맥락 없이 시키면 AI는 추측한다.<br>가장 흔한 케이스로 알아서 채워 넣음.</div>
+      <div class="good-line">같은 프롬프트라도 <strong>배경 자료를 함께 주면</strong><br>결과가 우리 상황에 딱 맞게 좁혀진다.</div>
+    </div>
 
-<span class="hl">그럴듯한데, 거짓말</span>
-</div>
-<p class="note">이게 *환각* — 모르는 걸 *모른다*고 안 하고, <strong>그럴듯하게 만들어서</strong> 답함.</p>
+    <div class="chat-panel">
+      <div class="chat-bubble chat-user-bad"><span class="chat-label">❌ 맥락 없이</span>내일 A사 박 차장에게 보낼 팔로업 메일 써줘.</div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI</span>안녕하세요 박 차장님,
+어제 자리 감사드리며 논의된 사항 정리해 공유드립니다.
+1. …
+2. …
+
+<span class="bad">(무슨 회의였는지·합의가 뭔지 모름 → 빈칸 채워서 어색)</span></div>
+      <div class="chat-bubble chat-user-good"><span class="chat-label">⭕ 맥락 제공</span><span class="hl">[배경]</span> 오늘 A사와 12월 출시 일정 미팅
+<span class="hl">[합의]</span> 11월 말까지 API 테스트 완료
+<span class="hl">[미해결]</span> 보안 검토 일정 조율
+<span class="hl">[관계]</span> 박 차장과는 2년 협업 · 친근한 톤 OK
+
+위 내용으로 박 차장에게 팔로업 메일 써줘.</div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI</span>박 차장님,
+오늘 미팅 감사했습니다.
+합의대로 <span class="hl">11월 말까지 API 테스트</span>는 저희가 책임지고 진행하겠습니다.
+다만 <span class="hl">보안 검토 일정</span>은 다음 주 중 별도 조율이 필요할 것 같은데, 가능하신 시간 알려주시면 맞춰보겠습니다.</div>
+      <div class="chat-bubble chat-obs"><span class="chat-label">관찰</span>똑같은 요청, 배경 자료가 붙으면 결과가 우리 일에 바로 쓸 수 있게 바뀐다.</div>
+    </div>
+  </div>
 
 </div>
 

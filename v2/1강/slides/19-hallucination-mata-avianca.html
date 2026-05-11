@@ -107,6 +107,30 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 좌우 split */
+.split-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1140px; align-items: center; }
+.explain { display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: #c9d1d9; line-height: 1.7; }
+.explain p { margin: 0; }
+.explain .bullets { display: flex; flex-direction: column; gap: 6px; padding-left: 4px; }
+.explain .accent-line { color: #a78bfa; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; border-radius: 6px; }
+
+/* 3-stage 가로 카드 */
+.stage-grid { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 14px; align-items: stretch; width: 100%; max-width: 1140px; margin: 24px 0 8px; }
+.stage-card { background: rgba(15, 20, 35, 0.6); border: 2px solid; border-radius: 16px; padding: 26px 22px; display: flex; flex-direction: column; gap: 16px; }
+.stage-card.stage-prompt { border-color: rgba(236, 72, 153, 0.35); background: linear-gradient(180deg, rgba(40, 18, 35, 0.45) 0%, rgba(15, 20, 35, 0.6) 100%); }
+.stage-card.stage-context { border-color: rgba(167, 139, 250, 0.45); background: linear-gradient(180deg, rgba(45, 22, 70, 0.45) 0%, rgba(15, 20, 35, 0.6) 100%); }
+.stage-card.stage-harness { border-color: rgba(56, 189, 248, 0.35); background: linear-gradient(180deg, rgba(18, 40, 60, 0.45) 0%, rgba(15, 20, 35, 0.6) 100%); }
+.stage-num { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: #8b949e; text-transform: uppercase; }
+.stage-card.stage-prompt .stage-num { color: #f9a8d4; }
+.stage-card.stage-context .stage-num { color: #a78bfa; }
+.stage-card.stage-harness .stage-num { color: #38bdf8; }
+.stage-names { display: flex; flex-direction: column; gap: 4px; }
+.stage-name-kr { font-size: 26px; font-weight: 900; color: #ffffff; line-height: 1.25; }
+.stage-name-en { font-size: 13px; color: #8b949e; font-weight: 500; line-height: 1.4; }
+.stage-q { margin-top: auto; background: rgba(0, 0, 0, 0.28); border-radius: 8px; padding: 14px 12px; font-size: 14px; color: #c9d1d9; text-align: center; line-height: 1.55; }
+.stage-q strong { color: #ffffff; }
+.stage-arrow { font-size: 22px; color: #6e7681; align-self: center; padding: 0 4px; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,24 +200,41 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 3 / 4 — 실제 사건</div>
-  <h1 class="title">Mata v. Avianca 사건</h1>
-  <div class="hero-label">2023 · 5월 · 미국 뉴욕 남부지방법원</div>
-<div class="hero-num">$5,000</div>
-<div style="text-align:center; font-size:15px; color:#8b949e; margin-bottom:24px;">변호사 + 로펌 벌금 &nbsp;·&nbsp; 30년 경력 변호사 Steven Schwartz</div>
-<div class="card-grid card-grid-2">
-  <div class="card">
-    <span class="card-num" style="color:#ef4444;">사건</span>
-    <span class="card-title">ChatGPT로 판례 6건 작성</span>
-    <span class="card-body">법원 제출 → 판사 검색 → <strong style="color:#ef4444;">6건 모두 존재하지 않음</strong></span>
+  <h1 class="title">세 가지<br>엔지니어링</h1>
+  <p class="cover-sub" style="margin-bottom: 12px;">지침을 잘 넣어주는 일에는, 안쪽에서 바깥쪽으로 점점 넓어지는 <strong style="color:#a78bfa;">세 단계</strong>가 있습니다.</p>
+
+  <div class="stage-grid">
+    <div class="stage-card stage-prompt">
+      <div class="stage-num">01 · PROMPT</div>
+      <div class="stage-names">
+        <div class="stage-name-kr">프롬프트<br>엔지니어링</div>
+        <div class="stage-name-en">Prompt<br>Engineering</div>
+      </div>
+      <div class="stage-q"><strong>무엇을, 어떻게</strong> 요청할 것인가</div>
+    </div>
+    <div class="stage-arrow">→</div>
+    <div class="stage-card stage-context">
+      <div class="stage-num">02 · CONTEXT</div>
+      <div class="stage-names">
+        <div class="stage-name-kr">컨텍스트<br>엔지니어링</div>
+        <div class="stage-name-en">Context<br>Engineering</div>
+      </div>
+      <div class="stage-q"><strong>어떤 정보</strong>를 함께 줄 것인가</div>
+    </div>
+    <div class="stage-arrow">→</div>
+    <div class="stage-card stage-harness">
+      <div class="stage-num">03 · HARNESS</div>
+      <div class="stage-names">
+        <div class="stage-name-kr">하니스<br>엔지니어링</div>
+        <div class="stage-name-en">Harness<br>Engineering</div>
+      </div>
+      <div class="stage-q"><strong>어떻게 반복</strong>해서 검증할 것인가</div>
+    </div>
   </div>
-  <div class="card">
-    <span class="card-num" style="color:#ef4444;">2차 환각</span>
-    <span class="card-title">"이 판례 진짜냐?" 재확인</span>
-    <span class="card-body">ChatGPT가 *"진짜"* 라고 답함 → 변호사 그 답변까지 그대로 제출</span>
+
+  <div class="callout" style="margin-top: 22px; padding: 16px 28px; font-size: 15px; max-width: 1000px;">
+    한 단계씩 차근차근, <strong>안쪽 핵 → 바깥 껍질</strong>로 점점 넓어집니다.
   </div>
-</div>
-<p class="note">환각 = *재미난 실수* 가 아니라 — <strong>법정에서 벌금 맞는 일</strong>. 미국 모든 법대 강의에 등장하는 사례.</p>
 
 </div>
 

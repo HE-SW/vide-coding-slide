@@ -107,6 +107,27 @@ body {
 .card .card-title { font-size: 16px; font-weight: 700; color: #e6edf3; }
 .card .card-body { font-size: 13px; color: #8b949e; line-height: 1.6; }
 
+/* 좌우 split */
+.split-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1140px; align-items: start; }
+.explain { display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: #c9d1d9; line-height: 1.7; }
+.explain p { margin: 0; }
+.explain .bullets { display: flex; flex-direction: column; gap: 6px; padding-left: 4px; }
+.explain .accent-line { color: #a78bfa; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; border-radius: 6px; }
+.explain .bad-line { color: #fca5a5; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; border-radius: 6px; }
+.explain .good-line { color: #6ee7b7; font-weight: 700; font-size: 15px; padding: 12px 16px; background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; border-radius: 6px; }
+
+/* 채팅 패널 */
+.chat-panel { background: rgba(22, 27, 40, 0.9); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.chat-bubble { padding: 11px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6; color: #c9d1d9; white-space: pre-wrap; font-family: 'Noto Sans KR', sans-serif; }
+.chat-bubble .chat-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; display: block; text-transform: uppercase; }
+.chat-user { background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; }
+.chat-user .chat-label { color: #38bdf8; }
+.chat-ai { background: rgba(124, 58, 237, 0.08); border-left: 3px solid #7c3aed; }
+.chat-ai .chat-label { color: #a78bfa; }
+.chat-obs { background: rgba(52, 211, 153, 0.08); border-left: 3px solid #34d399; color: #c9d1d9; font-weight: 500; }
+.chat-obs .chat-label { color: #34d399; }
+.chat-bubble .hl { color: #a78bfa; font-weight: 700; }
+
 /* 동심원 */
 .three-circles {
   position: relative; width: 520px; height: 380px;
@@ -176,19 +197,39 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body>
 <div class="container">
-  <div class="eyebrow">단어 3 / 4 — 일상 비유</div>
-  <h1 class="title">절대 모른다고 안 하는 신입</h1>
-  <div class="callout">신입사원이 회의에서 — *"잘 모르겠는데요"* 를 절대 안 하는 사람.</div>
-<div class="code-box">상사:  "지난주 매출 보고서 결론이 뭐였지?"
+  <h1 class="title">③ 반복적 개선 <span style="font-size:24px;font-weight:500;color:#8b949e;-webkit-text-fill-color:#8b949e;">(Iteration)</span></h1>
+  <p class="cover-sub" style="margin-bottom: 26px;">한 번에 완벽한 결과를 <strong style="color:#a78bfa;">기대하지 않는다.</strong></p>
 
-신입(좋은):  "아직 안 봤습니다. 확인하고 다시 답하겠습니다."
+  <div class="split-2col">
+    <div class="explain">
+      <p>많은 사람들이 AI에게 이렇게 기대합니다.</p>
+      <div class="bullets">
+        <div>· 질문 한 번으로</div>
+        <div>· 완벽한 결과를 한 번에</div>
+      </div>
+      <div class="bad-line">그런 일은 거의 일어나지 않는다.<br>처음 결과는 대부분 의도와 다르다.</div>
+      <p>실제 실무는 이렇게 흘러갑니다.</p>
+      <div class="bullets">
+        <div>· 결과를 보고 <strong>수정 요청</strong>한다</div>
+        <div>· 방향을 <strong>조정</strong>한다</div>
+        <div>· 마음에 들 때까지 <strong>반복 개선</strong>한다</div>
+      </div>
+      <div class="good-line">바이브 코딩 = 한 번의 명령이 아니라<br><strong>대화하며 다듬는 작업</strong>이다.</div>
+    </div>
 
-신입(환각):  "네, 전월 대비 12% 증가였고
-            특히 30대 여성층이 ..."
-            <span class="dim">← 들어본 적도 없음. 그냥 그럴듯하게 지어냄</span>
-
-LLM 기본값  :  <span class="hl">두 번째 신입</span></div>
-<p class="note">왜? — 학습 데이터에 *"모르겠어요"* 보다 *그럴듯한 답* 이 훨씬 많아서. 모델이 *그쪽을 더 잘 따라함*.</p>
+    <div class="chat-panel">
+      <div class="chat-bubble chat-user"><span class="chat-label">User · 1차</span>회사 소개 페이지 만들어줘.</div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI · 1차 결과</span>일반적인 헤더 + 회사 소개 + 서비스 + 연락처 구조로 만들어 드렸습니다.
+<span style="color:#8b949e;">(평이한 기본 템플릿)</span></div>
+      <div class="chat-bubble chat-user"><span class="chat-label">User · 2차</span>좀 더 미니멀하게,
+색은 검정+흰색 위주로 바꿔줘.</div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI · 2차 결과</span>흑백 미니멀로 재구성했습니다. 여백을 넓히고 타이포 위주로 정리.</div>
+      <div class="chat-bubble chat-user"><span class="chat-label">User · 3차</span>헤더는 좌측 정렬,
+CTA 버튼은 우측 상단으로 옮겨줘.</div>
+      <div class="chat-bubble chat-ai"><span class="chat-label">AI · 3차 결과</span>레이아웃 조정 완료. <span class="hl">의도에 맞춰 단계적으로 수렴.</span></div>
+      <div class="chat-bubble chat-obs"><span class="chat-label">관찰</span>한 번에 완벽 X. 3번의 작은 수정으로 의도에 도달.</div>
+    </div>
+  </div>
 
 </div>
 
