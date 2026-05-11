@@ -108,6 +108,7 @@
 청중이 자기 PC에 *동시에 입력*하는 prompt 묶음 + 예상 출력 + fallback. 다른 docs와 달리 *회차 단위로 묶인* 운영 메모(예외 카테고리).
 
 - [v2-1강](live-demos/v2-1강.md) — v2 워크숍(130분, 비개발자 외부)용 함께 입력 prompt 6개 + 라이브 라운드. 1차 발표 피드백(예시 부족) 보강판.
+- [v2-2강](live-demos/v2-2강.md) — v2 강의(90분, 비개발자 — Claude Code 자체)용 함께 입력 prompt 3개 (/init · /context · skill-creator).
 - [army-1강](live-demos/army-1강.md) · [army-2강](live-demos/army-2강.md) · [army-3강](live-demos/army-3강.md) — army 평행 트리 1차 운영 메모.
 
 ---
