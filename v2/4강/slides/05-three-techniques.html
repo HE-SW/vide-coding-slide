@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>AI-Native로 가는 3가지 실전 테크닉</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 80px;
+}
+.container { width: 1280px; padding: 0 80px; display: flex; flex-direction: column; align-items: center; }
+
+.title {
+  font-size: 42px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+.sub { font-size: 16px; color: #8b949e; text-align: center; margin-bottom: 38px; line-height: 1.55; }
+.sub b { color: #c9d1d9; font-weight: 700; }
+
+.techs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  width: 100%;
+  max-width: 1120px;
+}
+.tech {
+  border-radius: 16px;
+  padding: 26px 22px 22px;
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  min-height: 320px;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: techIn 0.5s ease-out forwards;
+}
+.tech:nth-child(1) { animation-delay: 0.1s; }
+.tech:nth-child(2) { animation-delay: 0.25s; }
+.tech:nth-child(3) { animation-delay: 0.4s; }
+@keyframes techIn { to { opacity: 1; transform: translateY(0); } }
+.tech::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+
+/* T1 — QUALITY (teal) */
+.tech.t1 {
+  background: rgba(20, 184, 166, 0.06);
+  border: 1px solid rgba(20, 184, 166, 0.35);
+}
+.tech.t1::before { background: linear-gradient(90deg, #14b8a6, #38bdf8); }
+.tech.t1 .tech-num { color: #2dd4bf; }
+.tech.t1 .tech-name { color: #5eead4; }
+.tech.t1 .tech-key { color: #134e4a; background: linear-gradient(135deg, #2dd4bf, #14b8a6); }
+
+/* T2 — COST (amber) */
+.tech.t2 {
+  background: rgba(251, 191, 36, 0.05);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+}
+.tech.t2::before { background: linear-gradient(90deg, #fbbf24, #f97316); }
+.tech.t2 .tech-num { color: #fbbf24; }
+.tech.t2 .tech-name { color: #fcd34d; }
+.tech.t2 .tech-key { color: #451a03; background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+
+/* T3 — SAFETY (rose) */
+.tech.t3 {
+  background: rgba(244, 63, 94, 0.05);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+}
+.tech.t3::before { background: linear-gradient(90deg, #f43f5e, #ec4899); }
+.tech.t3 .tech-num { color: #fb7185; }
+.tech.t3 .tech-name { color: #fda4af; }
+.tech.t3 .tech-key { color: #4c0519; background: linear-gradient(135deg, #fb7185, #f43f5e); }
+
+.tech-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 2.5px;
+  margin-bottom: 10px;
+}
+.tech-name {
+  font-size: 24px; font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+}
+.tech-desc {
+  font-size: 15.5px; font-weight: 600;
+  color: #e6edf3;
+  line-height: 1.55;
+  flex-grow: 1;
+}
+.tech-key {
+  align-self: flex-start;
+  margin-top: 22px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px; font-weight: 900;
+  letter-spacing: 3px;
+  padding: 7px 18px;
+  border-radius: 8px;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out  { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <h1 class="title">AI-Native로 가는 3가지 실전 테크닉</h1>
+  <p class="sub">5개월간의 시행착오 끝에 정리한<br><b>가장 많이 막히는 3가지 지점</b></p>
+
+  <div class="techs">
+    <div class="tech t1">
+      <div class="tech-num">TECHNIQUE 01</div>
+      <div class="tech-name">AI-Ready Codebase</div>
+      <div class="tech-desc">AI가 읽기 쉬운 코드베이스 만들기</div>
+      <span class="tech-key">QUALITY</span>
+    </div>
+    <div class="tech t2">
+      <div class="tech-num">TECHNIQUE 02</div>
+      <div class="tech-name">컨텍스트 &amp; 비용 최적화</div>
+      <div class="tech-desc">AI는 공짜가 아닙니다</div>
+      <span class="tech-key">COST</span>
+    </div>
+    <div class="tech t3">
+      <div class="tech-num">TECHNIQUE 03</div>
+      <div class="tech-name">세이프가드 / Hooks</div>
+      <div class="tech-desc">AI를 안전하게 위임하는 구조</div>
+      <span class="tech-key">SAFETY</span>
+    </div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="04-parallel-vs-serial.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">05 / 13</a></div>
+    <div class="nav-right"><a href="06-tech1-ai-ready-codebase.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('04-parallel-vs-serial.html');
+  if (e.key === 'ArrowRight') navigateTo('06-tech1-ai-ready-codebase.html');
+});
+</script>
+</body>
+</html>

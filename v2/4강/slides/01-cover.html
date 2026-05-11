@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>바이브 코딩의 격차는 1%안에서 벌어진다</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+body::before, body::after {
+  content: ''; position: absolute; border-radius: 50%;
+  filter: blur(140px); opacity: 0.18;
+  pointer-events: none; z-index: 0;
+}
+body::before { width: 600px; height: 600px; background: #7c3aed; top: -180px; left: -120px; }
+body::after  { width: 600px; height: 600px; background: #38bdf8; bottom: -180px; right: -120px; }
+
+.container { width: 1280px; padding: 0 90px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
+.title {
+  font-size: 44px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.25;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+}
+.title em { font-style: normal; }
+.sub { font-size: 17px; color: #8b949e; text-align: center; margin-bottom: 32px; line-height: 1.55; }
+.sub b { color: #c9d1d9; font-weight: 700; }
+
+.gaps { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; max-width: 1120px; margin-bottom: 24px; }
+.gap { border-radius: 16px; padding: 22px 26px; display: flex; flex-direction: column; gap: 0; }
+.gap.old { background: rgba(139, 148, 158, 0.04); border: 1px solid rgba(139, 148, 158, 0.22); }
+.gap.new {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.13), rgba(56, 189, 248, 0.05));
+  border: 1.5px solid rgba(124, 58, 237, 0.55);
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.12);
+}
+
+.gap-badge {
+  font-size: 12px; letter-spacing: 1.5px; font-weight: 700;
+  padding: 5px 12px; border-radius: 999px;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  display: inline-flex; align-items: center;
+}
+.gap.old .gap-badge { color: #8b949e; background: rgba(139, 148, 158, 0.08); border: 1px solid rgba(139, 148, 158, 0.3); }
+.gap.new .gap-badge { color: #fff; background: rgba(244, 63, 94, 0.18); border: 1px solid rgba(244, 63, 94, 0.55); }
+.gap.new .gap-badge::before {
+  content: ''; display: inline-block; width: 7px; height: 7px;
+  background: #f43f5e; border-radius: 50%; margin-right: 8px;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.75); } }
+
+.gap-vs { font-size: 21px; font-weight: 800; margin-bottom: 16px; line-height: 1.35; }
+.gap.old .gap-vs { color: #8b949e; }
+.gap.new .gap-vs { color: #e6edf3; }
+.gap.new .gap-vs em { color: #a78bfa; font-style: normal; font-weight: 900; }
+
+.gap-points { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.gap-points li {
+  font-size: 14.5px;
+  line-height: 1.55;
+  padding-left: 18px;
+  position: relative;
+}
+.gap-points li::before {
+  content: ''; position: absolute; left: 4px; top: 10px;
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.gap.old .gap-points li { color: #8b949e; }
+.gap.old .gap-points li::before { background: #6e7681; }
+.gap.new .gap-points li { color: #c9d1d9; }
+.gap.new .gap-points li::before { background: #a78bfa; }
+.gap.new .gap-points li strong { color: #e6edf3; font-weight: 700; }
+
+.callout {
+  width: 100%; max-width: 1120px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(56, 189, 248, 0.10));
+  border: 1.5px solid rgba(124, 58, 237, 0.55);
+  border-radius: 14px;
+  padding: 18px 28px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.callout::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #38bdf8);
+}
+.callout-text { font-size: 19px; font-weight: 800; color: #e6edf3; line-height: 1.45; }
+.callout-text em {
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-style: normal;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; }
+body.fade-init { animation: fadeIn 0.5s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <h1 class="title">바이브 코딩의 격차는 <em>1%</em> 안에서 벌어진다</h1>
+  <p class="sub">기존 격차는 <b>평균값이 결정됐다</b>. 새 격차가 <b>지금 막 폭발 중</b>.</p>
+
+  <div class="gaps">
+    <div class="gap old">
+      <span class="gap-badge">기존 격차</span>
+      <div class="gap-vs">AI 쓰는 사람 vs 안 쓰는 사람</div>
+      <ul class="gap-points">
+        <li>평균값이 이미 결정됨</li>
+        <li>현장에서 자연스럽게 정리되는 중</li>
+        <li>더 다룰 필요 없는 격차</li>
+      </ul>
+    </div>
+    <div class="gap new">
+      <span class="gap-badge">새 격차 — 지금 멀어지는 중</span>
+      <div class="gap-vs"><em>AI를 지휘하는 사람</em> vs 그냥 쓰는 사람</div>
+      <ul class="gap-points">
+        <li>앞으로 5년 커리어를 <strong>가르는 선</strong></li>
+        <li>10배가 아니라 <strong>100배까지 벌어질 수 있음</strong></li>
+        <li>한 사람이 <strong>5명, 10명 분량의 일</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text">이 격차를 좁힐 수 있는 시간은 <em>1년일지, 6개월일지</em> 모릅니다. 다만 <em>길지 않습니다.</em></div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><span class="nav-disabled">&larr; 이전</span></div>
+    <div class="nav-center"><a href="index.html">01 / 13</a></div>
+    <div class="nav-right"><a href="02-user-to-orchestrator.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') navigateTo('02-user-to-orchestrator.html');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>모듈마다 답해야 할 5가지 질문</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0 70px;
+}
+.container { width: 1280px; padding: 0 60px; display: flex; flex-direction: column; align-items: center; }
+
+.title {
+  font-size: 36px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+.sub {
+  text-align: center;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.sub-row {
+  font-size: 13.5px;
+  color: #8b949e;
+  line-height: 1.55;
+}
+.sub-row b { color: #c9d1d9; font-weight: 700; }
+.sub-row code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: #5eead4;
+  background: rgba(20, 184, 166, 0.08);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin: 0 2px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 1160px;
+  margin-bottom: 18px;
+}
+.card {
+  border: 1px solid rgba(139, 148, 158, 0.2);
+  background: rgba(22, 27, 40, 0.55);
+  border-radius: 12px;
+  padding: 16px 14px 14px;
+  display: flex; flex-direction: column;
+  position: relative;
+  min-height: 220px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: cardIn 0.45s ease-out forwards;
+}
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+@keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
+
+.card .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 30px; font-weight: 900;
+  color: #5eead4;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.card .q {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #e6edf3;
+  line-height: 1.4;
+  margin-bottom: auto;
+  padding-bottom: 12px;
+}
+.card .tag {
+  margin-top: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; font-weight: 800; letter-spacing: 1.5px;
+  color: #8b949e;
+  padding: 5px 10px;
+  background: rgba(139, 148, 158, 0.08);
+  border: 1px solid rgba(139, 148, 158, 0.25);
+  border-radius: 6px;
+  align-self: flex-start;
+}
+
+/* Highlight card #3 — the landmine */
+.card.boom {
+  background: linear-gradient(180deg, rgba(244, 63, 94, 0.10), rgba(251, 191, 36, 0.05));
+  border: 1.5px solid rgba(244, 63, 94, 0.55);
+  box-shadow: 0 0 35px rgba(244, 63, 94, 0.18);
+}
+.card.boom::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #fbbf24, #f43f5e);
+  border-radius: 12px 12px 0 0;
+}
+.card.boom .num { color: #fb7185; }
+.card.boom .q { color: #ffffff; }
+.card.boom .q .bolt { color: #fbbf24; }
+.card.boom .tag {
+  color: #fb7185;
+  background: rgba(244, 63, 94, 0.12);
+  border-color: rgba(244, 63, 94, 0.45);
+}
+
+.message {
+  width: 100%;
+  max-width: 1160px;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.16), rgba(56, 189, 248, 0.08));
+  border: 1.5px solid rgba(20, 184, 166, 0.5);
+  border-radius: 14px;
+  padding: 16px 30px;
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  align-items: center;
+  gap: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.message::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #2dd4bf, #38bdf8);
+}
+.msg-pin {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 800; letter-spacing: 2px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.45);
+}
+.msg-half {
+  display: flex; flex-direction: column;
+  gap: 2px;
+  line-height: 1.45;
+}
+.msg-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  color: #8b949e;
+}
+.msg-text {
+  font-size: 16px;
+  font-weight: 800;
+  color: #c9d1d9;
+}
+.msg-half.mute .msg-text { color: #8b949e; font-weight: 600; }
+.msg-half.key .msg-label { color: #5eead4; }
+.msg-half.key .msg-text {
+  background: linear-gradient(135deg, #2dd4bf, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out  { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <h1 class="title">모듈마다 답해야 할 5가지 질문</h1>
+  <div class="sub">
+    <div class="sub-row"><b>"모듈"</b> = 코드베이스의 한 책임 단위 <code>폴더</code><code>마이크로서비스</code><code>패키지</code></div>
+    <div class="sub-row">각 <b>25~35줄</b> / <b>1,000 토큰</b> (윈도우의 0.1%)</div>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="num">01</div>
+      <div class="q">이 모듈이<br>무엇을 하는가</div>
+      <span class="tag">WHAT</span>
+    </div>
+    <div class="card">
+      <div class="num">02</div>
+      <div class="q">일반적인 수정은<br>어떻게 하는가</div>
+      <span class="tag">HOW · 정상</span>
+    </div>
+    <div class="card boom">
+      <div class="num">03</div>
+      <div class="q">빌드를 깨뜨리는<br>비명백한 패턴<br><span class="bolt">⚡</span></div>
+      <span class="tag">HOW NOT · 지뢰</span>
+    </div>
+    <div class="card">
+      <div class="num">04</div>
+      <div class="q">다른 모듈과의<br>의존성은</div>
+      <span class="tag">WHERE</span>
+    </div>
+    <div class="card">
+      <div class="num">05</div>
+      <div class="q">코드에 안 적힌<br>부족 지식은</div>
+      <span class="tag">WHY</span>
+    </div>
+  </div>
+
+  <div class="message">
+    <div class="msg-pin">3번이 핵심</div>
+    <div class="msg-half mute">
+      <div class="msg-label">일반 문서는</div>
+      <div class="msg-text">"어떻게 하는가"</div>
+    </div>
+    <div class="msg-half key">
+      <div class="msg-label">AI에 진짜 필요한 건</div>
+      <div class="msg-text">"어떻게 하면 안 되는가"</div>
+    </div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="09-meta-failures.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">10 / 13</a></div>
+    <div class="nav-right"><a href="11-meta-results.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('09-meta-failures.html');
+  if (e.key === 'ArrowRight') navigateTo('11-meta-results.html');
+});
+</script>
+</body>
+</html>

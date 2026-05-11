@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>라이브 데모 — 점수로 측정한다</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0 70px;
+}
+.container { width: 1280px; padding: 0 60px; display: flex; flex-direction: column; align-items: center; }
+
+.title {
+  font-size: 38px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+.sub {
+  text-align: center;
+  margin-bottom: 24px;
+  line-height: 1.55;
+}
+.sub-cmd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #5eead4;
+  background: rgba(20, 184, 166, 0.1);
+  border: 1px solid rgba(20, 184, 166, 0.35);
+  padding: 4px 14px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.sub-desc {
+  font-size: 14px;
+  color: #8b949e;
+  line-height: 1.5;
+}
+.sub-desc b { color: #c9d1d9; font-weight: 700; }
+
+.demo {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 18px;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1160px;
+  margin-bottom: 16px;
+}
+.panel {
+  border-radius: 14px;
+  padding: 20px 22px 18px;
+  display: flex; flex-direction: column;
+  opacity: 0; transform: translateY(15px);
+  animation: panelIn 0.5s ease-out forwards;
+}
+.panel.before {
+  background: rgba(244, 63, 94, 0.05);
+  border: 1.5px solid rgba(244, 63, 94, 0.4);
+  animation-delay: 0.1s;
+}
+.panel.after {
+  background: rgba(52, 211, 153, 0.06);
+  border: 1.5px solid rgba(52, 211, 153, 0.45);
+  box-shadow: 0 0 40px rgba(52, 211, 153, 0.12);
+  animation-delay: 0.35s;
+}
+@keyframes panelIn { to { opacity: 1; transform: translateY(0); } }
+
+.panel-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+  margin-bottom: 8px;
+}
+.panel.before .panel-tag { color: #8b949e; }
+.panel.after .panel-tag { color: #8b949e; }
+
+.panel-status {
+  font-size: 18px; font-weight: 800;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.panel.before .panel-status { color: #fb7185; }
+.panel.after .panel-status { color: #34d399; }
+.panel-status .ico {
+  width: 18px; height: 18px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 12px;
+}
+.panel.before .panel-status .ico { background: rgba(244, 63, 94, 0.2); }
+.panel.after .panel-status .ico { background: rgba(52, 211, 153, 0.2); }
+
+.score {
+  display: flex; align-items: baseline; gap: 4px;
+  margin-bottom: 16px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.score .big {
+  font-size: 56px; font-weight: 900;
+  line-height: 1;
+}
+.panel.before .score .big { color: #fb7185; }
+.panel.after .score .big { color: #34d399; }
+.score .denom {
+  font-size: 22px; font-weight: 700;
+  color: #6e7681;
+}
+
+.checklist {
+  display: flex; flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+.checklist .item {
+  display: grid; grid-template-columns: 18px 1fr;
+  gap: 9px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  align-items: baseline;
+}
+.checklist .item .x { color: #fb7185; font-weight: 800; }
+.checklist .item .v { color: #34d399; font-weight: 800; }
+.panel.before .checklist .item span:last-child { color: #fda4af; }
+.panel.after .checklist .item span:last-child { color: #c9d1d9; }
+
+.mid {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 10px;
+  padding: 0 6px;
+  opacity: 0; transform: scale(0.85);
+  animation: midIn 0.4s ease-out 0.25s forwards;
+}
+@keyframes midIn { to { opacity: 1; transform: scale(1); } }
+.mid-action {
+  font-size: 15px; font-weight: 800;
+  color: #e6edf3;
+  text-align: center;
+  line-height: 1.3;
+  background: rgba(22, 27, 40, 0.7);
+  border: 1px solid rgba(139, 148, 158, 0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.mid-action code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: #fcd34d;
+}
+.mid-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 900;
+  color: #38bdf8;
+}
+.mid-arrow {
+  font-size: 30px;
+  color: #5eead4;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.message {
+  width: 100%;
+  max-width: 1160px;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.16), rgba(56, 189, 248, 0.08));
+  border: 1.5px solid rgba(20, 184, 166, 0.5);
+  border-radius: 14px;
+  padding: 14px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.message::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #2dd4bf, #38bdf8);
+}
+.msg-line {
+  font-size: 16px;
+  font-weight: 700;
+  color: #e6edf3;
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+.msg-line b { color: #5eead4; font-weight: 800; }
+.msg-sub {
+  font-size: 13.5px;
+  color: #8b949e;
+}
+.msg-sub b { color: #fcd34d; font-weight: 700; }
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out  { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <h1 class="title">라이브 데모 — 점수로 측정한다</h1>
+  <div class="sub">
+    <div class="sub-cmd">/ai-readiness-cartography</div>
+    <div class="sub-desc">스크립트로 코드베이스를 스캔, <b>10가지 원칙별 점수</b> + HTML 대시보드</div>
+  </div>
+
+  <div class="demo">
+    <div class="panel before">
+      <div class="panel-tag">BEFORE</div>
+      <div class="panel-status"><span class="ico">✕</span>AI Not Ready</div>
+      <div class="score"><span class="big">32</span><span class="denom">/ 100</span></div>
+      <div class="checklist">
+        <div class="item"><span class="x">❌</span><span>CLAUDE.md 없음</span></div>
+        <div class="item"><span class="x">❌</span><span>컨벤션 문서화 없음</span></div>
+        <div class="item"><span class="x">❌</span><span>Non-Obvious Pattern 0개</span></div>
+        <div class="item"><span class="x">❌</span><span>모듈 의존성 명시 없음</span></div>
+      </div>
+    </div>
+
+    <div class="mid">
+      <div class="mid-action"><code>CLAUDE.md</code> 추가</div>
+      <div class="mid-time">90초</div>
+      <div class="mid-arrow">→</div>
+    </div>
+
+    <div class="panel after">
+      <div class="panel-tag">AFTER</div>
+      <div class="panel-status"><span class="ico">✓</span>AI Ready</div>
+      <div class="score"><span class="big">78</span><span class="denom">/ 100</span></div>
+      <div class="checklist">
+        <div class="item"><span class="v">✅</span><span>CLAUDE.md 100줄 이내</span></div>
+        <div class="item"><span class="v">✅</span><span>컨벤션 명시 완료</span></div>
+        <div class="item"><span class="v">✅</span><span>Non-Obvious 7개 패턴 등록</span></div>
+        <div class="item"><span class="v">✅</span><span>에러 · 테스트 규칙 적용</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="message">
+    <div class="msg-line">발표 후 따라해보고 싶다면 — <b>본인 회사 코드베이스 점수부터 측정</b>해보세요.</div>
+    <div class="msg-sub">보통 처음엔 <b>30~40점대</b>.</div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="12-claudemd-example.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">13 / 13</a></div>
+    <div class="nav-right"><span class="nav-disabled">다음 &rarr;</span></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('12-claudemd-example.html');
+});
+</script>
+</body>
+</html>

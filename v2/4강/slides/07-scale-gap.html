@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>스케일이 커질수록 격차가 폭발한다</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0 70px;
+}
+.container { width: 1280px; padding: 0 70px; display: flex; flex-direction: column; align-items: center; }
+
+.title {
+  font-size: 38px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+.sub {
+  font-size: 15px;
+  color: #8b949e;
+  text-align: center;
+  margin-bottom: 26px;
+  line-height: 1.55;
+}
+.sub b { color: #c9d1d9; font-weight: 700; }
+
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  width: 100%;
+  max-width: 1140px;
+  margin-bottom: 16px;
+}
+.col {
+  border-radius: 14px;
+  padding: 20px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: colIn 0.5s ease-out forwards;
+}
+.col.small {
+  background: rgba(45, 212, 191, 0.05);
+  border: 1px solid rgba(45, 212, 191, 0.32);
+  animation-delay: 0.1s;
+}
+.col.big {
+  background: rgba(244, 63, 94, 0.05);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  animation-delay: 0.25s;
+}
+@keyframes colIn { to { opacity: 1; transform: translateY(0); } }
+
+.col-head { margin-bottom: 14px; }
+.col-badge {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  padding: 4px 10px; border-radius: 999px;
+  display: inline-block; margin-bottom: 6px;
+}
+.col.small .col-badge { color: #5eead4; background: rgba(45, 212, 191, 0.15); border: 1px solid rgba(45, 212, 191, 0.4); }
+.col.big .col-badge { color: #fb7185; background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.4); }
+.col-title {
+  font-size: 17px; font-weight: 800; color: #e6edf3;
+  line-height: 1.35;
+}
+
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  color: #8b949e;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.feat-list {
+  display: flex; flex-direction: column;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+.feat {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.feat-key {
+  font-weight: 700;
+  color: #c9d1d9;
+}
+.feat-val {
+  color: #8b949e;
+}
+.col.small .feat-key { color: #a7f3d0; }
+.col.big .feat-key { color: #fda4af; }
+
+.result {
+  margin-top: auto;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.result b { font-weight: 800; }
+.col.small .result {
+  background: rgba(52, 211, 153, 0.08);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  color: #d1fae5;
+}
+.col.small .result b { color: #34d399; }
+.col.big .result {
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  color: #fecaca;
+}
+.col.big .result b { color: #fb7185; }
+.result-lead {
+  font-size: 13.5px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.col.small .result-lead { color: #34d399; }
+.col.big .result-lead { color: #fb7185; }
+.result ul { margin-left: 16px; margin-top: 2px; }
+.result li { line-height: 1.55; list-style: disc; }
+.result .end {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  font-weight: 700;
+  color: #e6edf3;
+}
+
+.message {
+  width: 100%;
+  max-width: 1140px;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.16), rgba(56, 189, 248, 0.08));
+  border: 1.5px solid rgba(20, 184, 166, 0.5);
+  border-radius: 14px;
+  padding: 16px 26px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.message::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #2dd4bf, #38bdf8);
+}
+.message-lead {
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+  color: #5eead4;
+  margin-bottom: 6px;
+}
+.message-line {
+  font-size: 16px;
+  font-weight: 700;
+  color: #c9d1d9;
+  line-height: 1.6;
+}
+.message-line em {
+  background: linear-gradient(135deg, #2dd4bf, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: normal;
+  font-weight: 900;
+}
+.message-line .strike {
+  color: #8b949e;
+  font-weight: 600;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out  { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <h1 class="title">스케일이 커질수록 격차가 폭발한다</h1>
+  <p class="sub">사이드 프로젝트에서는 차이가 잘 안 보입니다.<br>하지만 <b>회사 규모의 코드베이스</b>에서는 같은 AI도 완전히 다른 결과를 냅니다.</p>
+
+  <div class="cols">
+    <div class="col small">
+      <div class="col-head">
+        <span class="col-badge">사이드 / 토이 프로젝트</span>
+        <div class="col-title">규모가 작은 프로젝트</div>
+      </div>
+      <div class="section-label">특징</div>
+      <div class="feat-list">
+        <div class="feat"><span class="feat-key">파일 수</span><span class="feat-val">수십 ~ 100개 수준</span></div>
+        <div class="feat"><span class="feat-key">컨벤션</span><span class="feat-val">단순하고 대부분 내가 기억함</span></div>
+        <div class="feat"><span class="feat-key">암묵 규칙</span><span class="feat-val">거의 없음</span></div>
+        <div class="feat"><span class="feat-key">AI 컨텍스트</span><span class="feat-val">한 번에 대부분 읽을 수 있음</span></div>
+      </div>
+      <div class="result">
+        <div class="result-lead">AI가 구조를 쉽게 이해합니다</div>
+        <ul>
+          <li><code>CLAUDE.md</code> 같은 문서가 없어도,</li>
+          <li>어느 정도는 자연스럽게 동작합니다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col big">
+      <div class="col-head">
+        <span class="col-badge">실제 회사 코드베이스</span>
+        <div class="col-title">규모가 커진 순간 완전히 달라짐</div>
+      </div>
+      <div class="section-label">특징</div>
+      <div class="feat-list">
+        <div class="feat"><span class="feat-key">파일 수</span><span class="feat-val">수천 ~ 수만 개</span></div>
+        <div class="feat"><span class="feat-key">컨벤션</span><span class="feat-val">여러 해 동안 누적된 규칙</span></div>
+        <div class="feat"><span class="feat-key">암묵 규칙</span><span class="feat-val">특정 시니어만 알고 있는 경우도 많음</span></div>
+        <div class="feat"><span class="feat-key">AI 컨텍스트</span><span class="feat-val">한 번에 다 읽는 것이 불가능</span></div>
+      </div>
+      <div class="result">
+        <div class="result-lead">AI는:</div>
+        <ul>
+          <li>계속 추측하고,</li>
+          <li>잘못 이해하고,</li>
+          <li>비슷한 코드를 새로 만들고,</li>
+          <li>기존 구조를 반복해서 깨뜨리게 됩니다.</li>
+        </ul>
+        <div class="end">결국 사람이 계속 다시 고쳐야 하는 상태가 됩니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="message">
+    <div class="message-lead">규모가 커질수록 중요한 것은</div>
+    <div class="message-line"><span class="strike">"AI에게 무엇을 수정할지"</span> 보다 — <em>"어디를 보고 어떤 규칙을 따라야 하는지 알려주는 것"</em></div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="06-tech1-ai-ready-codebase.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">07 / 13</a></div>
+    <div class="nav-right"><a href="08-definition.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('06-tech1-ai-ready-codebase.html');
+  if (e.key === 'ArrowRight') navigateTo('08-definition.html');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=1280" />
+        <title>AI-Maximalist의 어제 오전 — 직렬 vs 병렬</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                background: #0a0f1a;
+                font-family: "Noto Sans KR", sans-serif;
+                color: #e6edf3;
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 30px 0 70px;
+            }
+            .container {
+                width: 1280px;
+                padding: 0 70px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .title {
+                font-size: 36px;
+                font-weight: 900;
+                color: #ffffff;
+                text-align: center;
+                margin-bottom: 6px;
+                line-height: 1.25;
+            }
+            .sub {
+                font-size: 16px;
+                color: #8b949e;
+                text-align: center;
+                margin-bottom: 24px;
+                line-height: 1.5;
+            }
+            .sub b {
+                color: #c9d1d9;
+                font-weight: 700;
+            }
+
+            .cols {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 18px;
+                width: 100%;
+                max-width: 1140px;
+                margin-bottom: 18px;
+            }
+            .col {
+                border-radius: 14px;
+                padding: 18px 20px 16px;
+                display: flex;
+                flex-direction: column;
+                opacity: 0;
+                transform: translateY(15px);
+                animation: colIn 0.5s ease-out forwards;
+            }
+            .col.before {
+                background: rgba(244, 63, 94, 0.05);
+                border: 1px solid rgba(244, 63, 94, 0.3);
+                animation-delay: 0.1s;
+            }
+            .col.now {
+                background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(56, 189, 248, 0.05));
+                border: 1.5px solid rgba(124, 58, 237, 0.5);
+                box-shadow: 0 0 40px rgba(124, 58, 237, 0.12);
+                animation-delay: 0.25s;
+            }
+            @keyframes colIn {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .col-head {
+                margin-bottom: 14px;
+            }
+            .col-badge {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+                padding: 4px 10px;
+                border-radius: 999px;
+                display: inline-block;
+                margin-bottom: 6px;
+            }
+            .col.before .col-badge {
+                color: #fb7185;
+                background: rgba(244, 63, 94, 0.15);
+                border: 1px solid rgba(244, 63, 94, 0.4);
+            }
+            .col.now .col-badge {
+                color: #a78bfa;
+                background: rgba(124, 58, 237, 0.18);
+                border: 1px solid rgba(124, 58, 237, 0.5);
+            }
+            .col-title {
+                font-size: 17px;
+                font-weight: 800;
+                color: #e6edf3;
+                margin-bottom: 3px;
+            }
+            .col-sub {
+                font-size: 13px;
+                color: #8b949e;
+            }
+
+            .timeline {
+                position: relative;
+                padding-left: 64px;
+                display: flex;
+                flex-direction: column;
+                gap: 13px;
+                margin-bottom: 14px;
+            }
+
+            .ev {
+                position: relative;
+            }
+            .ev-time {
+                position: absolute;
+                left: -64px;
+                top: 0;
+                width: 44px;
+                font-family: "JetBrains Mono", monospace;
+                font-size: 13.5px;
+                font-weight: 700;
+                text-align: right;
+                line-height: 1.4;
+            }
+
+            .ev-title {
+                font-size: 14.5px;
+                font-weight: 700;
+                color: #e6edf3;
+                line-height: 1.4;
+                margin-bottom: 2px;
+            }
+            .ev-note {
+                font-size: 13px;
+                color: #8b949e;
+                line-height: 1.5;
+            }
+            .ev-note .a {
+                color: #fb7185;
+                font-weight: 700;
+            }
+            .col.now .ev-note .a {
+                color: #a78bfa;
+                font-weight: 700;
+            }
+            .ev-note ul {
+                margin-top: 3px;
+                margin-left: 14px;
+            }
+            .ev-note li {
+                line-height: 1.6;
+                list-style: disc;
+            }
+
+            .result {
+                margin-top: auto;
+                padding: 10px 14px;
+                border-radius: 9px;
+                font-size: 14px;
+                font-weight: 800;
+                text-align: center;
+            }
+            .col.before .result {
+                background: rgba(244, 63, 94, 0.12);
+                color: #fb7185;
+                border: 1px solid rgba(244, 63, 94, 0.4);
+            }
+            .col.now .result {
+                background: rgba(52, 211, 153, 0.12);
+                color: #34d399;
+                border: 1px solid rgba(52, 211, 153, 0.4);
+            }
+
+            .message {
+                width: 100%;
+                max-width: 1140px;
+                background: linear-gradient(135deg, rgba(124, 58, 237, 0.16), rgba(56, 189, 248, 0.09));
+                border: 1.5px solid rgba(124, 58, 237, 0.5);
+                border-radius: 14px;
+                padding: 14px 26px;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+            .message::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: linear-gradient(90deg, #7c3aed, #38bdf8);
+            }
+            .message-line {
+                font-size: 17px;
+                font-weight: 800;
+                color: #e6edf3;
+                line-height: 1.45;
+            }
+            .message-line em {
+                background: linear-gradient(135deg, #7c3aed, #38bdf8);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                font-style: normal;
+                font-weight: 900;
+            }
+            .message-sub {
+                font-size: 13.5px;
+                color: #8b949e;
+                margin-top: 4px;
+                line-height: 1.5;
+            }
+            .message-sub b {
+                color: #c9d1d9;
+                font-weight: 700;
+            }
+
+            .slide-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 50px;
+                background: rgba(10, 15, 26, 0.95);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border-top: 1px solid rgba(124, 58, 237, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+            }
+            .slide-nav-inner {
+                width: 1280px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 60px;
+            }
+            .slide-nav a {
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 700;
+                color: #7c3aed;
+                transition: color 0.2s;
+            }
+            .slide-nav a:hover {
+                color: #a78bfa;
+            }
+            .slide-nav .nav-disabled {
+                font-size: 14px;
+                font-weight: 700;
+                color: #484f58;
+                cursor: default;
+            }
+            .slide-nav .nav-center a {
+                color: #8b949e;
+                font-size: 13px;
+                font-weight: 400;
+            }
+            .slide-nav .nav-center a:hover {
+                color: #e6edf3;
+            }
+            body.fade-init {
+                opacity: 0;
+                animation: fadeIn 0.5s ease forwards;
+            }
+            body.fade-out {
+                animation: fadeOut 0.3s ease forwards;
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(15px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(-12px);
+                }
+            }
+        </style>
+    </head>
+    <body class="fade-init">
+        <div class="container">
+            <h1 class="title">AI-Maximalist의 어제 오전 (9:30 ~ 11:30)</h1>
+            <p class="sub">같은 2시간, 다른 산출물 — <b>시간을 직렬로 쓰느냐, 병렬로 쓰느냐</b></p>
+
+            <div class="cols">
+                <div class="col before">
+                    <div class="col-head">
+                        <span class="col-badge">BEFORE — AI-Enabled 시절의 나</span>
+                        <div class="col-title">한 줄씩 묻고, 한 작업씩 끝내고</div>
+                    </div>
+                    <div class="timeline">
+                        <div class="ev">
+                            <span class="ev-time">9:30</span>
+                            <div class="ev-title">첫 작업 시작</div>
+                            <div class="ev-note">Claude 켜고 한 줄씩 요청</div>
+                        </div>
+                        <div class="ev">
+                            <span class="ev-time">10:00</span>
+                            <div class="ev-title">미팅 시작</div>
+                            <div class="ev-note"><span class="a">→</span> 작업 완전 중지</div>
+                        </div>
+                        <div class="ev">
+                            <span class="ev-time">11:00</span>
+                            <div class="ev-title">미팅 종료</div>
+                            <div class="ev-note"><span class="a">→</span> 어디까지 했는지 컨텍스트 복구</div>
+                        </div>
+                        <div class="ev">
+                            <span class="ev-time">11:30</span>
+                            <div class="ev-title">첫 작업 절반 정도 완료</div>
+                        </div>
+                    </div>
+                    <div class="result">2시간 → 작업 1개도 완전히 끝나지 못함</div>
+                </div>
+
+                <div class="col now">
+                    <div class="col-head">
+                        <span class="col-badge">NOW — AI-Maximalist</span>
+                        <div class="col-title">여러 워크트리에 동시에 위임</div>
+                    </div>
+                    <div class="timeline">
+                        <div class="ev">
+                            <span class="ev-time">9:35</span>
+                            <div class="ev-title">3개의 AI 에이전트에 동시 위임</div>
+                            <div class="ev-note">신규 기능 · 버그 수정 · 성능 개선</div>
+                        </div>
+                        <div class="ev">
+                            <span class="ev-time">10:00</span>
+                            <div class="ev-title">미팅 시작</div>
+                            <div class="ev-note">나는 미팅 중 <span class="a">/</span> AI는 계속 작업 중</div>
+                        </div>
+                        <div class="ev">
+                            <span class="ev-time">11:00</span>
+                            <div class="ev-title">알림 확인</div>
+                            <div class="ev-note"><span class="a">→</span> 5분 검수 후 머지</div>
+                        </div>
+                        <div class="ev">
+                            <span class="ev-time">11:30</span>
+                            <div class="ev-title">2개 작업 완료</div>
+                            <div class="ev-note">1개는 추가 확인 진행 중</div>
+                        </div>
+                    </div>
+                    <div class="result">2시간 → 2개 완료 + 1개 진행</div>
+                </div>
+            </div>
+
+            <div class="message">
+                <div class="message-line">사람의 시간은 <em>직렬</em>, AI 위임은 <em>병렬</em> — 한 사람이 <em>5명 분량의 산출물</em></div>
+            </div>
+        </div>
+        <nav class="slide-nav">
+            <div class="slide-nav-inner">
+                <div class="nav-left">
+                    <a
+                        href="03-four-levels.html"
+                        onclick="
+                            event.preventDefault();
+                            navigateTo(this.href);
+                        "
+                        >&larr; 이전</a
+                    >
+                </div>
+                <div class="nav-center"><a href="index.html">04 / 13</a></div>
+                <div class="nav-right"><a href="05-three-techniques.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+            </div>
+        </nav>
+        <script>
+            function navigateTo(url) {
+                document.body.classList.add("fade-out");
+                setTimeout(function () {
+                    window.location.href = url;
+                }, 300);
+            }
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "ArrowLeft") navigateTo("03-four-levels.html");
+                if (e.key === "ArrowRight") navigateTo("05-three-techniques.html");
+            });
+        </script>
+    </body>
+</html>

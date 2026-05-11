@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Meta 결과: 5% → 100%, 2일 → 30분</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0 70px;
+}
+.container { width: 1280px; padding: 0 70px; display: flex; flex-direction: column; align-items: center; }
+
+.title {
+  font-size: 38px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+.title .arrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 900;
+}
+.sub {
+  font-size: 15px;
+  color: #c9d1d9;
+  text-align: center;
+  margin-bottom: 26px;
+  line-height: 1.55;
+  max-width: 920px;
+}
+.sub b { color: #5eead4; font-weight: 800; }
+
+.table {
+  width: 100%;
+  max-width: 1080px;
+  background: rgba(22, 27, 40, 0.55);
+  border: 1px solid rgba(139, 148, 158, 0.18);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1.2fr;
+  align-items: center;
+  padding: 12px 24px;
+  border-bottom: 1px solid rgba(139, 148, 158, 0.1);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: rowIn 0.4s ease-out forwards;
+}
+.row:nth-child(1) { animation-delay: 0.08s; }
+.row:nth-child(2) { animation-delay: 0.16s; }
+.row:nth-child(3) { animation-delay: 0.24s; }
+.row:nth-child(4) { animation-delay: 0.32s; }
+.row:nth-child(5) { animation-delay: 0.4s; }
+.row:nth-child(6) { animation-delay: 0.48s; }
+@keyframes rowIn { to { opacity: 1; transform: translateY(0); } }
+.row:last-child { border-bottom: none; }
+
+.row.head {
+  background: rgba(15, 20, 32, 0.85);
+  padding: 14px 24px;
+  border-bottom: 1px solid rgba(139, 148, 158, 0.25);
+}
+.row.head .col {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  color: #8b949e;
+}
+.row.head .before { color: #fb7185; }
+.row.head .after { color: #5eead4; }
+
+.col.metric {
+  font-size: 15px;
+  font-weight: 700;
+  color: #e6edf3;
+}
+.col.before {
+  font-size: 16px;
+  font-weight: 700;
+  color: #94a3b8;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.3px;
+}
+.col.after {
+  font-size: 17px;
+  font-weight: 800;
+  color: #5eead4;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.col.after .pulse {
+  color: #2dd4bf;
+  font-weight: 900;
+}
+.col.after .arrow {
+  color: #38bdf8;
+  font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.row.highlight .col.after {
+  color: #34d399;
+}
+.row.highlight .col.after .pulse {
+  color: #34d399;
+}
+
+.message {
+  width: 100%;
+  max-width: 1080px;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.18), rgba(56, 189, 248, 0.08));
+  border: 1.5px solid rgba(20, 184, 166, 0.5);
+  border-radius: 14px;
+  padding: 16px 28px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 22px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.message::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #2dd4bf, #38bdf8);
+}
+.msg-head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #2dd4bf, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+.msg-body {
+  display: flex; flex-direction: column;
+  gap: 4px;
+}
+.msg-line {
+  font-size: 14.5px;
+  color: #c9d1d9;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.msg-line b { color: #e6edf3; }
+.msg-foot {
+  font-size: 12.5px;
+  color: #8b949e;
+  font-style: italic;
+}
+.msg-foot b { color: #5eead4; font-style: normal; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out  { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <h1 class="title">Meta 결과: 5% <span class="arrow">→</span> 100%, 2일 <span class="arrow">→</span> 30분</h1>
+  <p class="sub"><b>59개 컨텍스트 파일</b>로 <b>4,100개 코드베이스 전체</b>를 AI가 다루게 됐다</p>
+
+  <div class="table">
+    <div class="row head">
+      <div class="col">지표</div>
+      <div class="col before">BEFORE</div>
+      <div class="col after">AFTER</div>
+    </div>
+    <div class="row highlight">
+      <div class="col metric">AI가 네비게이션 가능한 파일</div>
+      <div class="col before">~50개</div>
+      <div class="col after"><span class="pulse">4,100개+</span> <span class="arrow">×82</span></div>
+    </div>
+    <div class="row">
+      <div class="col metric">부족 지식 문서화</div>
+      <div class="col before">0개</div>
+      <div class="col after"><span class="pulse">50개</span> 패턴</div>
+    </div>
+    <div class="row">
+      <div class="col metric">AI 도구 호출 횟수</div>
+      <div class="col before">기존</div>
+      <div class="col after"><span class="pulse">40% 감소</span></div>
+    </div>
+    <div class="row highlight">
+      <div class="col metric">작업 시간</div>
+      <div class="col before">~2일 조사</div>
+      <div class="col after"><span class="pulse">30분</span> <span class="arrow">×96</span></div>
+    </div>
+    <div class="row">
+      <div class="col metric">품질 점수</div>
+      <div class="col before">3.65 / 5.0</div>
+      <div class="col after"><span class="pulse">4.20 / 5.0</span></div>
+    </div>
+  </div>
+
+  <div class="message">
+    <div class="msg-head">Compass, not Encyclopedia</div>
+    <div class="msg-body">
+      <div class="msg-line">AI에게 <b>모든 걸 알려주는 게 아니라</b>, 어디로 가야 할지 <b>방향만 알려준다</b></div>
+      <div class="msg-foot">— 합쳐도 컨텍스트 윈도우의 <b>0.1%</b></div>
+    </div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="10-five-questions.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">11 / 13</a></div>
+    <div class="nav-right"><a href="12-claudemd-example.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('10-five-questions.html');
+  if (e.key === 'ArrowRight') navigateTo('12-claudemd-example.html');
+});
+</script>
+</body>
+</html>

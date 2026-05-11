@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1280" />
-    <title>Claude Code 시스템 프롬프트 — 3월에 유출됐던 안전장치들</title>
+    <title>2026년 3월 — Claude Code 유출 사건, 그리고 '하니스 구조'</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
@@ -21,7 +21,7 @@
         min-height: 100vh;
         display: flex;
         justify-content: center;
-        padding: 40px 0 80px;
+        padding: 36px 0 78px;
       }
       .container {
         width: 1280px;
@@ -31,21 +31,21 @@
         align-items: center;
       }
       .title {
-        font-size: 44px;
+        font-size: 40px;
         font-weight: 900;
         background: linear-gradient(135deg, #7c3aed, #38bdf8);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         text-align: center;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         line-height: 1.25;
       }
       .subtitle {
         font-size: 16px;
         color: #8b949e;
         text-align: center;
-        margin-bottom: 36px;
+        margin-bottom: 22px;
         font-weight: 400;
       }
       .subtitle em {
@@ -54,33 +54,76 @@
         font-weight: 700;
       }
 
-      .rules {
+      /* 하니스 구조 정의 밴드 */
+      .def-band {
+        width: 100%;
+        background: rgba(124, 58, 237, 0.07);
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        border-radius: 14px;
+        padding: 14px 22px;
+        margin-bottom: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .def-lead {
+        font-size: 14.5px;
+        color: #c9d1d9;
+        text-align: center;
+      }
+      .def-lead strong {
+        color: #a78bfa;
+        font-weight: 700;
+      }
+      .def-items {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .def-item {
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 9px;
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 13.5px;
+        color: #e6edf3;
+        font-weight: 500;
+        line-height: 1.35;
+      }
+      .def-item span {
+        display: block;
+        font-size: 18px;
+        margin-bottom: 3px;
+      }
+
+      /* 예시 카드 3개 */
+      .examples {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 14px;
-        margin-bottom: 30px;
+        gap: 12px;
+        margin-bottom: 18px;
       }
-      .rule {
+      .ex {
         display: grid;
-        grid-template-columns: 56px 1fr;
-        gap: 18px;
+        grid-template-columns: 46px 1fr;
+        gap: 16px;
         background: rgba(139, 148, 158, 0.04);
         border: 1px solid rgba(139, 148, 158, 0.15);
         border-radius: 14px;
-        padding: 18px 24px;
-        align-items: center;
+        padding: 14px 22px;
+        align-items: start;
         opacity: 0;
-        transform: translateX(-20px);
+        transform: translateX(-18px);
         animation: stepIn 0.5s ease-out forwards;
       }
-      .rule:nth-child(1) {
+      .ex:nth-child(1) {
         animation-delay: 0.15s;
       }
-      .rule:nth-child(2) {
+      .ex:nth-child(2) {
         animation-delay: 0.3s;
       }
-      .rule:nth-child(3) {
+      .ex:nth-child(3) {
         animation-delay: 0.45s;
       }
       @keyframes stepIn {
@@ -89,40 +132,53 @@
           transform: translateX(0);
         }
       }
-      .rule-num {
-        width: 44px;
-        height: 44px;
+      .ex-num {
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         background: linear-gradient(135deg, #7c3aed, #38bdf8);
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 900;
-        font-size: 18px;
+        font-size: 17px;
         flex-shrink: 0;
+        margin-top: 2px;
       }
-      .rule-body {
+      .ex-body {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 5px;
       }
-      .rule-code {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 15px;
+      .ex-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #e6edf3;
+      }
+      .ex-title em {
+        color: #8b949e;
+        font-style: normal;
+        font-size: 13px;
         font-weight: 500;
-        color: #ffd166;
-        background: rgba(0, 0, 0, 0.3);
-        padding: 6px 12px;
-        border-radius: 6px;
-        align-self: flex-start;
+        margin-left: 6px;
       }
-      .rule-desc {
-        font-size: 15px;
+      .ex-src {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        color: #ffd166;
+        line-height: 1.5;
+      }
+      .ex-src b {
+        color: #8b949e;
+        font-weight: 700;
+      }
+      .ex-an {
+        font-size: 14.5px;
         color: #c9d1d9;
         line-height: 1.5;
       }
-      .rule-desc strong {
-        color: #e6edf3;
+      .ex-an strong {
+        color: #38bdf8;
         font-weight: 700;
       }
 
@@ -134,8 +190,8 @@
           rgba(56, 189, 248, 0.08)
         );
         border: 1.5px solid rgba(124, 58, 237, 0.5);
-        border-radius: 16px;
-        padding: 24px 28px;
+        border-radius: 14px;
+        padding: 16px 24px;
         text-align: center;
         position: relative;
         overflow: hidden;
@@ -150,7 +206,7 @@
         background: linear-gradient(90deg, #7c3aed, #38bdf8);
       }
       .punchline-text {
-        font-size: 22px;
+        font-size: 18px;
         font-weight: 900;
         color: #e6edf3;
         line-height: 1.4;
@@ -240,43 +296,68 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="title">Claude Code 시스템 프롬프트</h1>
+      <h1 class="title">2026년 3월 — Claude Code 유출 사건</h1>
       <p class="subtitle">
-        <em>2026년 3월</em>에 유출됐던 — 이미 박혀 있는 안전장치들
+        소스코드가 통째로 노출되자, 사람들이 그 안에서 발견한 것
+        <em>'하니스 구조'</em>
       </p>
 
-      <div class="rules">
-        <div class="rule">
-          <div class="rule-num">1</div>
-          <div class="rule-body">
-            <code class="rule-code">NEVER run force push to main/master</code>
-            <div class="rule-desc">
-              <strong>메인 브랜치 force push 원천 차단</strong> — 팀 작업 기록을
-              통째로 덮어쓰는 사고 방지
+      <div class="def-band">
+        <div class="def-lead">
+          하니스 = AI를 혼자 두지 않고, <strong>이걸 미리 정리해 둔 작업 환경</strong>
+        </div>
+        <div class="def-items">
+          <div class="def-item"><span>📖</span>어떤 정보를<br />먼저 읽고</div>
+          <div class="def-item"><span>📐</span>어떤 규칙을<br />참고하고</div>
+          <div class="def-item"><span>🧰</span>어떤 도구를<br />쓸 수 있고</div>
+          <div class="def-item"><span>🔢</span>어떤 순서로<br />행동할지</div>
+        </div>
+      </div>
+
+      <div class="examples">
+        <div class="ex">
+          <div class="ex-num">1</div>
+          <div class="ex-body">
+            <div class="ex-title">
+              "절대 하면 안 되는 일" 목록 <em>— 어떤 규칙을 참고하나</em>
+            </div>
+            <div class="ex-src">
+              <b>유출 소스:</b> 메인 브랜치 강제 덮어쓰기 금지 · 되돌릴 수 없는
+              명령은 실행 전에 사용자에게 확인 · AI가 멋대로 저장(commit)·전송(push)
+              금지
+            </div>
+            <div class="ex-an">
+              👉 신입 사원 매뉴얼 첫 장의 <strong>"절대 하지 말 것" 목록</strong>
             </div>
           </div>
         </div>
-        <div class="rule">
-          <div class="rule-num">2</div>
-          <div class="rule-body">
-            <code class="rule-code"
-              >NEVER use git commands with the -i flag</code
-            >
-            <div class="rule-desc">
-              <strong>interactive 모드 사용 금지</strong> — 사람 키 입력이
-              필요한 명령은 자동화 흐름을 끊는다
+        <div class="ex">
+          <div class="ex-num">2</div>
+          <div class="ex-body">
+            <div class="ex-title">
+              "명령 실행 전 23개 체크리스트" <em>— 어떤 순서로 행동하나</em>
+            </div>
+            <div class="ex-src">
+              <b>유출 소스:</b> 터미널 명령 하나를 실행하기 전에 23개 항목을 차례로
+              점검 ("시스템을 망가뜨리나 / 민감한 파일을 건드리나 …")
+            </div>
+            <div class="ex-an">
+              👉 비행기 이륙 전 조종사가 짚어 내려가는 <strong>점검표</strong>
             </div>
           </div>
         </div>
-        <div class="rule">
-          <div class="rule-num">3</div>
-          <div class="rule-body">
-            <code class="rule-code"
-              >ALWAYS create NEW commits rather than amending</code
-            >
-            <div class="rule-desc">
-              <strong>기존 커밋 수정 대신 항상 새 커밋 생성</strong> — 히스토리
-              보존, 되돌리기 가능
+        <div class="ex">
+          <div class="ex-num">3</div>
+          <div class="ex-body">
+            <div class="ex-title">
+              "사용자가 짜증나 있는지" 감지 <em>— 어떤 정보를 먼저 읽나</em>
+            </div>
+            <div class="ex-src">
+              <b>유출 소스:</b> 욕설·짜증 표현 패턴이 통째로 박혀 있어서, 사용자가
+              "이거 왜 안 돼" 같은 말을 하면 AI가 톤을 바꾼다
+            </div>
+            <div class="ex-an">
+              👉 콜센터 상담 매뉴얼의 <strong>"고객이 화났을 때 응대법"</strong>
             </div>
           </div>
         </div>
@@ -284,9 +365,8 @@
 
       <div class="punchline">
         <div class="punchline-text">
-          여러분이 Claude Code를 실행하는 순간,<br /><em
-            >이미 하니스는 작동하고 있었습니다.</em
-          >
+          여러분이 Claude Code를 실행하는 그 순간,
+          <em>이미 이 하니스는 작동하고 있었습니다.</em>
         </div>
       </div>
     </div>
@@ -302,7 +382,7 @@
             >&larr; 이전</a
           >
         </div>
-        <div class="nav-center"><a href="index.html">02 / 19</a></div>
+        <div class="nav-center"><a href="index.html">02 / 21</a></div>
         <div class="nav-right">
           <a
             href="03-other-builtin.html"

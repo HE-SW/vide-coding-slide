@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1280">
-<title>Dicom Viewer 만들기 — 4강 예고</title>
+<title>프로젝트 만들어보기 — 4강 예고</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -167,8 +167,8 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 <body>
 <div class="container">
   <div class="tag">EP 04 — 다음 강의 예고</div>
-  <h1 class="title">Dicom Viewer 만들기</h1>
-  <p class="subtitle">의료 영상 표준 포맷 DICOM — <em>실제 제작 과정</em></p>
+  <h1 class="title">프로젝트 만들어보기</h1>
+  <p class="subtitle">오늘 깐 두 층의 하니스 위에서 — <em>실제 프로젝트를 처음부터 끝까지</em></p>
 
   <div class="flow">
     <div class="step">
@@ -210,14 +210,15 @@ body.fade-out { animation: fadeOut 0.3s ease forwards; }
 <nav class="slide-nav">
   <div class="slide-nav-inner">
     <div class="nav-left"><a href="17-our-repo-as-example.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
-    <div class="nav-center"><a href="index.html">18 / 19</a></div>
-    <div class="nav-right"><span class="nav-disabled">다음 &rarr;</span></div>
+    <div class="nav-center"><a href="index.html">18 / 21</a></div>
+    <div class="nav-right"><a href="19-docs-depth.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
   </div>
 </nav>
 <script>
 function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
 document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft') navigateTo('17-our-repo-as-example.html');
+  if (e.key === 'ArrowRight') navigateTo('19-docs-depth.html');
 });
 </script>
 </body>

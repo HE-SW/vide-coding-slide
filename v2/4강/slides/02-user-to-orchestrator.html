@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>오늘의 내용 — "User"에서 "Orchestrator"로</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+body::before, body::after {
+  content: ''; position: absolute; border-radius: 50%;
+  filter: blur(140px); opacity: 0.18;
+  pointer-events: none; z-index: 0;
+}
+body::before { width: 600px; height: 600px; background: #7c3aed; top: -180px; left: -120px; }
+body::after  { width: 600px; height: 600px; background: #38bdf8; bottom: -180px; right: -120px; }
+
+.container { width: 1280px; padding: 0 90px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
+
+.eyebrow {
+  font-size: 14px; font-weight: 700; letter-spacing: 4px;
+  color: #a78bfa;
+  padding: 6px 18px;
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.08);
+  margin-bottom: 40px;
+}
+
+.en-line {
+  display: flex; align-items: center; justify-content: center;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+.en-from, .en-to {
+  font-size: 59px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+}
+.en-from {
+  color: #6e7681;
+}
+.en-to {
+  color: #ffffff;
+}
+.en-arrow {
+  font-size: 32px;
+  color: #8b949e;
+  font-weight: 400;
+}
+
+.ko-line {
+  font-size: 22px;
+  font-weight: 700;
+  color: #c9d1d9;
+  text-align: center;
+  margin-bottom: 50px;
+  line-height: 1.5;
+}
+.ko-line .ko-from { color: #8b949e; font-weight: 500; }
+.ko-line .ko-to   { color: #a78bfa; font-weight: 800; }
+.ko-line .ko-arrow { color: #6e7681; font-weight: 400; margin: 0 6px; }
+
+.callout {
+  width: 100%; max-width: 1080px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.16), rgba(56, 189, 248, 0.09));
+  border: 1.5px solid rgba(124, 58, 237, 0.55);
+  border-radius: 14px;
+  padding: 18px 28px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.callout::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #38bdf8);
+}
+.callout-text { font-size: 18px; font-weight: 700; color: #e6edf3; line-height: 1.55; }
+.callout-text em {
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-style: normal;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out  { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <span class="eyebrow">오늘의 내용</span>
+
+  <div class="en-line">
+    <span class="en-from">"User"</span>
+    <span class="en-arrow">━━▶</span>
+    <span class="en-to">"Orchestrator"</span>
+  </div>
+
+  <p class="ko-line"><span class="ko-from">"AI 사용자"</span><span class="ko-arrow">→</span><span class="ko-to">"AI를 지휘하는 사람"</span>으로 넘어가야 합니다</p>
+
+  <div class="callout">
+    <div class="callout-text">그리고 그 <em>시간이 길지 않습니다</em>. 지금부터 그 차이가 무엇이고 어떻게 넘어가는지 보겠습니다.</div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="01-cover.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">02 / 13</a></div>
+    <div class="nav-right"><a href="03-four-levels.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('01-cover.html');
+  if (e.key === 'ArrowRight') navigateTo('03-four-levels.html');
+});
+</script>
+</body>
+</html>

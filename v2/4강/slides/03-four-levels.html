@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>격차의 4단계 — 여러분은 지금 어디?</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 80px;
+}
+.container { width: 1280px; padding: 0 70px; display: flex; flex-direction: column; align-items: center; }
+
+.title {
+  font-size: 42px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+.sub { font-size: 17px; color: #8b949e; text-align: center; margin-bottom: 30px; line-height: 1.5; }
+.sub b { color: #c9d1d9; font-weight: 700; }
+.sub em {
+  font-style: normal; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.levels {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  width: 100%;
+  max-width: 1140px;
+  margin-bottom: 22px;
+}
+.level {
+  border-radius: 14px;
+  padding: 18px 18px 16px;
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  min-height: 290px;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: lvlIn 0.45s ease-out forwards;
+}
+.level:nth-child(1) { animation-delay: 0.1s; }
+.level:nth-child(2) { animation-delay: 0.2s; }
+.level:nth-child(3) { animation-delay: 0.3s; }
+.level:nth-child(4) { animation-delay: 0.4s; }
+@keyframes lvlIn { to { opacity: 1; transform: translateY(0); } }
+
+.level::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.level.l1 { background: rgba(139, 148, 158, 0.04); border: 1px solid rgba(139, 148, 158, 0.22); }
+.level.l1::before { background: #6e7681; }
+.level.l2 { background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.3); }
+.level.l2::before { background: #38bdf8; }
+.level.l3 { background: rgba(167, 139, 250, 0.06); border: 1px solid rgba(167, 139, 250, 0.4); }
+.level.l3::before { background: #a78bfa; }
+.level.l4 {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.14), rgba(56, 189, 248, 0.08));
+  border: 1.5px solid rgba(124, 58, 237, 0.55);
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.12);
+}
+.level.l4::before { background: linear-gradient(90deg, #7c3aed, #38bdf8); }
+
+.level-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px; font-weight: 700; letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.level.l1 .level-num { color: #6e7681; }
+.level.l2 .level-num { color: #38bdf8; }
+.level.l3 .level-num { color: #a78bfa; }
+.level.l4 .level-num { color: #a78bfa; }
+
+.level-name {
+  font-size: 22px; font-weight: 900; line-height: 1.15;
+  margin-bottom: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.5px;
+}
+.level.l1 .level-name { color: #8b949e; }
+.level.l2 .level-name { color: #38bdf8; }
+.level.l3 .level-name { color: #a78bfa; }
+.level.l4 .level-name {
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.level-desc {
+  font-size: 13.5px;
+  color: #c9d1d9;
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 12px;
+}
+.level.l1 .level-desc { color: #8b949e; }
+
+.level-mode {
+  align-self: flex-start;
+  font-size: 12px; font-weight: 700; letter-spacing: 1px;
+  padding: 5px 11px; border-radius: 999px;
+}
+.level.l1 .level-mode { color: #8b949e; background: rgba(139, 148, 158, 0.1); border: 1px solid rgba(139, 148, 158, 0.3); }
+.level.l2 .level-mode { color: #38bdf8; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.4); }
+.level.l3 .level-mode { color: #a78bfa; background: rgba(167, 139, 250, 0.12); border: 1px solid rgba(167, 139, 250, 0.5); }
+.level.l4 .level-mode {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.35), rgba(56, 189, 248, 0.25));
+  border: 1px solid rgba(124, 58, 237, 0.6);
+}
+
+.callout {
+  width: 100%; max-width: 1140px;
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.13), rgba(124, 58, 237, 0.10));
+  border: 1.5px solid rgba(244, 63, 94, 0.5);
+  border-radius: 14px;
+  padding: 16px 28px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.callout::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f43f5e, #7c3aed);
+}
+.callout-text { font-size: 19px; font-weight: 800; color: #e6edf3; line-height: 1.4; }
+.callout-text em {
+  background: linear-gradient(135deg, #f43f5e, #fb7185);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-style: normal; font-weight: 900;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out  { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <h1 class="title">격차의 4단계 — 여러분은 지금 어디?</h1>
+  <p class="sub">진짜 격차는 <b>1→2</b>가 아니라, <em>2→3, 3→4</em> 에서 벌어진다</p>
+
+  <div class="levels">
+    <div class="level l1">
+      <div class="level-num">LEVEL 1</div>
+      <div class="level-name">AI-Aware</div>
+      <div class="level-desc">알고는 있지만 거의 안 씀.<br>"ChatGPT" 한 번 써봤다 수준.</div>
+      <span class="level-mode">미사용</span>
+    </div>
+    <div class="level l2">
+      <div class="level-num">LEVEL 2</div>
+      <div class="level-name">AI-Enabled</div>
+      <div class="level-desc">AI를 도구로 활용, 한 줄씩 묻고 복붙. 본인이 여전히 코드의 주인.</div>
+      <span class="level-mode">도구로 활용</span>
+    </div>
+    <div class="level l3">
+      <div class="level-num">LEVEL 3</div>
+      <div class="level-name">AI-Maximalist</div>
+      <div class="level-desc">"어떻게 위임할까"를 먼저 생각. AI 없이는 일이 멈춘다. AI 중심의 워크플로우.</div>
+      <span class="level-mode">위임 + 검수</span>
+    </div>
+    <div class="level l4">
+      <div class="level-num">LEVEL 4</div>
+      <div class="level-name">AI-Native</div>
+      <div class="level-desc">AI가 일하는 환경 자체를 설계. 신뢰성·예측성·오케스트레이션.</div>
+      <span class="level-mode">시스템 최적화</span>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text"><em>한국 90%</em>가 <em>1~2단계</em></div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="02-user-to-orchestrator.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">03 / 13</a></div>
+    <div class="nav-right"><a href="04-parallel-vs-serial.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('02-user-to-orchestrator.html');
+  if (e.key === 'ArrowRight') navigateTo('04-parallel-vs-serial.html');
+});
+</script>
+</body>
+</html>
