@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Sub-Agent로 메인 컨텍스트 보호</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0 66px;
+}
+.container { width: 1280px; padding: 0 52px; display: flex; flex-direction: column; align-items: center; }
+
+.title {
+  font-size: 34px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 6px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+.sub {
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.sub-1 { font-size: 14px; color: #c9d1d9; }
+.sub-2 { font-size: 14px; color: #fcd34d; font-weight: 800; margin-top: 2px; }
+
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  width: 100%;
+  max-width: 1180px;
+  margin-bottom: 14px;
+}
+.col {
+  border-radius: 14px;
+  padding: 16px 20px 14px;
+  display: flex; flex-direction: column;
+  opacity: 0; transform: translateY(15px);
+  animation: colIn 0.5s ease-out forwards;
+}
+.col.bad {
+  background: rgba(244, 63, 94, 0.05);
+  border: 1.5px solid rgba(244, 63, 94, 0.4);
+  animation-delay: 0.1s;
+}
+.col.good {
+  background: rgba(45, 212, 191, 0.05);
+  border: 1.5px solid rgba(45, 212, 191, 0.45);
+  box-shadow: 0 0 35px rgba(45, 212, 191, 0.1);
+  animation-delay: 0.26s;
+}
+@keyframes colIn { to { opacity: 1; transform: translateY(0); } }
+
+.col-head { margin-bottom: 12px; }
+.col-title { font-size: 16px; font-weight: 800; line-height: 1.3; }
+.col.bad .col-title { color: #fb7185; }
+.col.good .col-title { color: #5eead4; }
+.col-sub { font-size: 12.5px; color: #8b949e; margin-top: 2px; }
+
+.ctx-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 2px;
+  color: #8b949e;
+  margin-bottom: 8px;
+}
+.ctx {
+  border-radius: 9px;
+  padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 5px;
+  margin-bottom: 10px;
+}
+.col.bad .ctx { background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(244, 63, 94, 0.25); }
+.col.good .ctx { background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(45, 212, 191, 0.25); }
+.ctx-row {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; line-height: 1.45;
+  display: flex; align-items: baseline; gap: 6px;
+}
+.ctx-row .bullet { color: #6b7280; }
+.ctx-row .txt { color: #c9d1d9; }
+.ctx-row .tok { color: #6b7280; font-size: 11px; margin-left: auto; white-space: nowrap; }
+.ctx-row.fat .txt { color: #fda4af; }
+.ctx-row.fat .tok { color: #fb7185; font-weight: 700; }
+.ctx-row.note { color: #8b949e; font-size: 11px; font-style: italic; margin-top: 2px; }
+.ctx-row.sub-call .txt { color: #5eead4; }
+.ctx-row.summary .txt { color: #34d399; }
+.ctx-row.summary .tok { color: #34d399; font-weight: 700; }
+.ctx-next {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px; font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 7px;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px;
+}
+.col.bad .ctx-next { background: rgba(244, 63, 94, 0.1); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.35); }
+.col.good .ctx-next { background: rgba(52, 211, 153, 0.1); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.35); }
+.ctx-next .small { font-family: 'Noto Sans KR', sans-serif; font-weight: 500; color: #8b949e; font-size: 11px; }
+
+.col-result {
+  margin-top: auto;
+  border-radius: 9px;
+  padding: 9px 14px;
+}
+.col.bad .col-result { background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.4); }
+.col.good .col-result { background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.4); }
+.col-result .top-line { display: flex; align-items: baseline; justify-content: space-between; }
+.col-result .label { font-size: 11.5px; color: #8b949e; font-weight: 700; }
+.col-result .val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 21px; font-weight: 900;
+}
+.col.bad .col-result .val { color: #fb7185; }
+.col.good .col-result .val { color: #34d399; }
+.col-result .note {
+  font-size: 11.5px; margin-top: 3px; font-weight: 700;
+}
+.col.bad .col-result .note { color: #fb7185; }
+.col.good .col-result .note { color: #34d399; }
+
+.footer-msg {
+  width: 100%; max-width: 1180px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.14), rgba(249, 115, 22, 0.06));
+  border: 1.5px solid rgba(251, 191, 36, 0.5);
+  border-radius: 12px;
+  padding: 13px 28px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.footer-msg::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #fbbf24, #f97316);
+}
+.footer-msg .l1 { font-size: 15.5px; font-weight: 800; color: #e6edf3; line-height: 1.4; }
+.footer-msg .l1 em { color: #fcd34d; font-style: normal; font-weight: 900; }
+.footer-msg .l2 { font-size: 13px; color: #c9d1d9; margin-top: 2px; font-weight: 700; }
+.footer-msg .l2 em { color: #fcd34d; font-style: normal; font-weight: 900; }
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out  { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <h1 class="title">Sub-Agent로 메인 컨텍스트 보호</h1>
+  <div class="sub">
+    <div class="sub-1">탐색 · 리뷰 · 검증 같은 무거운 작업은 별도 에이전트에 위임</div>
+    <div class="sub-2">— 메인은 의사결정만</div>
+  </div>
+
+  <div class="cols">
+    <div class="col bad">
+      <div class="col-head">
+        <div class="col-title">메인 세션에서 직접 시킬 때</div>
+        <div class="col-sub">컨텍스트가 오염된다</div>
+      </div>
+      <div class="ctx-label">MAIN CONTEXT</div>
+      <div class="ctx">
+        <div class="ctx-row"><span class="bullet">·</span><span class="txt">사용자 작업 지시</span></div>
+        <div class="ctx-row fat"><span class="bullet">·</span><span class="txt">read file_01.ts</span><span class="tok">3,200 tokens</span></div>
+        <div class="ctx-row fat"><span class="bullet">·</span><span class="txt">read file_02.ts</span><span class="tok">2,800 tokens</span></div>
+        <div class="ctx-row fat"><span class="bullet">·</span><span class="txt">read file_03 ~ file_30</span><span class="tok">60,000+ tokens</span></div>
+      </div>
+      <div class="ctx-next">→ 다음 작업 <span class="small">(이미 컨텍스트 가득)</span></div>
+      <div class="col-result">
+        <div class="top-line"><span class="label">한 작업에 토큰</span><span class="val">5만 ~ 10만</span></div>
+        <div class="note">다음 작업도 비싸짐</div>
+      </div>
+    </div>
+
+    <div class="col good">
+      <div class="col-head">
+        <div class="col-title">SUB-AGENT에 위임할 때</div>
+        <div class="col-sub">메인은 깨끗하게 유지된다</div>
+      </div>
+      <div class="ctx-label">MAIN CONTEXT</div>
+      <div class="ctx">
+        <div class="ctx-row"><span class="bullet">·</span><span class="txt">사용자 작업 지시</span></div>
+        <div class="ctx-row sub-call"><span class="bullet">·</span><span class="txt">sub-agent 호출</span></div>
+        <div class="ctx-row note">&nbsp;&nbsp;&nbsp;(별도 컨텍스트에서 30개 파일 분석)</div>
+        <div class="ctx-row summary"><span class="bullet">·</span><span class="txt">요약만 반환</span><span class="tok">500 tokens</span></div>
+      </div>
+      <div class="ctx-next">→ 다음 작업 <span class="small">(메인은 깨끗)</span></div>
+      <div class="col-result">
+        <div class="top-line"><span class="label">메인 토큰</span><span class="val">↓</span></div>
+        <div class="note">토큰 사용량 절반 가까이 절감</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-msg">
+    <div class="l1">탐색 · 리뷰 · 검증은 모두 sub-agent에게 — <em>메인은 의사결정만</em></div>
+    <div class="l2">— 이거 하나만 습관화해도 토큰이 <em>절반</em></div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="17-precise-prompting.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">18 / 18</a></div>
+    <div class="nav-right"><span class="nav-disabled">다음 &rarr;</span></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('17-precise-prompting.html');
+});
+</script>
+</body>
+</html>

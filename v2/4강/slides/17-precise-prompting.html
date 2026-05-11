@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>막는 법 — 추측하게 만들지 마라</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px 0 66px;
+}
+.container { width: 1280px; padding: 0 52px; display: flex; flex-direction: column; align-items: center; }
+
+.title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 1180px;
+  margin-bottom: 14px;
+}
+.pattern {
+  background: rgba(244, 63, 94, 0.06);
+  border: 1.5px solid rgba(244, 63, 94, 0.4);
+  border-radius: 12px;
+  padding: 12px 18px;
+  position: relative; overflow: hidden;
+}
+.pattern::before {
+  content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, #f43f5e, #fbbf24);
+}
+.pattern-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 2px;
+  color: #fb7185; margin-bottom: 5px;
+}
+.pattern-line { font-size: 13px; color: #c9d1d9; line-height: 1.55; }
+.pattern-line .arrow { color: #fb7185; font-weight: 800; }
+.pattern-line b { color: #fda4af; font-weight: 700; }
+.pattern-line .mono { font-family: 'JetBrains Mono', monospace; color: #fcd34d; }
+.pattern-note {
+  font-size: 12px; color: #fb7185; font-weight: 700; margin-top: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.key-msg {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.14), rgba(249, 115, 22, 0.06));
+  border: 1.5px solid rgba(251, 191, 36, 0.5);
+  border-radius: 12px;
+  padding: 11px 18px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.key-msg::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #fbbf24, #f97316);
+}
+.key-msg .stack {
+  font-size: 13.5px; line-height: 1.5; color: #c9d1d9; margin-bottom: 4px;
+}
+.key-msg .stack .eq { color: #fcd34d; font-weight: 800; }
+.key-msg .stack b { color: #e6edf3; font-weight: 700; }
+.key-msg .punch { font-size: 16px; font-weight: 900; color: #fcd34d; line-height: 1.3; }
+
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 1180px;
+  margin-bottom: 12px;
+}
+.col {
+  border-radius: 12px;
+  padding: 14px 18px 12px;
+  display: flex; flex-direction: column;
+  opacity: 0; transform: translateY(14px);
+  animation: colIn 0.45s ease-out forwards;
+}
+.col.vague {
+  background: rgba(244, 63, 94, 0.05);
+  border: 1.5px solid rgba(244, 63, 94, 0.4);
+  animation-delay: 0.12s;
+}
+.col.precise {
+  background: rgba(45, 212, 191, 0.05);
+  border: 1.5px solid rgba(45, 212, 191, 0.45);
+  box-shadow: 0 0 35px rgba(45, 212, 191, 0.1);
+  animation-delay: 0.26s;
+}
+@keyframes colIn { to { opacity: 1; transform: translateY(0); } }
+
+.col-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.col.vague .col-tag { color: #fb7185; }
+.col.precise .col-tag { color: #5eead4; }
+.col-intro { font-size: 12.5px; color: #8b949e; margin-bottom: 6px; }
+.col-quote {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; line-height: 1.6;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(139, 148, 158, 0.18);
+  border-radius: 7px;
+  padding: 8px 11px;
+  margin-bottom: 10px;
+}
+.col.vague .col-quote { color: #fda4af; }
+.col.precise .col-quote { color: #a7f3d0; }
+.col-sub {
+  font-size: 12.5px; font-weight: 700; margin-bottom: 5px;
+}
+.col.vague .col-sub { color: #fb7185; }
+.col.precise .col-sub { color: #5eead4; }
+.col-list {
+  display: flex; flex-direction: column; gap: 4px;
+  margin-bottom: 10px;
+}
+.col-list .item {
+  font-size: 12.5px; line-height: 1.5; color: #c9d1d9;
+  display: grid; grid-template-columns: 14px 1fr; gap: 7px; align-items: baseline;
+}
+.col.vague .col-list .item .b { color: #fb7185; font-weight: 800; }
+.col.precise .col-list .item .b { color: #34d399; font-weight: 800; }
+.col-list .item .ar { color: #8b949e; }
+.col-result {
+  margin-top: auto;
+  border-radius: 9px;
+  padding: 9px 13px;
+  display: flex; align-items: baseline; justify-content: space-between;
+}
+.col.vague .col-result { background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.4); }
+.col.precise .col-result { background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.4); }
+.col-result .label { font-size: 11.5px; color: #8b949e; font-weight: 700; }
+.col-result .val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px; font-weight: 900;
+}
+.col.vague .col-result .val { color: #fb7185; }
+.col.precise .col-result .val { color: #34d399; }
+
+.footer-msg {
+  width: 100%; max-width: 1180px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.14), rgba(249, 115, 22, 0.06));
+  border: 1.5px solid rgba(251, 191, 36, 0.5);
+  border-radius: 12px;
+  padding: 12px 26px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.footer-msg::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #fbbf24, #f97316);
+}
+.footer-msg .line { font-size: 16px; font-weight: 800; color: #e6edf3; line-height: 1.4; }
+.footer-msg .line em { color: #fcd34d; font-style: normal; font-weight: 900; }
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out  { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <h1 class="title">막는 법 — 추측하게 만들지 마라</h1>
+
+  <div class="top">
+    <div class="pattern">
+      <div class="pattern-tag">PATTERN #2 · GIANT TOOL OUTPUTS</div>
+      <div class="pattern-line"><span class="mono">tool_result ≥ 50k chars (~12.5k tokens)</span> <span class="arrow">→</span> <b>그 세션 끝까지 영구 잔류</b></div>
+      <div class="pattern-note">매 turn 다시 처리 = $1.18 / 회</div>
+    </div>
+    <div class="key-msg">
+      <div class="stack">모호한 지시 <span class="eq">=</span> AI가 30+ 파일 탐색 <span class="eq">=</span> <b>거대 출력 영구 잔류</b></div>
+      <div class="punch">정확한 지시로 1/5</div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="col vague">
+      <div class="col-tag">VAGUE — 모호한 지시</div>
+      <div class="col-intro">"이 함수 리팩토링해줘"</div>
+      <div class="col-quote">"getUserById 함수 리팩토링해줘"</div>
+      <div class="col-sub">AI가 추측을 시작합니다:</div>
+      <div class="col-list">
+        <div class="item"><span class="b">·</span><span>어디서 호출되나? <span class="ar">→ 20개 파일 검색</span></span></div>
+        <div class="item"><span class="b">·</span><span>테스트는? <span class="ar">→ 10개 파일 검색</span></span></div>
+        <div class="item"><span class="b">·</span><span>의도는? <span class="ar">→ 주변 코드 다 읽기</span></span></div>
+      </div>
+      <div class="col-result">
+        <span class="label">한 작업에 입력 토큰</span>
+        <span class="val">5만 ~ 10만</span>
+      </div>
+    </div>
+
+    <div class="col precise">
+      <div class="col-tag">PRECISE — 명확한 지시</div>
+      <div class="col-intro">필요한 정보를 미리 다 준다</div>
+      <div class="col-quote">"src/services/user.ts의 getUserById를 async/await으로 바꿔줘.<br>호출처는 src/api/users 아래만,<br>테스트는 같은 디렉토리의 .test.ts에 있어."</div>
+      <div class="col-sub">AI가 추측 안 합니다:</div>
+      <div class="col-list">
+        <div class="item"><span class="b">·</span><span>정확히 그 파일들만 열기</span></div>
+        <div class="item"><span class="b">·</span><span>호출처 검색 스킵</span></div>
+        <div class="item"><span class="b">·</span><span>테스트 위치 명시됨</span></div>
+      </div>
+      <div class="col-result">
+        <span class="label">한 작업에 입력 토큰</span>
+        <span class="val">~1만</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-msg">
+    <div class="line">사람한테 일 시킬 때랑 똑같다 — <em>AI가 알아야 할 정보를 미리 다 줘라</em></div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="16-conversation-hygiene.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">17 / 18</a></div>
+    <div class="nav-right"><a href="18-subagent-protection.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('16-conversation-hygiene.html');
+  if (e.key === 'ArrowRight') navigateTo('18-subagent-protection.html');
+});
+</script>
+</body>
+</html>

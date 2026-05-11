@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>컨텍스트 = 비용 = 품질</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 26px 0 70px;
+}
+.container { width: 1280px; padding: 0 56px; display: flex; flex-direction: column; align-items: center; }
+
+.title {
+  font-size: 36px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 6px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+.title .eq { color: #fcd34d; }
+.sub {
+  text-align: center;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+.sub-1 { font-size: 14.5px; color: #c9d1d9; }
+.sub-2 { font-size: 14.5px; color: #fcd34d; font-weight: 800; margin-top: 2px; }
+
+.meta-banner {
+  width: 100%;
+  max-width: 1160px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.13), rgba(249, 115, 22, 0.06));
+  border: 1.5px solid rgba(251, 191, 36, 0.45);
+  border-radius: 14px;
+  padding: 14px 26px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.meta-banner::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #fbbf24, #f97316);
+}
+.meta-num-wrap { text-align: center; padding-right: 22px; border-right: 1px solid rgba(251, 191, 36, 0.3); }
+.meta-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 2px;
+  color: #8b949e;
+  margin-bottom: 4px;
+}
+.meta-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 34px; font-weight: 900;
+  color: #fbbf24;
+  line-height: 1;
+}
+.meta-num .yr { font-size: 16px; color: #fcd34d; font-weight: 700; }
+.meta-text { font-size: 13.5px; line-height: 1.6; color: #c9d1d9; }
+.meta-text .l1 { display: block; }
+.meta-text .l2 { display: block; margin-top: 3px; color: #fcd34d; font-weight: 700; }
+.meta-text b { color: #e6edf3; font-weight: 700; }
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  width: 100%;
+  max-width: 1160px;
+}
+.pr {
+  background: rgba(22, 27, 40, 0.55);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 14px;
+  padding: 18px 20px 16px;
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  opacity: 0; transform: translateY(14px);
+  animation: prIn 0.45s ease-out forwards;
+}
+.pr:nth-child(1) { animation-delay: 0.15s; }
+.pr:nth-child(2) { animation-delay: 0.28s; }
+.pr:nth-child(3) { animation-delay: 0.41s; }
+@keyframes prIn { to { opacity: 1; transform: translateY(0); } }
+.pr::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #fbbf24, #f97316);
+}
+.pr-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 2px;
+  color: #8b949e;
+  margin-bottom: 6px;
+}
+.pr-name {
+  font-size: 19px; font-weight: 900;
+  color: #fcd34d;
+  margin-bottom: 12px;
+  letter-spacing: -0.3px;
+}
+.pr-desc {
+  font-size: 13.5px;
+  color: #c9d1d9;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  flex-grow: 1;
+}
+.pr-desc b { color: #e6edf3; font-weight: 700; }
+.pr-desc .updown {
+  display: flex; flex-direction: column; gap: 3px;
+  margin-top: 4px;
+}
+.pr-desc .updown span { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+.pr-desc .updown .up { color: #fb7185; font-weight: 700; }
+.pr-desc .updown .down { color: #94a3b8; font-weight: 700; }
+.pr-chips {
+  display: flex; flex-wrap: wrap; gap: 7px;
+}
+.pr-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px; font-weight: 700;
+  color: #fcd34d;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out  { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <h1 class="title">컨텍스트 <span class="eq">=</span> 비용 <span class="eq">=</span> 품질</h1>
+  <div class="sub">
+    <div class="sub-1">컨텍스트를 잘 다루면 비용이 줄고 결과 품질도 올라간다</div>
+    <div class="sub-2">— 일석이조</div>
+  </div>
+
+  <div class="meta-banner">
+    <div class="meta-num-wrap">
+      <div class="meta-tag">META · 내부 추정</div>
+      <div class="meta-num">400억원<span class="yr"> / 년</span></div>
+    </div>
+    <div class="meta-text">
+      <span class="l1">잘못된 패턴 정리 + 컨텍스트 비효율만 잡아도 <b>연간 절감 가능한 규모</b>.</span>
+      <span class="l2">한국 기업도 곧 마주합니다 — 매니저가 회의에 들고 들어옵니다.</span>
+    </div>
+  </div>
+
+  <div class="principles">
+    <div class="pr">
+      <div class="pr-tag">PRINCIPLE 01</div>
+      <div class="pr-name">Persistent Context</div>
+      <div class="pr-desc">매번 새로 가르치지 않기. <b>같은 정보를 두 번 보내지 말 것.</b></div>
+      <div class="pr-chips">
+        <span class="pr-chip">CLAUDE.md</span>
+        <span class="pr-chip">Memory</span>
+      </div>
+    </div>
+    <div class="pr">
+      <div class="pr-tag">PRINCIPLE 02</div>
+      <div class="pr-name">Precise Prompting</div>
+      <div class="pr-desc">추측하게 만들지 말 것. <b>메인 컨텍스트 보호는 sub-agent로.</b></div>
+      <div class="pr-chips">
+        <span class="pr-chip">명시적 지시</span>
+        <span class="pr-chip">Sub-Agent</span>
+      </div>
+    </div>
+    <div class="pr">
+      <div class="pr-tag">PRINCIPLE 03</div>
+      <div class="pr-name">Conversation Hygiene</div>
+      <div class="pr-desc">세션이 길어질수록:
+        <span class="updown"><span class="up">비용 ↑</span><span class="down">품질 ↓</span></span>
+        <b>선제적 관리가 필요.</b>
+      </div>
+      <div class="pr-chips">
+        <span class="pr-chip">/compact</span>
+        <span class="pr-chip">한 세션 한 작업</span>
+      </div>
+    </div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="14-tech2-context-cost.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">15 / 18</a></div>
+    <div class="nav-right"><a href="16-conversation-hygiene.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('14-tech2-context-cost.html');
+  if (e.key === 'ArrowRight') navigateTo('16-conversation-hygiene.html');
+});
+</script>
+</body>
+</html>

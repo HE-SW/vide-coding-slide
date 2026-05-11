@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1280">
-<title>Technique 01 — AI-Ready Codebase</title>
+<title>Technique 02 — 컨텍스트 & 비용 최적화</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,18 +23,18 @@ body::before {
   content: ''; position: absolute;
   width: 700px; height: 700px;
   border-radius: 50%;
-  background: #14b8a6;
-  filter: blur(160px); opacity: 0.14;
-  top: -200px; left: -120px;
+  background: #fbbf24;
+  filter: blur(170px); opacity: 0.12;
+  top: -220px; left: -140px;
   pointer-events: none; z-index: 0;
 }
 body::after {
   content: ''; position: absolute;
   width: 600px; height: 600px;
   border-radius: 50%;
-  background: #38bdf8;
-  filter: blur(140px); opacity: 0.16;
-  bottom: -180px; right: -100px;
+  background: #f97316;
+  filter: blur(150px); opacity: 0.13;
+  bottom: -200px; right: -120px;
   pointer-events: none; z-index: 0;
 }
 
@@ -42,28 +42,40 @@ body::after {
 
 .eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 12px; font-weight: 700; letter-spacing: 2.5px;
   padding: 6px 16px;
   border-radius: 999px;
-  background: rgba(20, 184, 166, 0.12);
-  border: 1px solid rgba(20, 184, 166, 0.4);
-  color: #5eead4;
-  margin-bottom: 22px;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  color: #fcd34d;
+  margin-bottom: 14px;
 }
 .eyebrow .dot {
   width: 6px; height: 6px; border-radius: 50%;
-  background: #2dd4bf;
-  box-shadow: 0 0 8px #2dd4bf;
+  background: #fbbf24;
+  box-shadow: 0 0 8px #fbbf24;
 }
 
+.meta-row {
+  display: flex; align-items: center; gap: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #8b949e;
+  letter-spacing: 1px;
+  margin-bottom: 22px;
+}
+.meta-row .sep { color: #484f58; }
+.meta-row b { color: #fcd34d; font-weight: 700; }
+
 .title {
-  font-size: 76px;
+  font-size: 64px;
   font-weight: 900;
   color: #ffffff;
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
   line-height: 1.1;
-  letter-spacing: -2px;
+  letter-spacing: -1.5px;
 }
 
 .lead {
@@ -72,15 +84,14 @@ body::after {
   text-align: center;
   line-height: 1.7;
   margin-bottom: 36px;
-  max-width: 960px;
+  max-width: 920px;
 }
-.lead b { color: #e6edf3; font-weight: 700; }
+.lead .l1 { display: block; }
+.lead .l2 { display: block; margin-top: 6px; color: #fcd34d; font-weight: 700; }
 .lead em {
   font-style: normal; font-weight: 800;
-  background: linear-gradient(135deg, #2dd4bf, #38bdf8);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  color: #fcd34d;
 }
-.lead .br { display: block; height: 8px; }
 
 .agenda {
   width: 100%;
@@ -88,7 +99,7 @@ body::after {
 }
 .agenda-title {
   font-size: 13px; font-weight: 700; letter-spacing: 2px;
-  color: #5eead4;
+  color: #fcd34d;
   margin-bottom: 18px;
   text-align: center;
 }
@@ -99,13 +110,13 @@ body::after {
 }
 .agenda-item {
   background: rgba(22, 27, 40, 0.6);
-  border: 1px solid rgba(20, 184, 166, 0.3);
+  border: 1px solid rgba(251, 191, 36, 0.3);
   border-radius: 12px;
   padding: 18px 16px;
   display: flex; flex-direction: column;
   align-items: center; justify-content: flex-start;
   gap: 12px;
-  min-height: 130px;
+  min-height: 120px;
   text-align: center;
   opacity: 0;
   transform: translateY(12px);
@@ -119,9 +130,9 @@ body::after {
 
 .agenda-num {
   width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(20, 184, 166, 0.18);
-  border: 1px solid rgba(20, 184, 166, 0.5);
-  color: #5eead4;
+  background: rgba(251, 191, 36, 0.18);
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  color: #fcd34d;
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px; font-weight: 800;
   display: flex; align-items: center; justify-content: center;
@@ -136,7 +147,7 @@ body::after {
 .agenda-text code {
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
-  color: #ffd166;
+  color: #fcd34d;
   background: rgba(0, 0, 0, 0.3);
   padding: 1px 7px;
   border-radius: 4px;
@@ -157,12 +168,12 @@ body.fade-out  { animation: fadeOut 0.3s ease forwards; }
 </head>
 <body class="fade-init">
 <div class="container">
-  <div class="eyebrow"><span class="dot"></span>TECHNIQUE 01 — QUALITY</div>
-  <h1 class="title">AI-Ready Codebase</h1>
+  <div class="eyebrow"><span class="dot"></span>TECHNIQUE 02 — COST</div>
+  <div class="meta-row">SECTION <b>2</b> / 3 <span class="sep">·</span> <b>15분</b> <span class="sep">·</span> TECHNIQUE 02</div>
+  <h1 class="title">컨텍스트 &amp; 비용 최적화</h1>
   <p class="lead">
-    같은 AI를 사용해도 <b>코드베이스 구조에 따라 결과물은 크게 달라집니다.</b>
-    <span class="br"></span>
-    즉, AI가 길을 잃지 않도록 — <em>"AI를 위한 지도"</em> 가 그려진 코드베이스를 만드는 것.
+    <span class="l1">AI-Native로 갈수록 <em>토큰이 폭증</em>한다</span>
+    <span class="l2">— 비용을 줄이면서 결과 품질은 올리는 방법</span>
   </p>
 
   <div class="agenda">
@@ -170,35 +181,35 @@ body.fade-out  { animation: fadeOut 0.3s ease forwards; }
     <div class="agenda-list">
       <div class="agenda-item">
         <div class="agenda-num">1</div>
-        <div class="agenda-text">왜 결과 품질 차이가<br>발생하는가?</div>
+        <div class="agenda-text">컨텍스트<br>= 비용 = 품질</div>
       </div>
       <div class="agenda-item">
         <div class="agenda-num">2</div>
-        <div class="agenda-text">실제 사례</div>
+        <div class="agenda-text">3가지 원칙</div>
       </div>
       <div class="agenda-item">
         <div class="agenda-num">3</div>
-        <div class="agenda-text"><code>CLAUDE.md</code><br>실전 예시</div>
+        <div class="agenda-text">Sub-Agent 보호</div>
       </div>
       <div class="agenda-item">
         <div class="agenda-num">4</div>
-        <div class="agenda-text">라이브 데모</div>
+        <div class="agenda-text">Active vs Passive</div>
       </div>
     </div>
   </div>
 </div>
 <nav class="slide-nav">
   <div class="slide-nav-inner">
-    <div class="nav-left"><a href="05-three-techniques.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
-    <div class="nav-center"><a href="index.html">06 / 18</a></div>
-    <div class="nav-right"><a href="07-scale-gap.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+    <div class="nav-left"><a href="13-live-demo-score.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">14 / 18</a></div>
+    <div class="nav-right"><a href="15-context-cost-quality.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
   </div>
 </nav>
 <script>
 function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowLeft') navigateTo('05-three-techniques.html');
-  if (e.key === 'ArrowRight') navigateTo('07-scale-gap.html');
+  if (e.key === 'ArrowLeft') navigateTo('13-live-demo-score.html');
+  if (e.key === 'ArrowRight') navigateTo('15-context-cost-quality.html');
 });
 </script>
 </body>

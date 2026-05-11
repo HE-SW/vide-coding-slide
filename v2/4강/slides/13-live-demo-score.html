@@ -263,14 +263,15 @@ body.fade-out  { animation: fadeOut 0.3s ease forwards; }
 <nav class="slide-nav">
   <div class="slide-nav-inner">
     <div class="nav-left"><a href="12-claudemd-example.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
-    <div class="nav-center"><a href="index.html">13 / 13</a></div>
-    <div class="nav-right"><span class="nav-disabled">다음 &rarr;</span></div>
+    <div class="nav-center"><a href="index.html">13 / 18</a></div>
+    <div class="nav-right"><a href="14-tech2-context-cost.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
   </div>
 </nav>
 <script>
 function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
 document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft') navigateTo('12-claudemd-example.html');
+  if (e.key === 'ArrowRight') navigateTo('14-tech2-context-cost.html');
 });
 </script>
 </body>

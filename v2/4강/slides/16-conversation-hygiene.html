@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>막는 법 — 대화 위생 3가지 습관</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px 0 66px;
+}
+.container { width: 1280px; padding: 0 52px; display: flex; flex-direction: column; align-items: center; }
+
+.title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 1180px;
+  margin-bottom: 12px;
+}
+.pattern {
+  background: rgba(244, 63, 94, 0.06);
+  border: 1.5px solid rgba(244, 63, 94, 0.4);
+  border-radius: 12px;
+  padding: 12px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.pattern::before {
+  content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, #f43f5e, #fbbf24);
+}
+.pattern-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 2px;
+  color: #fb7185;
+  margin-bottom: 5px;
+}
+.pattern-line {
+  font-size: 13px; color: #c9d1d9; line-height: 1.55;
+}
+.pattern-line .arrow { color: #fb7185; font-weight: 800; }
+.pattern-line .q { font-family: 'JetBrains Mono', monospace; color: #fcd34d; }
+.pattern-line b { color: #fda4af; font-weight: 700; }
+.pattern-note {
+  font-size: 12px; color: #fb7185; font-weight: 700;
+  margin-top: 4px;
+}
+.key-msg {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.14), rgba(249, 115, 22, 0.06));
+  border: 1.5px solid rgba(251, 191, 36, 0.5);
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.key-msg::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #fbbf24, #f97316);
+}
+.key-msg .hl {
+  font-size: 17px; font-weight: 900; color: #fcd34d;
+  line-height: 1.3; margin-bottom: 3px;
+}
+.key-msg .sub { font-size: 12.5px; color: #c9d1d9; line-height: 1.5; }
+
+.example {
+  width: 100%; max-width: 1180px;
+  background: rgba(15, 20, 32, 0.6);
+  border: 1px dashed rgba(139, 148, 158, 0.3);
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-size: 12.5px; color: #8b949e; line-height: 1.55;
+  margin-bottom: 12px;
+}
+.example b { color: #c9d1d9; font-weight: 700; }
+.example .q { font-family: 'JetBrains Mono', monospace; color: #fcd34d; }
+.example .red { color: #fb7185; font-weight: 700; }
+
+.habits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  width: 100%;
+  max-width: 1180px;
+  margin-bottom: 12px;
+}
+.habit {
+  background: rgba(22, 27, 40, 0.55);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 12px;
+  padding: 14px 16px 12px;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  opacity: 0; transform: translateY(12px);
+  animation: habitIn 0.4s ease-out forwards;
+}
+.habit:nth-child(1) { animation-delay: 0.12s; }
+.habit:nth-child(2) { animation-delay: 0.24s; }
+.habit:nth-child(3) { animation-delay: 0.36s; }
+@keyframes habitIn { to { opacity: 1; transform: translateY(0); } }
+.habit-head {
+  display: flex; align-items: center; gap: 9px;
+  margin-bottom: 8px;
+}
+.habit-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(251, 191, 36, 0.18);
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  color: #fcd34d;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.habit-title { font-size: 15px; font-weight: 800; color: #ffffff; line-height: 1.3; }
+.habit-title code { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #fcd34d; }
+.habit-desc {
+  font-size: 12px; color: #8b949e; line-height: 1.55;
+  margin-bottom: 9px; flex-grow: 1;
+}
+.habit-desc b { color: #c9d1d9; font-weight: 700; }
+.habit-desc .red { color: #fb7185; font-weight: 700; }
+.habit-desc .q { font-family: 'JetBrains Mono', monospace; color: #fcd34d; font-size: 11.5px; }
+.habit-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; line-height: 1.6;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(139, 148, 158, 0.18);
+  border-radius: 7px;
+  padding: 8px 11px;
+  color: #c9d1d9;
+  overflow-x: auto;
+}
+.habit-code .cm { color: #6b7280; }
+.habit-code .cmd { color: #fcd34d; font-weight: 700; }
+.habit-code .k { color: #c084fc; }
+.habit-code .arg { color: #5eead4; }
+
+.footer-msg {
+  width: 100%; max-width: 1180px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.14), rgba(249, 115, 22, 0.06));
+  border: 1.5px solid rgba(251, 191, 36, 0.5);
+  border-radius: 12px;
+  padding: 12px 26px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.footer-msg::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #fbbf24, #f97316);
+}
+.footer-msg .line {
+  font-size: 16px; font-weight: 800; color: #e6edf3; line-height: 1.4;
+}
+.footer-msg .line em { color: #fcd34d; font-style: normal; font-weight: 900; }
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body.fade-init { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+body.fade-out  { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body class="fade-init">
+<div class="container">
+  <h1 class="title">막는 법 — 대화 위생 3가지 습관</h1>
+
+  <div class="top">
+    <div class="pattern">
+      <div class="pattern-tag">PATTERN #1 · CONTEXT BLOAT</div>
+      <div class="pattern-line">100k+가 20+ turn 지속 (no <span class="q">/compact</span>) <span class="arrow">→</span> <b>매 turn 80k 초과분 그대로 청구</b></div>
+      <div class="pattern-note">세션 길수록 폭증</div>
+    </div>
+    <div class="key-msg">
+      <div class="hl">Pattern #1 직격</div>
+      <div class="sub">— 한 패턴만 잡아도 비용 절반 가까이 줄어듭니다</div>
+    </div>
+  </div>
+
+  <div class="example">
+    예: 세션 초반에 <span class="q">"에러는 try/catch로 해"</span> 했다고 해도, <b>50번 왕복 뒤</b> 결과에 try/catch 빠져 있음. <span class="red">그 잘못된 결과가 다시 컨텍스트에 들어가며 계속 망가짐.</span>
+  </div>
+
+  <div class="habits">
+    <div class="habit">
+      <div class="habit-head">
+        <div class="habit-num">1</div>
+        <div class="habit-title"><code>/compact</code> 선제 활용</div>
+      </div>
+      <div class="habit-desc">컨텍스트 <b>30~40% 넘기 전에</b> 직접 친다. 자동 컴팩션은 늦음. 요약 가이드를 같이 줘서 중요한 부분이 안 잘리게.</div>
+      <div class="habit-code"><span class="cmd">/compact</span> <span class="arg">"디자인 결정과 주요 수정 파일만 남기고 정리"</span></div>
+    </div>
+    <div class="habit">
+      <div class="habit-head">
+        <div class="habit-num">2</div>
+        <div class="habit-title">한 세션 = 한 작업</div>
+      </div>
+      <div class="habit-desc"><span class="q">"결제 끝났으니 OAuth도…"</span> <span class="red">→ 두 작업 정보로 컨텍스트 오염.</span> 새 작업은 새 세션에서. 단 하나의 원칙.</div>
+      <div class="habit-code"><span class="cm">// 끝났으면</span><br><span class="cmd">/exit</span><br><span class="cm">// 새 세션에서 다음 작업</span></div>
+    </div>
+    <div class="habit">
+      <div class="habit-head">
+        <div class="habit-num">3</div>
+        <div class="habit-title">출력 형식 명시</div>
+      </div>
+      <div class="habit-desc">기본 상태로 두면: <b>코드 5줄 바꾸고 30줄 설명</b> 담는다. <span class="red">→ 다 출력 토큰.</span> CLAUDE.md에 박아두면 더 좋음.</div>
+      <div class="habit-code"><span class="cm"># Communication</span><br>- Default to terse<br>- Code only - explain only when asked</div>
+    </div>
+  </div>
+
+  <div class="footer-msg">
+    <div class="line">출력 형식 <em>한 줄로 박아두면</em> 출력 토큰이 <em>절반으로</em> 줄어듭니다</div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="15-context-cost-quality.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">16 / 18</a></div>
+    <div class="nav-right"><a href="17-precise-prompting.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('15-context-cost-quality.html');
+  if (e.key === 'ArrowRight') navigateTo('17-precise-prompting.html');
+});
+</script>
+</body>
+</html>
