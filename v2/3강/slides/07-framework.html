@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>하니스 프레임워크 — 4 레이어 뼈대</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 80px;
+}
+.container { width: 1280px; padding: 0 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 42px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+.subtitle { font-size: 16px; color: #8b949e; text-align: center; margin-bottom: 32px; }
+
+.split { display: grid; grid-template-columns: 1.1fr 1fr; gap: 26px; width: 100%; }
+
+.tree {
+  background: #0d1117;
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 14px;
+  padding: 22px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #c9d1d9;
+  white-space: pre;
+  overflow: hidden;
+}
+.tree .root { color: #a78bfa; font-weight: 700; }
+.tree .com { color: #6e7681; }
+.tree .h1 { color: #f97316; font-weight: 700; }
+.tree .h2 { color: #38bdf8; font-weight: 700; }
+.tree .h3 { color: #34d399; font-weight: 700; }
+.tree .h4 { color: #ec4899; font-weight: 700; }
+
+.layers { display: flex; flex-direction: column; gap: 12px; }
+.layer {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  align-items: center;
+  background: rgba(139, 148, 158, 0.04);
+  border: 1px solid rgba(139, 148, 158, 0.15);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.layer-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 14px;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  color: #fff;
+}
+.layer-content { display: flex; flex-direction: column; gap: 2px; }
+.layer-name { font-size: 16px; font-weight: 700; color: #e6edf3; }
+.layer-name code {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+}
+.layer-desc { font-size: 13px; color: #8b949e; }
+
+.foot {
+  margin-top: 26px;
+  font-size: 16px;
+  color: #c9d1d9;
+  text-align: center;
+  line-height: 1.6;
+}
+.foot strong { color: #a78bfa; font-weight: 700; }
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">하니스 프레임워크</h1>
+  <p class="subtitle">4개의 레이어로 구성된 프로젝트 뼈대</p>
+
+  <div class="split">
+    <div class="tree"><span class="root">project/</span>
+├── <span class="h2">CLAUDE.md</span>                       <span class="com">← 프로젝트 헌법</span>
+├── <span class="h1">docs/</span>
+│   ├── rules/
+│   │   └── coding-guidelines.md    <span class="com">← 코딩 가이드라인</span>
+│   ├── PRD.md                      <span class="com">← 뭘 만드는지</span>
+│   ├── ARCHITECTURE.md             <span class="com">← 어떻게 만드는지</span>
+│   ├── ADR.md                      <span class="com">← 왜 이렇게 만드는지</span>
+│   └── UI_GUIDE.md                 <span class="com">← 어떻게 보여야 하는지 (선택)</span>
+├── .claude/
+│   ├── <span class="h3">skills/</span>
+│   │   ├── harness.md              <span class="com">← /harness — 원스톱 실행</span>
+│   │   └── review.md               <span class="com">← /review — 규칙 기반 리뷰</span>
+│   ├── <span class="h4">hooks/</span>
+│   │   └── caveman-kor             <span class="com">← 한국어용 caveman</span>
+│   └── settings.json               <span class="com">← hooks 설정</span>
+├── scripts/
+│   └── execute.py                  <span class="com">← Phase 순차 실행 + 상태</span>
+└── phases/                         <span class="com">← Phase 파일 + 실행 상태</span></div>
+
+    <div class="layers">
+      <div class="layer">
+        <div class="layer-num" style="background:linear-gradient(135deg,#f97316,#fbbf24)">1</div>
+        <div class="layer-content">
+          <div class="layer-name"><code>docs/</code> — 프로젝트의 뇌</div>
+          <div class="layer-desc">PRD · ARCHITECTURE · ADR (선택: UI_GUIDE)</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="layer-num" style="background:linear-gradient(135deg,#38bdf8,#7c3aed)">2</div>
+        <div class="layer-content">
+          <div class="layer-name"><code>CLAUDE.md</code> — 프로젝트의 헌법</div>
+          <div class="layer-desc">매 세션 자동 로드되는 한 장</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="layer-num" style="background:linear-gradient(135deg,#34d399,#10b981)">3</div>
+        <div class="layer-content">
+          <div class="layer-name"><code>skills/</code> — 슬래시 한 줄 작업 절차</div>
+          <div class="layer-desc">/harness · /review</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="layer-num" style="background:linear-gradient(135deg,#ec4899,#f43f5e)">4</div>
+        <div class="layer-content">
+          <div class="layer-name"><code>hooks/</code> — 자동 반사</div>
+          <div class="layer-desc">caveman-kor 같은 자동 후처리</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">지금부터 — <strong>이 네 레이어를 차례대로 한 슬라이드씩</strong> 보겠습니다.</p>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="06-preset-vs-custom.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">07 / 19</a></div>
+    <div class="nav-right"><a href="08-claudemd.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('06-preset-vs-custom.html');
+  if (e.key === 'ArrowRight') navigateTo('08-claudemd.html');
+});
+</script>
+</body>
+</html>

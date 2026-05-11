@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>execute.py 실행 결과 — Phase별 상태 관리 + 자동 커밋</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 80px;
+}
+.container { width: 1280px; padding: 0 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 44px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.subtitle { font-size: 17px; color: #8b949e; text-align: center; margin-bottom: 32px; }
+
+.terminal {
+  width: 100%; max-width: 1000px;
+  background: #0d1117;
+  border: 1px solid rgba(139, 148, 158, 0.2);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.3), 0 16px 50px rgba(0,0,0,0.4);
+  margin-bottom: 26px;
+}
+.term-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px;
+  background: rgba(139, 148, 158, 0.06);
+  border-bottom: 1px solid rgba(139, 148, 158, 0.15);
+}
+.term-dot { width: 12px; height: 12px; border-radius: 50%; }
+.term-dot.r { background: #ff5f56; }
+.term-dot.y { background: #ffbd2e; }
+.term-dot.g { background: #27c93f; }
+.term-cmd {
+  margin-left: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #8b949e;
+}
+.term-body {
+  padding: 22px 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #c9d1d9;
+  white-space: pre;
+}
+.term-body .sep { color: #484f58; }
+.term-body .head { color: #a78bfa; font-weight: 700; }
+.term-body .meta { color: #8b949e; }
+.term-body .ok { color: #34d399; font-weight: 700; }
+.term-body .phase { color: #e6edf3; }
+.term-body .time { color: #ffd166; }
+.term-body .done { color: #34d399; font-weight: 900; font-size: 15px; }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%; max-width: 1000px; }
+.stat {
+  background: rgba(22, 27, 40, 0.7);
+  border: 1px solid rgba(139, 148, 158, 0.2);
+  border-radius: 14px;
+  padding: 22px 18px;
+  text-align: center;
+}
+.stat.t1 { border-color: rgba(56, 189, 248, 0.4); background: linear-gradient(160deg, rgba(56, 189, 248, 0.08), rgba(0,0,0,0)); }
+.stat.t2 { border-color: rgba(167, 139, 250, 0.4); background: linear-gradient(160deg, rgba(167, 139, 250, 0.08), rgba(0,0,0,0)); }
+.stat.t3 { border-color: rgba(52, 211, 153, 0.4); background: linear-gradient(160deg, rgba(52, 211, 153, 0.08), rgba(0,0,0,0)); }
+.stat-icon { font-size: 24px; margin-bottom: 6px; }
+.stat-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat.t1 .stat-num { color: #38bdf8; }
+.stat.t2 .stat-num { color: #a78bfa; }
+.stat.t3 .stat-num { color: #34d399; }
+.stat-label { font-size: 13px; color: #8b949e; }
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">execute.py 실행 결과</h1>
+  <p class="subtitle">Phase별 상태 관리 + 자동 커밋</p>
+
+  <div class="terminal">
+    <div class="term-bar">
+      <span class="term-dot r"></span>
+      <span class="term-dot y"></span>
+      <span class="term-dot g"></span>
+      <span class="term-cmd">python3 scripts/execute.py mvp</span>
+    </div>
+    <div class="term-body"><span class="sep">============================================</span>
+ <span class="head">Harness Executor</span>
+ <span class="meta">Task: mvp  |  Phases: 5  |  Pending: 5</span>
+<span class="sep">============================================</span>
+
+ <span class="ok">✓</span> <span class="phase">Phase 1: 프로젝트-초기화</span>        <span class="time">[180s]</span>
+ <span class="ok">✓</span> <span class="phase">Phase 2: 타입-+-유틸리티</span>        <span class="time">[300s]</span>
+ <span class="ok">✓</span> <span class="phase">Phase 3: api-라우트</span>             <span class="time">[240s]</span>
+ <span class="ok">✓</span> <span class="phase">Phase 4: ui-컴포넌트</span>            <span class="time">[300s]</span>
+ <span class="ok">✓</span> <span class="phase">Phase 5: 메인-페이지-통합</span>       <span class="time">[150s]</span>
+
+<span class="sep">============================================</span>
+ <span class="done">Task 'mvp' completed!</span>
+<span class="sep">============================================</span></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat t1">
+      <div class="stat-icon">⏱</div>
+      <div class="stat-num">17분</div>
+      <div class="stat-label">총 소요 시간</div>
+    </div>
+    <div class="stat t2">
+      <div class="stat-icon">✅</div>
+      <div class="stat-num">5/5</div>
+      <div class="stat-label">Phase 완료</div>
+    </div>
+    <div class="stat t3">
+      <div class="stat-icon">🧪</div>
+      <div class="stat-num">54개</div>
+      <div class="stat-label">테스트 통과</div>
+    </div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="11-harness-flow.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">12 / 19</a></div>
+    <div class="nav-right"><a href="13-claude-headless.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('11-harness-flow.html');
+  if (e.key === 'ArrowRight') navigateTo('13-claude-headless.html');
+});
+</script>
+</body>
+</html>

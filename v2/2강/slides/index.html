@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>v2/2강 — Claude Code를 직접 마스터한다 — 비주얼 자료</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex; justify-content: center;
+  padding: 60px 0 80px;
+}
+.container { width: 1280px; padding: 0 80px; }
+.page-title {
+  font-size: 42px; font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-align: center; margin-bottom: 10px;
+}
+.page-subtitle { text-align: center; font-size: 16px; color: #8b949e; margin-bottom: 50px; }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.card {
+  display: flex; flex-direction: column; gap: 6px; padding: 18px 20px;
+  background: rgba(139,148,158,0.04);
+  border: 1px solid rgba(139,148,158,0.1);
+  border-radius: 12px; text-decoration: none;
+  transition: all 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139,148,158,0.25);
+  box-shadow: 0 8px 32px rgba(139, 148, 158, 0.12);
+}
+.card .card-num { font-size: 28px; font-weight: 900; color: #c9d1d9; }
+.card .card-title { font-size: 14px; font-weight: 700; color: #c9d1d9; line-height: 1.4; }
+.card .card-file { font-size: 11px; color: #484f58; font-family: 'Courier New', monospace; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="page-title">v2/2강 — Claude Code를 직접 마스터한다</h1>
+  <p class="page-subtitle">전체 30개 슬라이드 · 클릭 또는 ←/→ 키로 이동</p>
+  <div class="grid">
+    <a class="card" href="01-cover.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">01</span>
+      <span class="card-title">Claude Code를 직접 마스터한다</span>
+      <span class="card-file">01-cover.html</span>
+    </a>
+    <a class="card" href="02-recap-circles.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">02</span>
+      <span class="card-title">1강 회수 — 동심원 한 장</span>
+      <span class="card-file">02-recap-circles.html</span>
+    </a>
+    <a class="card" href="03-promise.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">03</span>
+      <span class="card-title">오늘의 흐름 — Claude Code를 직접 다뤄봅니다</span>
+      <span class="card-file">03-promise.html</span>
+    </a>
+    <a class="card" href="04-claude-md-hierarchy.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">04</span>
+      <span class="card-title">CLAUDE.md — 5단계 계층</span>
+      <span class="card-file">04-claude-md-hierarchy.html</span>
+    </a>
+    <a class="card" href="05-claude-md-import.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">05</span>
+      <span class="card-title">@import — 분리, 그러나 lazy 아님</span>
+      <span class="card-file">05-claude-md-import.html</span>
+    </a>
+    <a class="card" href="06-init-live.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">06</span>
+      <span class="card-title">/init으로 CLAUDE.md 만들기</span>
+      <span class="card-file">06-init-live.html</span>
+    </a>
+    <a class="card" href="07-critical-pattern.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">07</span>
+      <span class="card-title">200줄 룰 + CRITICAL 패턴</span>
+      <span class="card-file">07-critical-pattern.html</span>
+    </a>
+    <a class="card" href="08-plan-mode.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">08</span>
+      <span class="card-title">Plan Mode — 도면 먼저</span>
+      <span class="card-file">08-plan-mode.html</span>
+    </a>
+    <a class="card" href="09-four-modes.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">09</span>
+      <span class="card-title">모드 4종 — 언제 어느 모드</span>
+      <span class="card-file">09-four-modes.html</span>
+    </a>
+    <a class="card" href="10-part1-summary.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">10</span>
+      <span class="card-title">1부 정리 — 세 줄</span>
+      <span class="card-file">10-part1-summary.html</span>
+    </a>
+    <a class="card" href="11-part2-cover.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">11</span>
+      <span class="card-title">2부 — 실전 사용법</span>
+      <span class="card-file">11-part2-cover.html</span>
+    </a>
+    <a class="card" href="12-one-session-one-feature.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">12</span>
+      <span class="card-title">한 세션 = 한 피처</span>
+      <span class="card-file">12-one-session-one-feature.html</span>
+    </a>
+    <a class="card" href="13-context-tools.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">13</span>
+      <span class="card-title">컨텍스트 관리 4도구</span>
+      <span class="card-file">13-context-tools.html</span>
+    </a>
+    <a class="card" href="14-context-live.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">14</span>
+      <span class="card-title">/context 같이 보기</span>
+      <span class="card-file">14-context-live.html</span>
+    </a>
+    <a class="card" href="15-explore-plan-code-verify.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">15</span>
+      <span class="card-title">Plan-Code-Verify 워크플로우</span>
+      <span class="card-file">15-explore-plan-code-verify.html</span>
+    </a>
+    <a class="card" href="16-tdd-loop.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">16</span>
+      <span class="card-title">TDD 루프 — 한 입씩 자주</span>
+      <span class="card-file">16-tdd-loop.html</span>
+    </a>
+    <a class="card" href="17-hooks-teaser.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">17</span>
+      <span class="card-title">Hooks 맛보기 — 매번 입력 vs 한 번 박아두기</span>
+      <span class="card-file">17-hooks-teaser.html</span>
+    </a>
+    <a class="card" href="18-error-logs.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">18</span>
+      <span class="card-title">에러 로그 통째로 + Escape 타이밍</span>
+      <span class="card-file">18-error-logs.html</span>
+    </a>
+    <a class="card" href="19-docs-folder.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">19</span>
+      <span class="card-title">docs 폴더 운영 — 이 강의 레포가 살아있는 예시</span>
+      <span class="card-file">19-docs-folder.html</span>
+    </a>
+    <a class="card" href="20-cross-llm-review.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">20</span>
+      <span class="card-title">다른 AI에게 비평 받기</span>
+      <span class="card-file">20-cross-llm-review.html</span>
+    </a>
+    <a class="card" href="21-part2-summary.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">21</span>
+      <span class="card-title">2부 정리 — 다섯 원칙</span>
+      <span class="card-file">21-part2-summary.html</span>
+    </a>
+    <a class="card" href="22-part3-cover.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">22</span>
+      <span class="card-title">3부 — 자동화 4부품</span>
+      <span class="card-file">22-part3-cover.html</span>
+    </a>
+    <a class="card" href="23-skills-structure.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">23</span>
+      <span class="card-title">Skills — 업무 매뉴얼</span>
+      <span class="card-file">23-skills-structure.html</span>
+    </a>
+    <a class="card" href="24-skill-live.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">24</span>
+      <span class="card-title">사전 작성한 Skill 보여주기</span>
+      <span class="card-file">24-skill-live.html</span>
+    </a>
+    <a class="card" href="25-sub-agents.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">25</span>
+      <span class="card-title">Sub-Agent — 회사의 부서</span>
+      <span class="card-file">25-sub-agents.html</span>
+    </a>
+    <a class="card" href="26-hooks.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">26</span>
+      <span class="card-title">Hooks — 자동화 엔진 본격</span>
+      <span class="card-file">26-hooks.html</span>
+    </a>
+    <a class="card" href="27-hooks-before-after.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">27</span>
+      <span class="card-title">Hooks 살아있는 사례 — caveman-kor</span>
+      <span class="card-file">27-hooks-before-after.html</span>
+    </a>
+    <a class="card" href="28-mcp-decision.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">28</span>
+      <span class="card-title">MCP + 결정표 — 언제 무엇을 쓰나</span>
+      <span class="card-file">28-mcp-decision.html</span>
+    </a>
+    <a class="card" href="29-summary.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">29</span>
+      <span class="card-title">오늘의 압축 — 한 장</span>
+      <span class="card-file">29-summary.html</span>
+    </a>
+    <a class="card" href="30-next-lecture.html" onclick="event.preventDefault(); navigateTo(this.href)">
+      <span class="card-num">30</span>
+      <span class="card-title">다음 강의 — 3강 예고</span>
+      <span class="card-file">30-next-lecture.html</span>
+    </a>
+  </div>
+</div>
+<script>
+function navigateTo(url) {
+  document.body.classList.add('fade-out');
+  setTimeout(function() { window.location.href = url; }, 300);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>docs/ — 프로젝트의 뇌</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 36px 0 80px;
+}
+.container { width: 1280px; padding: 0 60px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 44px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.subtitle { font-size: 16px; color: #8b949e; text-align: center; margin-bottom: 32px; }
+.subtitle em { color: #c9d1d9; font-style: normal; font-weight: 700; }
+
+.docs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; }
+
+.doc-card {
+  background: #0d1117;
+  border: 1px solid rgba(139, 148, 158, 0.2);
+  border-radius: 14px;
+  padding: 18px 18px 14px 18px;
+  display: flex;
+  flex-direction: column;
+}
+.doc-card.prd { border-color: rgba(249, 115, 22, 0.4); }
+.doc-card.arch { border-color: rgba(56, 189, 248, 0.4); }
+.doc-card.adr { border-color: rgba(167, 139, 250, 0.4); }
+
+.doc-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 6px;
+}
+.doc-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px; font-weight: 700;
+}
+.doc-card.prd .doc-name { color: #fbbf24; }
+.doc-card.arch .doc-name { color: #38bdf8; }
+.doc-card.adr .doc-name { color: #a78bfa; }
+.doc-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 999px;
+}
+.doc-card.prd .doc-tag { color: #fbbf24; background: rgba(249, 115, 22, 0.15); }
+.doc-card.arch .doc-tag { color: #38bdf8; background: rgba(56, 189, 248, 0.15); }
+.doc-card.adr .doc-tag { color: #a78bfa; background: rgba(167, 139, 250, 0.15); }
+
+.doc-q {
+  font-size: 13px; color: #8b949e; margin-bottom: 10px;
+}
+.doc-q strong { color: #c9d1d9; font-weight: 700; }
+
+.doc-body {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: #c9d1d9;
+  white-space: pre-wrap;
+  flex: 1;
+}
+.doc-body .h { color: #38bdf8; font-weight: 700; }
+.doc-body .ph { color: #6e7681; }
+.doc-body .lbl { color: #f97316; font-weight: 700; }
+
+.foot {
+  margin-top: 26px;
+  font-size: 15px;
+  color: #c9d1d9;
+  text-align: center;
+  line-height: 1.7;
+  max-width: 1000px;
+}
+.foot strong {
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">docs/ — 프로젝트의 뇌</h1>
+  <p class="subtitle">마크다운 <em>3개</em>로 AI한테 프로젝트 전체를 알려주기 — <em>각 문서가 한 가지 질문에 답한다</em></p>
+
+  <div class="docs-grid">
+    <div class="doc-card prd">
+      <div class="doc-head">
+        <span class="doc-name">📘 PRD.md</span>
+        <span class="doc-tag">뭘</span>
+      </div>
+      <div class="doc-q">→ <strong>뭘 만드는지</strong></div>
+      <div class="doc-body"><span class="h"># PRD: {프로젝트명}</span>
+
+<span class="h">## 목표</span>
+<span class="ph">{한 줄 요약}</span>
+
+<span class="h">## 핵심 기능</span>
+1. <span class="ph">{기능 1}</span>
+2. <span class="ph">{기능 2}</span>
+
+<span class="h">## MVP 제외 사항</span>
+- <span class="ph">{안 만들 것 1}</span></div>
+    </div>
+
+    <div class="doc-card arch">
+      <div class="doc-head">
+        <span class="doc-name">🏗️ ARCHITECTURE.md</span>
+        <span class="doc-tag">어떻게</span>
+      </div>
+      <div class="doc-q">→ <strong>어떻게 만드는지</strong></div>
+      <div class="doc-body"><span class="h"># 아키텍처</span>
+
+<span class="h">## 디렉토리 구조</span>
+<span class="ph">{폴더 트리}</span>
+
+<span class="h">## 패턴</span>
+<span class="ph">{디자인 패턴}</span>
+
+<span class="h">## 데이터 흐름</span>
+<span class="ph">{데이터 흐름도}</span></div>
+    </div>
+
+    <div class="doc-card adr">
+      <div class="doc-head">
+        <span class="doc-name">🧭 ADR.md</span>
+        <span class="doc-tag">왜</span>
+      </div>
+      <div class="doc-q">→ <strong>왜 이렇게 만드는지</strong></div>
+      <div class="doc-body"><span class="h">### ADR-001:</span> {결정 사항}
+<span class="ph">(예: Next.js App Router)</span>
+
+<span class="lbl">**결정**</span>: {뭘 선택}
+<span class="lbl">**이유**</span>: {왜 선택}
+<span class="lbl">**트레이드오프**</span>: {뭘 포기}
+
+<span class="h">### ADR-002:</span> {결정 사항}
+...</div>
+    </div>
+  </div>
+
+  <p class="foot">세 문서가 합쳐져서 — AI가 <strong>"뭘·어떻게·왜"를 동시에 이해한 상태에서</strong> 답을 만듭니다.<br>새 멤버가 입사할 때 신입 교육 자료 한 묶음을 건네주는 것과 같은 일입니다.</p>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="08-claudemd.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">09 / 19</a></div>
+    <div class="nav-right"><a href="09b-coding-guidelines.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('08-claudemd.html');
+  if (e.key === 'ArrowRight') navigateTo('09b-coding-guidelines.html');
+});
+</script>
+</body>
+</html>

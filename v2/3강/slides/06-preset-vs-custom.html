@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>범용 vs 커스텀 — 한 층 올리는 방법은 자유</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+}
+.container { width: 1280px; padding: 44px 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 44px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+.subtitle { font-size: 17px; color: #8b949e; text-align: center; margin-bottom: 36px; }
+
+.compare { width: 100%; max-width: 1100px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 16px; overflow: hidden; border: 1px solid rgba(139, 148, 158, 0.2); }
+.col-header {
+  padding: 18px 24px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 900;
+}
+.col-header.left {
+  background: rgba(139, 148, 158, 0.08);
+  color: #c9d1d9;
+  border-right: 1px solid rgba(139, 148, 158, 0.2);
+  border-bottom: 1px solid rgba(139, 148, 158, 0.2);
+}
+.col-header.right {
+  background: rgba(124, 58, 237, 0.12);
+  color: #a78bfa;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.3);
+}
+.col-sub {
+  font-size: 13px; font-weight: 400; color: #8b949e;
+  margin-top: 4px;
+}
+.col-header.right .col-sub { color: #a78bfa; opacity: 0.7; }
+
+.compare-row {
+  display: contents;
+}
+.cell {
+  padding: 14px 22px;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(139, 148, 158, 0.1);
+}
+.cell.left {
+  background: rgba(139, 148, 158, 0.04);
+  color: #8b949e;
+  border-right: 1px solid rgba(139, 148, 158, 0.1);
+}
+.cell.right {
+  background: rgba(124, 58, 237, 0.04);
+  color: #c9d1d9;
+}
+.compare-row:last-child .cell { border-bottom: none; }
+
+.foot {
+  margin-top: 30px;
+  font-size: 18px;
+  text-align: center;
+  color: #c9d1d9;
+  line-height: 1.6;
+}
+.foot strong {
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">한 층 올리는 방법은 <em style="font-style:normal;color:#a78bfa">자유</em>입니다</h1>
+  <p class="subtitle">범용 하니스(오픈소스) vs 커스텀 하니스(직접 구성) — 둘 다 정답</p>
+
+  <div class="compare">
+    <div class="col-header left">범용 하니스 (오픈소스)<div class="col-sub">oh-my-claudecode 같은 프로젝트</div></div>
+    <div class="col-header right">커스텀 하니스 (직접 구성)<div class="col-sub">내 프로젝트에 맞게 직접</div></div>
+
+    <div class="compare-row">
+      <div class="cell left">에이전트 분리, 파이프라인, 모니터링</div>
+      <div class="cell right">CLAUDE.md 에 프로젝트 규칙</div>
+    </div>
+    <div class="compare-row">
+      <div class="cell left">한 방에 풀세팅</div>
+      <div class="cell right">docs/ 에 기획문서 + 아키텍처</div>
+    </div>
+    <div class="compare-row">
+      <div class="cell left">내 프로젝트 규칙은 <strong style="color:#f87171">모름</strong></div>
+      <div class="cell right">hooks 으로 자동 검증</div>
+    </div>
+    <div class="compare-row">
+      <div class="cell left">초기 세팅이 <strong style="color:#f87171">복잡함</strong></div>
+      <div class="cell right">가볍고 빠르게 시작 가능</div>
+    </div>
+    <div class="compare-row">
+      <div class="cell left">수정이 <strong style="color:#f87171">어려움</strong></div>
+      <div class="cell right">수정이 쉬움</div>
+    </div>
+  </div>
+
+  <p class="foot">중요한 건 — <strong>한 층을 올린다는 것. 방법은 자유입니다.</strong></p>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="05-oh-my-claudecode.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">06 / 19</a></div>
+    <div class="nav-right"><a href="07-framework.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('05-oh-my-claudecode.html');
+  if (e.key === 'ArrowRight') navigateTo('07-framework.html');
+});
+</script>
+</body>
+</html>

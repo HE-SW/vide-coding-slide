@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>프레임워크 완성 — 4 레이어 요약</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0f1a;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e6edf3;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 80px;
+}
+.container { width: 1280px; padding: 0 80px; display: flex; flex-direction: column; align-items: center; }
+.title {
+  font-size: 50px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.subtitle { font-size: 16px; color: #8b949e; text-align: center; margin-bottom: 36px; }
+
+.layers { width: 100%; max-width: 1100px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.layer-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  background: rgba(22, 27, 40, 0.6);
+  border: 1px solid rgba(139, 148, 158, 0.2);
+  border-radius: 14px;
+  padding: 16px 22px;
+  opacity: 0;
+  transform: translateX(-15px);
+  animation: rowIn 0.4s ease-out forwards;
+}
+.layer-row:nth-child(1) { animation-delay: 0.1s; }
+.layer-row:nth-child(2) { animation-delay: 0.2s; }
+.layer-row:nth-child(3) { animation-delay: 0.3s; }
+.layer-row:nth-child(4) { animation-delay: 0.4s; }
+@keyframes rowIn { to { opacity: 1; transform: translateX(0); } }
+
+.layer-num {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 18px; color: #fff;
+}
+.layer-row:nth-child(1) .layer-num { background: linear-gradient(135deg, #f97316, #fbbf24); }
+.layer-row:nth-child(2) .layer-num { background: linear-gradient(135deg, #38bdf8, #7c3aed); }
+.layer-row:nth-child(3) .layer-num { background: linear-gradient(135deg, #34d399, #10b981); }
+.layer-row:nth-child(4) .layer-num { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+
+.layer-body { display: flex; flex-direction: column; gap: 4px; }
+.layer-name { font-size: 19px; font-weight: 900; color: #e6edf3; }
+.layer-name code {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+.layer-desc { font-size: 13px; color: #8b949e; }
+
+.layer-tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; max-width: 380px; }
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(139, 148, 158, 0.08);
+  border: 1px solid rgba(139, 148, 158, 0.2);
+  color: #c9d1d9;
+}
+
+.cta {
+  width: 100%; max-width: 1100px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(56, 189, 248, 0.10));
+  border: 1.5px solid rgba(124, 58, 237, 0.5);
+  border-radius: 16px;
+  padding: 22px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #38bdf8);
+}
+.cta-title {
+  font-size: 20px; font-weight: 900; color: #e6edf3;
+  margin-bottom: 6px;
+}
+.cta-title span { color: #a78bfa; }
+.cta-sub {
+  font-size: 16px; color: #c9d1d9;
+}
+.cta-sub code {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(124, 58, 237, 0.25);
+  border: 1px solid rgba(124, 58, 237, 0.5);
+  padding: 3px 10px;
+  border-radius: 6px;
+  color: #a78bfa;
+  font-weight: 700;
+}
+
+.slide-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.slide-nav-inner { width: 1280px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+.slide-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #7c3aed; transition: color 0.2s; }
+.slide-nav a:hover { color: #a78bfa; }
+.slide-nav .nav-disabled { font-size: 14px; font-weight: 700; color: #484f58; cursor: default; }
+.slide-nav .nav-center a { color: #8b949e; font-size: 13px; font-weight: 400; }
+.slide-nav .nav-center a:hover { color: #e6edf3; }
+body { opacity: 0; animation: fadeIn 0.4s ease forwards; }
+body.fade-out { animation: fadeOut 0.3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-12px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">프레임워크 완성</h1>
+  <p class="subtitle">4개 레이어 요약</p>
+
+  <div class="layers">
+    <div class="layer-row">
+      <div class="layer-num">1</div>
+      <div class="layer-body">
+        <div class="layer-name"><code>docs/</code> — 프로젝트의 뇌</div>
+        <div class="layer-desc">마크다운 4개로 프로젝트 전체를 설명</div>
+      </div>
+      <div class="layer-tags">
+        <span class="tag">PRD.md</span>
+        <span class="tag">ARCHITECTURE.md</span>
+        <span class="tag">ADR.md</span>
+        <span class="tag">UI_GUIDE.md</span>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num">2</div>
+      <div class="layer-body">
+        <div class="layer-name"><code>CLAUDE.md</code> — 프로젝트의 헌법</div>
+        <div class="layer-desc">CRITICAL 규칙 + TDD</div>
+      </div>
+      <div class="layer-tags">
+        <span class="tag">CRITICAL 규칙</span>
+        <span class="tag">TDD</span>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num">3</div>
+      <div class="layer-body">
+        <div class="layer-name"><code>/harness</code> + <code>execute.py</code> — 실행 엔진</div>
+        <div class="layer-desc">Phase 분리 + 순차 실행 + 상태 관리</div>
+      </div>
+      <div class="layer-tags">
+        <span class="tag">/harness</span>
+        <span class="tag">execute.py</span>
+        <span class="tag">/review</span>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num">4</div>
+      <div class="layer-body">
+        <div class="layer-name">Hooks — 자동 검증·최적화</div>
+        <div class="layer-desc">응답 끝날 때마다 자동으로 끼어드는 후처리</div>
+      </div>
+      <div class="layer-tags">
+        <span class="tag">caveman-kor</span>
+        <span class="tag">tdd-guard</span>
+        <span class="tag">dangerous-cmd</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="cta-title">🎯 GitHub에서 클론 받아서 <span>docs/ 마크다운만</span> 채우세요</div>
+    <div class="cta-sub">그리고 <code>/harness</code> 치면 끝입니다.</div>
+  </div>
+</div>
+<nav class="slide-nav">
+  <div class="slide-nav-inner">
+    <div class="nav-left"><a href="14-hooks.html" onclick="event.preventDefault(); navigateTo(this.href)">&larr; 이전</a></div>
+    <div class="nav-center"><a href="index.html">15 / 19</a></div>
+    <div class="nav-right"><a href="16-two-layers-combined.html" onclick="event.preventDefault(); navigateTo(this.href)">다음 &rarr;</a></div>
+  </div>
+</nav>
+<script>
+function navigateTo(url) { document.body.classList.add('fade-out'); setTimeout(function() { window.location.href = url; }, 300); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') navigateTo('14-hooks.html');
+  if (e.key === 'ArrowRight') navigateTo('16-two-layers-combined.html');
+});
+</script>
+</body>
+</html>
